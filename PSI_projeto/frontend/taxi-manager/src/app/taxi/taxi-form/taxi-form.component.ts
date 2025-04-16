@@ -32,14 +32,27 @@ export class TaxiFormComponent {
 
   onSubmit() {
     this.taxiService.createTaxi(this.taxi).subscribe({
-      next: () => alert('Taxi created successfully!'),
-      error: err => alert('Failed to create taxi: ' + err.message)
+      next: () => alert('✅ Taxi created successfully!'),
+      error: err => {
+        const errorMsg = err.error?.error || '';  // MongoDB error 信息
+        if (errorMsg.includes('E11000 duplicate key error')) {
+          alert('❗ Plate already exists. Please use a different one.');
+        } else {
+          alert('❌ Failed to create taxi. Please try again.'+ err.message);
+        }
+      }
     });
   }
 
   // 自动更新 model 列表
   ngDoCheck(): void {
     this.models = this.brandModels[this.taxi.brand] || [];
+  }
+
+  // 添加一个方法，在品牌变更时触发
+  onBrandChange(): void {
+    this.models = this.brandModels[this.taxi.brand] || [];
+    this.taxi.model = '';  // 清空 model
   }
 }
 

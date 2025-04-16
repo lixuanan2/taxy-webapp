@@ -1,0 +1,19 @@
+/* src/app/taxi/taxi-form/taxi-form.component.css */
+
+form {
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+button {
+  width: 100%;
+}
+
+button[disabled] {
+  background-color: #adb5bd !important;  /* Bootstrap 的灰色 */
+  border-color: #adb5bd !important;
+  cursor: not-allowed;
+  opacity: 1; /* 保持正常不透明 */
+}

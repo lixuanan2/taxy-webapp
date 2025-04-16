@@ -9,7 +9,11 @@ router.post('/', async (req, res) => {
     const savedTaxi = await newTaxi.save();   // 保存至MongoDB
     res.status(201).json(savedTaxi);          // 返回新创建的对象
   } catch (err) {
-    res.status(400).json({ message: 'Error creating taxi', error: err });
+    if (err.code === 11000) {
+      res.status(400).json({ message: 'Duplicate plate', error: err.message });
+    } else {
+      res.status(500).json({ message: 'Error creating taxi', error: err.message });
+    }
   }
 });
 

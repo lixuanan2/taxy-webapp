@@ -1,37 +1,79 @@
-<p>taxi-form works!</p>
-<h2>Register New Taxi</h2>
+<div class="container mt-4">
+  <h2 class="mb-4">🚕 Register New Taxi</h2>
 
-<form (ngSubmit)="onSubmit()" #taxiForm="ngForm">
+  <form (ngSubmit)="onSubmit()" #taxiForm="ngForm" class="row g-3">
 
-  <label>Plate:</label>
-  <input name="plate" [(ngModel)]="taxi.plate" required pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d\-]+$" />
-  <br>
+    <div class="col-md-6">
+      <label class="form-label">Plate</label>
+      <input name="plate" [(ngModel)]="taxi.plate"
+             #plateRef="ngModel"
+             required
+             pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d\-]+$"
+             class="form-control"
+             [ngClass]="{ 'is-invalid': plateRef.invalid && plateRef.touched }" />
+    
+      <div *ngIf="plateRef.invalid && plateRef.touched" class="invalid-feedback">
+        Plate must contain both letters and numbers.
+      </div>
+    </div>
+    
 
-  <label>Brand:</label>
-  <select name="brand" [(ngModel)]="taxi.brand" required>
-    <option value="" disabled selected>-- Select brand --</option>
-    <option *ngFor="let brand of brands" [value]="brand">{{ brand }}</option>
-  </select>
-  <br>
+    <div class="col-md-6">
+      <label class="form-label">Brand</label>
+      <select name="brand" [(ngModel)]="taxi.brand"
+          (change)="onBrandChange()"
+          #brandRef="ngModel"
+          required class="form-select"
+          [ngClass]="{ 'is-invalid': brandRef.invalid && brandRef.touched }">
+        <option value="" disabled>-- Select brand --</option>
+        <option *ngFor="let brand of brands" [value]="brand">{{ brand }}</option>
+      </select>
+    
+      <div *ngIf="brandRef.invalid && brandRef.touched" class="invalid-feedback">
+        Please select a brand.
+      </div>
+    </div>
+    
 
-  <label>Model:</label>
-  <select name="model" [(ngModel)]="taxi.model" required>
-    <option value="" disabled selected>-- Select model --</option>
-    <option *ngFor="let model of models" [value]="model">{{ model }}</option>
-  </select>
-  <br>
+    <div class="col-md-6">
+      <label class="form-label">Model</label>
+      <select name="model" [(ngModel)]="taxi.model" required class="form-select"
+          [disabled]="models.length === 0">
+        <option value="" disabled selected>-- Select model --</option>
+        <option *ngFor="let model of models" [value]="model">{{ model }}</option>
+      </select>
 
-  <label>Year:</label>
-  <input type="number" name="year" [(ngModel)]="taxi.year" [max]="currentYear" required />
-  <br>
+    </div>
 
-  <label>Comfort Level:</label>
-  <select name="comfortLevel" [(ngModel)]="taxi.comfortLevel" required>
-    <option value="basic">Basic</option>
-    <option value="luxury">Luxury</option>
-  </select>
-  <br>
+    <div class="col-md-6">
+      <label class="form-label">Year</label>
+      <input type="number" name="year" [(ngModel)]="taxi.year"
+             [max]="currentYear" required
+             #yearRef="ngModel"
+             class="form-control"
+             [ngClass]="{ 'is-invalid': yearRef.invalid && yearRef.touched }" />
+    
+      <div *ngIf="yearRef.errors?.['required'] && yearRef.touched" class="invalid-feedback">
+        Year is required.
+      </div>
+      <div *ngIf="yearRef.errors?.['max'] && yearRef.touched" class="invalid-feedback">
+        Year cannot be in the future.
+      </div>
+    </div>
+    
 
-  <button type="submit" [disabled]="!taxiForm.form.valid">Create Taxi</button>
-</form>
+    <div class="col-md-6">
+      <label class="form-label">Comfort Level</label>
+      <select name="comfortLevel" [(ngModel)]="taxi.comfortLevel" required class="form-select">
+        <option value="basic">Basic</option>
+        <option value="luxury">Luxury</option>
+      </select>
+    </div>
 
+    <div class="col-12">
+      <button type="submit" class="btn btn-primary" [disabled]="!taxiForm.form.valid">
+        ➕ Create Taxi
+      </button>
+    </div>
+  </form>
+</div>
