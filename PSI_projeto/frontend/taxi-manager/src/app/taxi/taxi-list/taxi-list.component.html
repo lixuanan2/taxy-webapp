@@ -1,0 +1,25 @@
+<p>taxi-list works!</p>
+<h2>Taxi List</h2>
+
+<table border="1" cellpadding="8">
+  <thead>
+    <tr>
+      <th>Plate</th>
+      <th>Brand</th>
+      <th>Model</th>
+      <th>Year</th>
+      <th>Comfort</th>
+      <th>Created</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let taxi of taxis">
+      <td>{{ taxi.plate }}</td>
+      <td>{{ taxi.brand }}</td>
+      <td>{{ taxi.model }}</td>
+      <td>{{ taxi.year }}</td>
+      <td>{{ taxi.comfortLevel }}</td>
+      <td>{{ taxi.createdAt | date:'short' }}</td>
+    </tr>
+  </tbody>
+</table>

@@ -1,0 +1,37 @@
+<p>taxi-form works!</p>
+<h2>Register New Taxi</h2>
+
+<form (ngSubmit)="onSubmit()" #taxiForm="ngForm">
+
+  <label>Plate:</label>
+  <input name="plate" [(ngModel)]="taxi.plate" required pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d\-]+$" />
+  <br>
+
+  <label>Brand:</label>
+  <select name="brand" [(ngModel)]="taxi.brand" required>
+    <option value="" disabled selected>-- Select brand --</option>
+    <option *ngFor="let brand of brands" [value]="brand">{{ brand }}</option>
+  </select>
+  <br>
+
+  <label>Model:</label>
+  <select name="model" [(ngModel)]="taxi.model" required>
+    <option value="" disabled selected>-- Select model --</option>
+    <option *ngFor="let model of models" [value]="model">{{ model }}</option>
+  </select>
+  <br>
+
+  <label>Year:</label>
+  <input type="number" name="year" [(ngModel)]="taxi.year" [max]="currentYear" required />
+  <br>
+
+  <label>Comfort Level:</label>
+  <select name="comfortLevel" [(ngModel)]="taxi.comfortLevel" required>
+    <option value="basic">Basic</option>
+    <option value="luxury">Luxury</option>
+  </select>
+  <br>
+
+  <button type="submit" [disabled]="!taxiForm.form.valid">Create Taxi</button>
+</form>
+

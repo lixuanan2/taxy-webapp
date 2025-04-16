@@ -1,0 +1,18 @@
+# 忽略所有 node_modules 文件夹（包括 frontend 和 backend）
+**/node_modules/
+
+# 忽略构建输出
+**/dist/
+**/out-tsc/
+
+# 忽略环境配置文件
+**/.env
+
+# 忽略IDE编辑器配置
+.vscode/
+.idea/
+.DS_Store
+
+# 防止上传 npm/yarn 出错时的临时日志
+npm-debug.log*
+yarn-debug.log*
