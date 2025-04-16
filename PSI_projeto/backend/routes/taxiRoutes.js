@@ -1,6 +1,6 @@
 const express = require('express');     // express路由模块
 const router = express.Router();
-const Taxi = require('../models/taxi');
+const Taxi = require('../models/Taxi');
 
 // POST: 添加一个新的taxi
 router.post('/', async (req, res) => {

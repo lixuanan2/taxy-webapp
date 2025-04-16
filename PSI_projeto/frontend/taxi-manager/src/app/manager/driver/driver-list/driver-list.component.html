@@ -1,0 +1,30 @@
+<div class="container mt-4">
+    <h2 class="mb-3">🚗 Registered Drivers</h2>
+  
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Gender</th>
+          <th>Birth Year</th>
+          <th>NIF</th>
+          <th>License No.</th>
+          <th>Address</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let driver of drivers">
+          <td>{{ driver.name }}</td>
+          <td>{{ driver.gender }}</td>
+          <td>{{ driver.birthYear }}</td>
+          <td>{{ driver.nif }}</td>
+          <td>{{ driver.licenseNumber }}</td>
+          <td>
+            {{ driver.address.street }}, {{ driver.address.number }},
+            {{ driver.address.postalCode }} {{ driver.address.city }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { TaxiService } from '../taxi.service';
-import { Taxi } from '../taxi.model';
+import { TaxiService } from '@services/taxi.service';
+import { Taxi } from '@models/taxi.model';
 
 @Component({
   selector: 'app-taxi-list',

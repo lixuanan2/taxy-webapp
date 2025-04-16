@@ -1,11 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DashboardComponent } from './dashboard/dashboard.component';
 
 const routes: Routes = [
-  { path: 'taxi', loadChildren: () => import('./taxi/taxi.module').then(m => m.TaxiModule) },
-  { path: 'dashboard', component: DashboardComponent },
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full' }
+  { path: 'manager', loadChildren: () => import('./manager/manager.module').then(m => m.ManagerModule) },
+  { path: '', redirectTo: '/manager/dashboard', pathMatch: 'full' }
 ];
 
 @NgModule({

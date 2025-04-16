@@ -24,3 +24,6 @@ app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
 
+// driver相关
+const driverRoutes = require('./routes/driverRoutes');
+app.use('/api/drivers', driverRoutes);

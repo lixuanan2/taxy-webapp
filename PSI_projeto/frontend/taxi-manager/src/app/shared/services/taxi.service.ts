@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';   // Angular内置的HTTP客户端模块
 import { Injectable } from '@angular/core';          // 允许服务被注入(DI)
 import { Observable } from 'rxjs';                   // 响应式对象,用于异步数据处理
-import { Taxi } from './taxi.model';                 // 导入定义好的Taxi接口
+import { Taxi } from '@models/taxi.model';       // 导入定义好的Taxi接口
 
 
 @Injectable({

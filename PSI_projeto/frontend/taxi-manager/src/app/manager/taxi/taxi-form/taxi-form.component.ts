@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { Taxi } from '../taxi.model';
-import { TaxiService } from '../taxi.service';
+import { Taxi } from '@models/taxi.model';
+import { TaxiService } from '@services/taxi.service';
 
 @Component({
   selector: 'app-taxi-form',
@@ -32,17 +32,27 @@ export class TaxiFormComponent {
 
   onSubmit() {
     this.taxiService.createTaxi(this.taxi).subscribe({
-      next: () => alert('✅ Taxi created successfully!'),
+      next: () => {
+        alert('✅ Taxi registered successfully!');
+        this.taxi = {
+          plate: '',
+          brand: '',
+          model: '',
+          year: this.currentYear,
+          comfortLevel: 'basic'
+        };
+      },
       error: err => {
-        const errorMsg = err.error?.error || '';  // MongoDB error 信息
-        if (errorMsg.includes('E11000 duplicate key error')) {
-          alert('❗ Plate already exists. Please use a different one.');
+        const msg = err.error?.error || err.message || 'Unknown error';
+        if (msg.includes('plate')) {
+          alert('🚫 Plate already exists!');
         } else {
-          alert('❌ Failed to create taxi. Please try again.'+ err.message);
+          alert('❌ Failed to register taxi: ' + msg);
         }
       }
     });
   }
+  
 
   // 自动更新 model 列表
   ngDoCheck(): void {

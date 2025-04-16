@@ -22,7 +22,19 @@
     "lib": [
       "ES2022",
       "dom"
-    ]
+    ],
+
+    // [Added by lixua] 一些路径别名 更方便导入
+    "paths": {
+      "@manager/*": ["src/app/manager/*"],          // manager相关内容    
+      "@driver/*": ["src/app/driver/*"],            // driver相关内容
+      "@customer/*": ["src/app/customer/*"],        // customer相关内容
+      // shared部分
+      "@shared/*": ["src/app/shared/*"],        
+      "@models/*": ["src/app/shared/models/*"],     // models
+      "@services/*": ["src/app/shared/services/*"], // services
+      "@core/*": ["src/app/core/*"]                 // core
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
