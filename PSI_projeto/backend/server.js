@@ -32,3 +32,7 @@ app.use('/api/drivers', driverRoutes);
 const priceRoutes = require('./routes/priceRoutes');
 app.use('/api/prices', priceRoutes); 
 
+// reguest-taxi 相关 (user story5)
+const turnRoutes = require('./routes/turnRoutes');
+app.use('/api/turns', turnRoutes);
+

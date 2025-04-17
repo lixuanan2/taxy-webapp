@@ -1,0 +1,27 @@
+<div class="container mt-4">
+    <h2>📋 Turn List</h2>
+  
+    <table class="table table-striped mt-3" *ngIf="turns.length > 0">
+      <thead>
+        <tr>
+          <th>Taxi Plate</th>
+          <th>Start Time</th>
+          <th>End Time</th>
+          <th>Created</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let t of turns">
+          <td>{{ t.taxiPlate }}</td>
+          <td>{{ t.startTime | date: 'shortTime' }}</td>
+          <td>{{ t.endTime | date: 'shortTime' }}</td>
+          <td>{{ t.createdAt | date: 'short' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <div *ngIf="turns.length === 0" class="alert alert-info">
+      No turns found for this driver.
+    </div>
+  </div>
+  

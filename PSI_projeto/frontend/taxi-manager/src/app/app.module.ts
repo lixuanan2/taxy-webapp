@@ -7,13 +7,11 @@ import { AppComponent } from './app.component';
 
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { DashboardComponent } from './driver/dashboard/dashboard.component';
 import { MainDashboardComponent } from './main-dashboard/main-dashboard.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    DashboardComponent,
     MainDashboardComponent
   ],
   imports: [
