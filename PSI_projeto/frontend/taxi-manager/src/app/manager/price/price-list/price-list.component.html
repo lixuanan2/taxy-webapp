@@ -1,0 +1,22 @@
+<div class="container mt-4">
+    <h2>📜 Price History</h2>
+    <table class="table table-striped mt-3">
+      <thead>
+        <tr>
+          <th>Basic (€)</th>
+          <th>Luxury (€)</th>
+          <th>Night Bonus (%)</th>
+          <th>Created At</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let price of priceList">
+          <td>{{ price.basic }}</td>
+          <td>{{ price.luxury }}</td>
+          <td>{{ price.nightBonus }}</td>
+          <td>{{ price.createdAt | date: 'short' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

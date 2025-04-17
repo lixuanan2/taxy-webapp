@@ -27,3 +27,8 @@ app.listen(PORT, () => {
 // driver相关
 const driverRoutes = require('./routes/driverRoutes');
 app.use('/api/drivers', driverRoutes);
+
+// price相关
+const priceRoutes = require('./routes/priceRoutes');
+app.use('/api/prices', priceRoutes); 
+

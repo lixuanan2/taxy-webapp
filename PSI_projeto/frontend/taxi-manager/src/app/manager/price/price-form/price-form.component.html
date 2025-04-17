@@ -1,0 +1,69 @@
+<div class="container mt-4">
+  <h2 class="mb-4">💰 Define Taxi Prices</h2>
+
+  <form (ngSubmit)="onSubmit()" #priceForm="ngForm" class="row g-3">
+
+    <div class="col-md-6">
+      <label class="form-label">Basic Comfort Price per Minute (€)</label>
+      <input type="number" name="basic" [(ngModel)]="price.basic" step="0.01"
+             required min="0.01" class="form-control"
+             [ngClass]="{ 'is-invalid': priceForm.submitted && !price.basic }" />
+    </div>
+
+    <div class="col-md-6">
+      <label class="form-label">Luxury Comfort Price per Minute (€)</label>
+      <input type="number" name="luxury" [(ngModel)]="price.luxury" step="0.01"
+             required min="0.01" class="form-control"
+             [ngClass]="{ 'is-invalid': priceForm.submitted && !price.luxury }" />
+    </div>
+
+    <div class="col-md-6">
+      <label class="form-label">Night Bonus (%)</label>
+      <input type="number" name="nightBonus" [(ngModel)]="price.nightBonus" step="1"
+             required min="0"
+             class="form-control"
+             [ngClass]="{ 'is-invalid': priceForm.submitted && price.nightBonus == null }" />
+    </div>
+
+    <div class="col-12">
+      <button type="submit" class="btn btn-success">
+        💾 Save Prices
+      </button>
+    </div>
+  </form>
+
+  <hr class="my-4" />
+
+  <h4 class="mb-3">🧪 Test Price Calculation</h4>
+  <form class="row g-3">
+    <div class="col-md-6">
+      <label class="form-label">Start Time</label>
+      <input type="time" [(ngModel)]="testStartTime" name="testStartTime"
+             class="form-control" required />
+    </div>
+
+    <div class="col-md-6">
+      <label class="form-label">End Time</label>
+      <input type="time" [(ngModel)]="testEndTime" name="testEndTime"
+             class="form-control" required />
+    </div>
+
+    <div class="col-md-6">
+      <label class="form-label">Comfort Level</label>
+      <select [(ngModel)]="testComfort" name="testComfort" class="form-select">
+        <option value="basic">Basic</option>
+        <option value="luxury">Luxury</option>
+      </select>
+    </div>
+
+    <div class="col-12">
+      <button type="button" class="btn btn-primary" (click)="calculateTestPrice()">
+        🔍 Calculate Test Price
+      </button>
+    </div>
+  </form>
+
+  <div class="mt-4" *ngIf="testResult !== null">
+    <h5>📊 Estimated Price: <strong>{{ testResult | currency:'EUR' }}</strong></h5>
+  </div>
+</div>
