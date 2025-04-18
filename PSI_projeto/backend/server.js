@@ -15,7 +15,7 @@ mongoose.connect("mongodb://127.0.0.1:27017/taxiDB")
   .catch((err) => console.error("MongoDB error:", err));
 
 // 加载taxi相关的路由模块
-const taxiRoutes = require('./routes/taxiRoutes');
+const taxiRoutes = require('./routes/taxi.routes');
 // 设置路由前缀为/api/taxis
 app.use('/api/taxis', taxiRoutes); 
 
@@ -25,14 +25,17 @@ app.listen(PORT, () => {
 });
 
 // driver相关
-const driverRoutes = require('./routes/driverRoutes');
+const driverRoutes = require('./routes/driver.routes');
 app.use('/api/drivers', driverRoutes);
 
 // price相关
-const priceRoutes = require('./routes/priceRoutes');
+const priceRoutes = require('./routes/price.routes');
 app.use('/api/prices', priceRoutes); 
 
-// reguest-taxi 相关 (user story5)
-const turnRoutes = require('./routes/turnRoutes');
+// create-turn 相关 (user story5)
+const turnRoutes = require('./routes/turn.routes');
 app.use('/api/turns', turnRoutes);
 
+// request(customer) 相关(user story6)
+const rideRequestRoutes = require('./routes/rideRequest.routes');
+app.use('/api/request', rideRequestRoutes);

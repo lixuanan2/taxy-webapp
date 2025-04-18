@@ -1,0 +1,59 @@
+<div class="container mt-4">
+    <h2 class="mb-4">🚖 Pedir Táxi</h2>
+  
+    <form (ngSubmit)="onSubmit()" #requestForm="ngForm" class="row g-3">
+  
+      <div class="col-md-6">
+        <label class="form-label">NIF</label>
+        <input name="nif" [(ngModel)]="request.nif"
+               #nifRef="ngModel"
+               required pattern="^\d{9}$"
+               class="form-control"
+               [ngClass]="{ 'is-invalid': nifRef.invalid && nifRef.touched }" />
+        <div *ngIf="nifRef.invalid && nifRef.touched" class="invalid-feedback">
+          NIF inválido (9 dígitos).
+        </div>
+      </div>
+  
+      <div class="col-md-6">
+        <label class="form-label">Localização Atual</label>
+        <input name="currentLocation" [(ngModel)]="request.currentLocation"
+               required class="form-control"
+               #curRef="ngModel"
+               [ngClass]="{ 'is-invalid': curRef.invalid && curRef.touched }" />
+        <div *ngIf="curRef.invalid && curRef.touched" class="invalid-feedback">
+          Por favor insira a sua localização.
+        </div>
+      </div>
+  
+      <div class="col-md-6">
+        <label class="form-label">Destino</label>
+        <input name="destination" [(ngModel)]="request.destination"
+               required class="form-control"
+               #destRef="ngModel"
+               [ngClass]="{ 'is-invalid': destRef.invalid && destRef.touched }" />
+        <div *ngIf="destRef.invalid && destRef.touched" class="invalid-feedback">
+          Por favor insira o destino.
+        </div>
+      </div>
+  
+      <div class="col-md-6">
+        <label class="form-label">Número de Pessoas</label>
+        <input type="number" name="peopleCount" [(ngModel)]="request.peopleCount"
+               min="1" required class="form-control"
+               #peopleRef="ngModel"
+               [ngClass]="{ 'is-invalid': peopleRef.invalid && peopleRef.touched }" />
+        <div *ngIf="peopleRef.invalid && peopleRef.touched" class="invalid-feedback">
+          Deve haver pelo menos uma pessoa.
+        </div>
+      </div>
+  
+      <div class="col-12">
+        <button type="submit" class="btn btn-primary" [disabled]="!requestForm.valid">
+          ✉️ Enviar Pedido
+        </button>
+      </div>
+  
+    </form>
+  </div>
+  

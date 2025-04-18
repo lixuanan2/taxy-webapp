@@ -8,7 +8,7 @@ const routes: Routes = [
   { path: 'main', component: MainDashboardComponent },   // main-dashboard
   { path: 'manager', loadChildren: () => import('./manager/manager.module').then(m => m.ManagerModule) },
   { path: 'driver', loadChildren: () => import('./driver/driver.module').then(m => m.DriverModule) },
-  //{ path: 'customer', loadChildren: () => import('./customer/customer.module').then(m => m.CustomerModule) },
+  { path: 'customer', loadChildren: () => import('./customer/customer.module').then(m => m.CustomerModule) },
   
 ];
 
