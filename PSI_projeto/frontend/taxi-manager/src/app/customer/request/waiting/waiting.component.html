@@ -9,5 +9,16 @@
     <div class="mt-4">
         <button class="btn btn-outline-danger" (click)="cancelRequest()">Cancelar Pedido</button>
     </div>
+
+    <app-driver-confirm-dialog *ngIf="showDriverDialog"
+      [driverName]="driverName"
+      [distance]="driverDistance"
+      [eta]="driverEta"
+      [estimatedPrice]="driverPrice"
+      [taxiInfo]="taxiInfo"
+      (accept)="onDriverAccepted()"
+      (reject)="onDriverRejected()">
+    </app-driver-confirm-dialog>
+
 </div>
   

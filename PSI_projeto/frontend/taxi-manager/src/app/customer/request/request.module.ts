@@ -5,12 +5,14 @@ import { FormsModule } from '@angular/forms';
 import { RequestRoutingModule } from './request-routing.module';
 import { RequestCreateComponent } from './create/request-create.component';
 import { WaitingComponent } from './waiting/waiting.component';
+import { DriverConfirmDialogComponent } from './driver-confirm-dialog/driver-confirm-dialog.component';
 
 
 @NgModule({
   declarations: [
     RequestCreateComponent,
-    WaitingComponent
+    WaitingComponent,
+    DriverConfirmDialogComponent
   ],
   imports: [
     CommonModule,

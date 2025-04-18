@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 
 const rideRequestSchema = new mongoose.Schema({
   nif: { type: String, required: true },
+  gender: {type: String, required: true},
   currentLocation: { type: String, required: true },
   destination: { type: String, required: true },
   peopleCount: { type: Number, required: true },

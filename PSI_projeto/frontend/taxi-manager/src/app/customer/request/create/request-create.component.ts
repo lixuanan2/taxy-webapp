@@ -17,6 +17,7 @@ export class RequestCreateComponent {
 
   request: RideRequest = {
     nif: '',
+    gender: '', 
     currentLocation: '',
     destination: '',
     peopleCount: 1
@@ -38,6 +39,7 @@ export class RequestCreateComponent {
         // 清空表单
         this.request = {
           nif: '',
+          gender: '',
           currentLocation: '',
           destination: '',
           peopleCount: 1
