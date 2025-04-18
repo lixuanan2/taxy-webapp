@@ -1,0 +1,46 @@
+<div class="container mt-4">
+    <h2>📝 Registar Viagem</h2>
+  
+    <form (ngSubmit)="onSubmit()" #tripForm="ngForm" class="row g-3">
+  
+      <div class="col-md-6">
+        <label class="form-label">Cliente NIF</label>
+        <input name="clientNIF" [(ngModel)]="trip.clientNIF" required class="form-control" />
+      </div>
+  
+      <div class="col-md-6">
+        <label class="form-label">Origem</label>
+        <input name="from" [(ngModel)]="trip.from" required class="form-control" />
+      </div>
+  
+      <div class="col-md-6">
+        <label class="form-label">Destino</label>
+        <input name="to" [(ngModel)]="trip.to" required class="form-control" />
+      </div>
+  
+      <div class="col-md-6">
+        <label class="form-label">Hora de Início</label>
+        <input type="datetime-local" name="startTime" [(ngModel)]="trip.startTime" class="form-control" />
+      </div>
+  
+      <div class="col-md-6">
+        <label class="form-label">Hora de Fim</label>
+        <input type="datetime-local" name="endTime" [(ngModel)]="trip.endTime" class="form-control" />
+      </div>
+  
+      <div class="col-md-6">
+        <label class="form-label">Preço</label>
+        <input type="number" name="price" [(ngModel)]="trip.price" required class="form-control" step="0.01" />
+      </div>
+  
+      <div class="col-md-6">
+        <label class="form-label">Matrícula</label>
+        <input name="vehiclePlate" [(ngModel)]="trip.vehiclePlate" class="form-control" />
+      </div>
+  
+      <div class="col-12">
+        <button class="btn btn-success" type="submit" [disabled]="!tripForm.valid">💾 Registar Viagem</button>
+      </div>
+    </form>
+  </div>
+  

@@ -43,6 +43,9 @@ export class WaitingComponent implements OnInit, OnDestroy {
     
           if (request.status === 'accepted') {
             clearInterval(this.pollingInterval);
+
+            // 记录 request 信息（用于旅程注册页使用）
+            localStorage.setItem('latestRequest', JSON.stringify(request));
     
             // 弹出详情对话框
             this.driverName = request.driverId || 'Desconhecido';

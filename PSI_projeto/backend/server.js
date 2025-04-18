@@ -39,3 +39,7 @@ app.use('/api/turns', turnRoutes);
 // request(customer) 相关(user story6)
 const rideRequestRoutes = require('./routes/rideRequest.routes');
 app.use('/api/request', rideRequestRoutes);
+
+// trip(driver) 相关(user story8)
+const tripRoutes = require('./routes/trip.routes');
+app.use('/api/trip', tripRoutes);
