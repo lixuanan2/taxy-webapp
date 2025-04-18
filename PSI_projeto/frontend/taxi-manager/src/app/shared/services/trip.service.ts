@@ -19,4 +19,9 @@ export class TripService {
   getAllTrips(): Observable<Trip[]> {
     return this.http.get<Trip[]>(this.apiUrl);
   }
+
+  getTripsByDriver(driverName: string): Observable<Trip[]> {
+    return this.http.get<Trip[]>(`${this.apiUrl}?driverName=${driverName}`);
+  }
+  
 }

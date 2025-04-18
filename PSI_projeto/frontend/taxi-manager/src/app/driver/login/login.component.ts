@@ -34,6 +34,7 @@ export class DriverLoginComponent implements OnInit {
   
       // 保存司机信息到 localStorage
       localStorage.setItem('currentDriverName', found.name);  // 可换成 found.id 等字段
+      localStorage.setItem('currentDriverNif', found.nif);
   
       this.router.navigate(['/driver/dashboard']);
     } else {

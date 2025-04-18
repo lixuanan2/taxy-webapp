@@ -17,15 +17,15 @@
         <label class="form-label">Destino</label>
         <input name="to" [(ngModel)]="trip.to" required class="form-control" />
       </div>
-  
+
       <div class="col-md-6">
         <label class="form-label">Hora de Início</label>
-        <input type="datetime-local" name="startTime" [(ngModel)]="trip.startTime" class="form-control" />
+        <input type="datetime-local" name="startTime" [(ngModel)]="formattedStartTime" class="form-control" />
       </div>
   
       <div class="col-md-6">
         <label class="form-label">Hora de Fim</label>
-        <input type="datetime-local" name="endTime" [(ngModel)]="trip.endTime" class="form-control" />
+        <input type="datetime-local" name="endTime" [(ngModel)]="formattedEndTime" class="form-control" />
       </div>
 
       <div class="col-md-6">

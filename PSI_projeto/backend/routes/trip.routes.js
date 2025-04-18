@@ -45,11 +45,15 @@ router.post('/', async (req, res) => {
 // GET /api/trip → 获取所有 trip 记录
 router.get('/', async (req, res) => {
     try {
-      const trips = await Trip.find();
+      const driver = req.query.driverName;
+  
+      const filter = driver ? { driverName: driver } : {};
+      const trips = await Trip.find(filter);
       res.json(trips);
     } catch (err) {
       res.status(500).json({ error: err.message });
     }
-});
+  });
+  
 
 module.exports = router;

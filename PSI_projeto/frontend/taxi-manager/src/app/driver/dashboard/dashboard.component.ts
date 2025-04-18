@@ -12,8 +12,6 @@ export class DashboardComponent implements OnInit{
 
   ngOnInit(): void {
     const latestRequest = localStorage.getItem('latestRequest');
-    if (latestRequest) {
-      this.hasPendingTrip = true;
-    }
+    this.hasPendingTrip = !!latestRequest;
   }
 }

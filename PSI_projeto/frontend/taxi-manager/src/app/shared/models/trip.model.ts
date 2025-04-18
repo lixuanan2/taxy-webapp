@@ -1,6 +1,7 @@
 export interface Trip {
     _id?: string;
     driverName: string;
+    driverNIF: string;
     clientNIF: string;
     from: string;
     to: string;

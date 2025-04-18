@@ -4,7 +4,6 @@ const Turn = require('../models/Turn');
 const Taxi = require('../models/Taxi');
 
 // POST 创建 turn
-// POST 创建 turn
 router.post('/', async (req, res) => {
   const { driverNif, startTime, endTime } = req.body;
 
@@ -50,6 +49,7 @@ router.post('/', async (req, res) => {
 router.get('/driver/:nif', async (req, res) => {
   try {
     const turns = await Turn.find({ driverNif: req.params.nif }).sort({ startTime: 1 });
+    console.log('📋 当前司机 turn:', turns);
     res.json(turns);
   } catch (err) {
     res.status(500).json({ message: err.message });
