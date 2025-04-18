@@ -16,7 +16,9 @@ export class RegisterTripComponent implements OnInit{
     startTime: new Date(),
     endTime: new Date(),
     price: 0,
-    vehiclePlate: ''
+    vehiclePlate: '',
+    peopleCount: 1,
+    sequenceNumber: 1
   };
 
   constructor(private tripService: TripService) {}
@@ -46,7 +48,9 @@ export class RegisterTripComponent implements OnInit{
       startTime: new Date(),
       endTime: new Date(),
       price: 0,
-      vehiclePlate: ''
+      vehiclePlate: '',
+      peopleCount: 1,
+      sequenceNumber: 1
     };
   }
 
@@ -54,11 +58,11 @@ export class RegisterTripComponent implements OnInit{
     const latestRequest = localStorage.getItem('latestRequest');
     if (latestRequest) {
       const request = JSON.parse(latestRequest);
-  
+
       this.trip.clientNIF = request.nif;
       this.trip.from = request.currentLocation;
       this.trip.to = request.destination;
-      // 后续可以设置人数（用于 RIA 19）
+      this.trip.peopleCount = request.peopleCount || 1;
     }
   }
 }

@@ -4,10 +4,11 @@
     <table class="table table-striped mt-3">
       <thead>
         <tr>
-          <th>#</th>
+          <th>#Seq</th>
           <th>Cliente NIF</th>
           <th>Origem</th>
           <th>Destino</th>
+          <th>Pessoas</th>
           <th>Início</th>
           <th>Fim</th>
           <th>Preço (€)</th>
@@ -16,10 +17,11 @@
       </thead>
       <tbody>
         <tr *ngFor="let trip of trips; let i = index">
-          <td>{{ i + 1 }}</td>
+          <td>{{ trip.sequenceNumber }}</td>
           <td>{{ trip.clientNIF }}</td>
           <td>{{ trip.from }}</td>
           <td>{{ trip.to }}</td>
+          <td>{{ trip.peopleCount }}</td>
           <td>{{ trip.startTime | date:'short' }}</td>
           <td>{{ trip.endTime | date:'short' }}</td>
           <td>{{ trip.price | number:'1.2-2' }}</td>

@@ -9,6 +9,8 @@ const tripSchema = new mongoose.Schema({
   endTime: { type: Date, required: true },
   price: { type: Number, required: true },
   vehiclePlate: { type: String },                // 可选，司机的车牌号
+  peopleCount: { type: Number, required: true },
+  sequenceNumber: { type: Number, required: true },
   createdAt: { type: Date, default: Date.now }
 });
 

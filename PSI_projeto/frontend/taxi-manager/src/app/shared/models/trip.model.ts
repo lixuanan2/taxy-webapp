@@ -8,6 +8,8 @@ export interface Trip {
     endTime: Date;
     price: number;
     vehiclePlate?: string;
+    peopleCount: number;
+    sequenceNumber: number;
     createdAt?: Date;
   }
   

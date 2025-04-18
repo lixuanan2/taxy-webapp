@@ -27,6 +27,11 @@
         <label class="form-label">Hora de Fim</label>
         <input type="datetime-local" name="endTime" [(ngModel)]="trip.endTime" class="form-control" />
       </div>
+
+      <div class="col-md-6">
+        <label class="form-label">Número de Pessoas</label>
+        <input class="form-control" [value]="trip.peopleCount || 1" disabled />
+      </div>      
   
       <div class="col-md-6">
         <label class="form-label">Preço</label>
