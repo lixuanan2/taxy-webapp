@@ -1,0 +1,35 @@
+<div class="container mt-4">
+    <h2>🧾 Emitir Fatura</h2>
+  
+    <div *ngIf="trips.length === 0" class="alert alert-info mt-3">
+      Nenhuma viagem disponível para faturação.
+    </div>
+  
+    <table class="table table-bordered mt-3" *ngIf="trips.length > 0">
+      <thead class="table-light">
+        <tr>
+          <th>Cliente</th>
+          <th>Origem</th>
+          <th>Destino</th>
+          <th>Preço</th>
+          <th>Início</th>
+          <th>Faturar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let trip of trips">
+          <td>{{ trip.clientNIF }}</td>
+          <td>{{ trip.from }}</td>
+          <td>{{ trip.to }}</td>
+          <td>{{ trip.price }} €</td>
+          <td>{{ trip.startTime | date: 'short' }}</td>
+          <td>
+            <button class="btn btn-warning btn-sm" (click)="issue(trip)">
+              Emitir
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

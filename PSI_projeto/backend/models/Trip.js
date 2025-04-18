@@ -11,6 +11,7 @@ const tripSchema = new mongoose.Schema({
   vehiclePlate: { type: String },                // 可选，司机的车牌号
   peopleCount: { type: Number, required: true },
   sequenceNumber: { type: Number, required: true },
+  invoiceId: { type: mongoose.Schema.Types.ObjectId, ref: 'Invoice' },
   createdAt: { type: Date, default: Date.now }
 });
 

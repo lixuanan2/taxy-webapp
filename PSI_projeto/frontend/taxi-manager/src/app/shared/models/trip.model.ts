@@ -12,5 +12,7 @@ export interface Trip {
     peopleCount: number;
     sequenceNumber: number;
     createdAt?: Date;
+
+    invoiceId?: string;
   }
   

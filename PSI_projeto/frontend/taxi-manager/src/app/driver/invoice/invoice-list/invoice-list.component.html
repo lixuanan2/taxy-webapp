@@ -1,0 +1,29 @@
+<div class="container mt-4">
+    <h2>📄 Lista de Faturas</h2>
+    
+    <div *ngIf="invoices.length === 0" class="alert alert-info">
+      Nenhuma fatura disponível.
+    </div>
+    
+    <table class="table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Cliente</th>
+          <th>Total</th>
+          <th>Data</th>
+          <th>Detalhes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let invoice of invoices">
+          <td>{{ invoice.invoiceNumber }}</td>
+          <td>{{ invoice.clientNIF }}</td>
+          <td>{{ invoice.total }} €</td>
+          <td>{{ invoice.date | date: 'short' }}</td>
+          <td><a routerLink="/driver/invoice/{{ invoice.invoiceId }}">Ver Detalhes</a></td>
+        </tr>
+      </tbody>
+    </table>
+</div>
+  

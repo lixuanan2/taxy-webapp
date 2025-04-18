@@ -1,23 +1,34 @@
 <div class="container mt-4">
-    <h2>🚗 Driver Dashboard</h2>
-  
-    <p class="lead">Welcome, {{ this.driverName }}!</p>
-  
-    <div class="dashboard-buttons">
-      <a routerLink="/driver/turn/create" class="btn btn-success m-2">Request Taxi</a>
-      <a routerLink="/driver/request" class="btn btn-primary m-2">Ver Pedidos</a>
-      <a routerLink="/driver/trip/register" class="btn btn-success m-2">Registrar Viagem</a>
-      <a routerLink="/driver/trip/list" class="btn btn-outline-secondary m-2">📄 Ver Histórico de Viagens</a>
-      <a routerLink="/driver/issue-invoice" class="btn btn-warning m-2">Emitir Fatura</a>
-    </div>
+  <h2>🚗 Dashboard do Motorista</h2>
 
-    <div *ngIf="hasPendingTrip" class="alert alert-warning d-flex justify-content-between align-items-center mt-3 shadow-sm">
-      <div>
-        <strong>🕒 Tem uma viagem aceite!</strong> Registe a viagem antes de iniciar outra.
-      </div>
-      <a class="btn btn-sm btn-primary" routerLink="/driver/trip/register">Registar Agora</a>
-    </div>
-    
+  <!-- Welcome message -->
+  <p class="lead">Bem-vindo, {{ driverName }}!</p>
+
+  <!-- Dashboard buttons -->
+  <div class="dashboard-buttons">
+    <a routerLink="/driver/turn/create" class="btn btn-success m-2">Solicitar Táxi</a>
+    <a routerLink="/driver/request" class="btn btn-primary m-2">Ver Pedidos</a>
+    <a routerLink="/driver/trip/register" class="btn btn-success m-2">Registrar Viagem</a>
+    <a routerLink="/driver/trip/list" class="btn btn-outline-secondary m-2">📄 Histórico de Viagens</a>
+    <a routerLink="/driver/invoice/issue" class="btn btn-warning m-2">Emitir Fatura</a>
+    <a routerLink="/driver/invoice/list" class="btn btn-info m-2">Ver Faturas</a> 
   </div>
-  
-  
+
+  <!-- No available trips for issuing invoice -->
+  <div *ngIf="hasPendingTrip" class="alert alert-warning d-flex justify-content-between align-items-center mt-3 shadow-sm">
+    <div>
+      <strong>🕒 Tem uma viagem aceite!</strong> Registe a viagem antes de iniciar outra.
+    </div>
+    <a class="btn btn-sm btn-primary" routerLink="/driver/trip/register">Registar Agora</a>
+  </div>
+
+  <!-- Displaying the number of invoices (optional) -->
+  <div *ngIf="invoicesCount > 0" class="alert alert-success mt-3">
+    <strong>{{ invoicesCount }} faturas emitidas</strong>
+  </div>
+
+  <!-- If there are no invoices to show -->
+  <div *ngIf="invoicesCount === 0" class="alert alert-info mt-3">
+    Nenhuma fatura emitida até agora.
+  </div>
+</div>

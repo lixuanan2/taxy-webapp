@@ -43,3 +43,7 @@ app.use('/api/request', rideRequestRoutes);
 // trip(driver) 相关(user story8)
 const tripRoutes = require('./routes/trip.routes');
 app.use('/api/trip', tripRoutes);
+
+// invoice发票 相关(user story9)
+const invoiceRoutes = require('./routes/invoice.routes');
+app.use('/api/invoices', invoiceRoutes);
