@@ -7,6 +7,7 @@ const rideRequestSchema = new mongoose.Schema({
   destination: { type: String, required: true },
   peopleCount: { type: Number, required: true },
   status: { type: String, default: 'pending' }, // pending | accepted | cancelled | rejected
+  driverId: { type: String, default: null },
   createdAt: { type: Date, default: Date.now }
 });
 

@@ -31,9 +31,14 @@ export class DriverLoginComponent implements OnInit {
     const found = this.drivers.find(d => d.nif === this.selectedNif);
     if (found) {
       this.authService.login(found);
+  
+      // 保存司机信息到 localStorage
+      localStorage.setItem('currentDriverName', found.name);  // 可换成 found.id 等字段
+  
       this.router.navigate(['/driver/dashboard']);
     } else {
       this.errorMsg = '❌ Invalid NIF. Please try again.';
     }
   }
+  
 }

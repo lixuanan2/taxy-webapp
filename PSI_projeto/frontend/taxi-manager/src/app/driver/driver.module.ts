@@ -6,11 +6,13 @@ import { DriverRoutingModule } from './driver-routing.module';
 
 import { DriverLoginComponent } from './login/login.component';
 import { DashboardComponent } from '@driver/dashboard/dashboard.component';
+import { RequestListComponent } from './request/request-list/request-list.component';
 
 @NgModule({
   declarations: [
     DriverLoginComponent,
-    DashboardComponent
+    DashboardComponent,
+    RequestListComponent
   ],
   imports: [
     CommonModule,

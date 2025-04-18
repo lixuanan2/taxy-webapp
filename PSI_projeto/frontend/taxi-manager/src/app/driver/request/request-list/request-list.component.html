@@ -1,0 +1,26 @@
+<div class="container mt-4">
+    <h2>📋 Pedidos Pendentes</h2>
+  
+    <div *ngIf="loading">⏳ Carregando pedidos...</div>
+    <div *ngIf="!loading && requests.length === 0" class="text-muted">
+      Nenhum pedido pendente no momento.
+    </div>
+  
+    <div class="row" *ngFor="let req of requests">
+      <div class="col-md-8">
+        <div class="card mb-3">
+          <div class="card-body">
+            <p><strong>NIF:</strong> {{ req.nif }}</p>
+            <p><strong>De:</strong> {{ req.currentLocation }}</p>
+            <p><strong>Para:</strong> {{ req.destination }}</p>
+            <p><strong>Pessoas:</strong> {{ req.peopleCount }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 d-flex align-items-center justify-content-end gap-2">
+        <button class="btn btn-success w-50" (click)="accept(req._id!)">Aceitar</button>
+        <button class="btn btn-outline-danger w-50" (click)="reject(req._id!)">Rejeitar</button>
+      </div>      
+    </div>
+  </div>
+  
