@@ -1,3 +1,4 @@
+// user story 
 const mongoose = require('mongoose');
 
 const rideRequestSchema = new mongoose.Schema({

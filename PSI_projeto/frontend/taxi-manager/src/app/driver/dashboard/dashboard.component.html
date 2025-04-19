@@ -31,4 +31,10 @@
   <div *ngIf="invoicesCount === 0" class="alert alert-info mt-3">
     Nenhuma fatura emitida até agora.
   </div>
+
+  <div class="text-end">
+    <button class="btn btn-outline-danger btn-sm" (click)="logout()">
+      🔒 Logout
+    </button>
+  </div>  
 </div>

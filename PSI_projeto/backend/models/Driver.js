@@ -1,3 +1,4 @@
+// user story 2
 const mongoose = require('mongoose');
 
 const addressSchema = new mongoose.Schema({

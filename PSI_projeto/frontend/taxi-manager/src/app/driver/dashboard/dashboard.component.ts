@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { InvoiceService } from '@services/invoice.service';
+import { DriverAuthService } from '@services/driver-auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-driver-dashboard',
@@ -11,7 +13,11 @@ export class DashboardComponent implements OnInit {
   hasPendingTrip = false; // Determine if there are any pending trips
   invoicesCount: number = 0; // To hold the count of invoices issued
 
-  constructor(private invoiceService: InvoiceService) {}
+  constructor(
+    private invoiceService: InvoiceService,
+    private authService: DriverAuthService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     // Fetch the number of invoices for this driver
@@ -30,5 +36,10 @@ export class DashboardComponent implements OnInit {
   checkPendingTrips() {
     // Logic to determine if there are pending trips (you may already have this in your current code)
     this.hasPendingTrip = true; // Just for demonstration purposes
+  }
+
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/driver/login']);
   }
 }
