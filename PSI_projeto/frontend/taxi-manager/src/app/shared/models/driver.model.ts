@@ -11,4 +11,6 @@ export interface Driver {
       postalCode: string;
       city: string;
     };
+    lat?: number;   // 为地图服务
+    lon?: number; 
 }

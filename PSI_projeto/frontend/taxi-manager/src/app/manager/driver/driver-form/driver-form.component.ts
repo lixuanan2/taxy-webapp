@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { Driver } from '@models/driver.model';
 import { DriverService } from '@services/driver.service';
 import { ApiService } from '@services/api.service'; 
+import { HttpClient } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-driver-form',
@@ -18,7 +20,8 @@ export class DriverFormComponent {
 
   constructor(
     private driverService: DriverService,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private http: HttpClient
   ) {}
 
   // 提交表单
@@ -54,7 +57,9 @@ export class DriverFormComponent {
         number: '',
         postalCode: '',
         city: ''
-      }
+      },
+      lat: undefined,  
+      lon: undefined 
     };
   }
 
@@ -67,5 +72,25 @@ export class DriverFormComponent {
       alert('Failed to fetch city for the postal code');
     });
   }
+  
+  onMapSelected(event: { lat: number, lon: number }): void {
+    this.driver.lat = event.lat;
+    this.driver.lon = event.lon;
+  
+    const url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${event.lat}&lon=${event.lon}`;
+    this.http.get<any>(url).subscribe({
+      next: data => {
+        const address = data.address;
+        this.driver.address.city = address.city || address.town || address.village || '';
+        this.driver.address.street = address.road || '';  // 注意：street 可能没有门牌号
+        this.driver.address.postalCode = address.postcode || '';
+      },
+      error: err => {
+        console.error('Reverse geocode failed:', err);
+        alert('❌ Falha ao obter endereço a partir do mapa.');
+      }
+    });
+  }
+  
   
 }

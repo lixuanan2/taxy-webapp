@@ -5,6 +5,7 @@ import { DriverRoutingModule } from './driver-routing.module';
 import { DriverListComponent } from './driver-list/driver-list.component';
 import { DriverFormComponent } from './driver-form/driver-form.component';
 import { FormsModule } from '@angular/forms';
+import { SharedModule } from '@shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { FormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     FormsModule,
-    DriverRoutingModule
+    DriverRoutingModule,
+    SharedModule
   ]
 })
 export class DriverModule { }

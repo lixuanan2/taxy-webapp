@@ -85,11 +85,15 @@
         <input name="city" [(ngModel)]="driver.address.city" required class="form-control" />
       </div>
   
+      <!-- 地图！！ -->
+      <app-map-picker (locationSelected)="onMapSelected($event)"></app-map-picker>
+      
       <div class="col-12">
         <button type="submit" class="btn btn-success" [disabled]="!driverForm.form.valid">
           ➕ Register Driver
         </button>
       </div>
+
     </form>
   </div>
   
