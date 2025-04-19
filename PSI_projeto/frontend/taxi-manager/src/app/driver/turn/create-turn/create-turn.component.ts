@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TurnService } from '@services/turn.service';
+import { DriverAuthService } from '@shared/services/driver-auth.service';
 
 @Component({
   selector: 'app-create-turn',
@@ -7,16 +8,26 @@ import { TurnService } from '@services/turn.service';
   styleUrls: ['./create-turn.component.css']
 })
 export class CreateTurnComponent implements OnInit {
-  driverNif: string = '123456789'; // 🔧 先硬编码，后续从登录获取
+  driverNif: string =  '';
+
   startTime: string = '';
   endTime: string = '';
   availableTaxis: any[] = [];
   selectedTaxiPlate: string = '';
 
-  constructor(private turnService: TurnService) {}
+  constructor(
+    private turnService: TurnService,
+    private authService: DriverAuthService
+  ) {}
 
   ngOnInit(): void {
-    // 初始化逻辑可以留空，或预加载数据
+    const driver = this.authService.getCurrentDriver();
+    if (driver) {
+      this.driverNif = driver.nif;
+    } else {
+      alert('🚫 Erro: motorista não autenticado!');
+      // 可以跳转回登录页或禁用功能
+    }
   }
 
   onCheckAvailable() {
@@ -79,7 +90,12 @@ export class CreateTurnComponent implements OnInit {
         this.resetForm();
       },
       error: err => {
-        alert('❌ Failed to create turn');
+        const msg = err.error?.message || 'Erro ao criar turno';
+        if (msg.includes('Driver already has a turn')) {
+          alert('⚠️ Já existe um turno nesse horário!');
+        } else {
+          alert('❌ Falha ao criar turno: ' + msg);
+        }
         console.error(err);
       }
     });
