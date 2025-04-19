@@ -1,0 +1,21 @@
+<div class="container mt-4">
+    <h2>📄 Detalhes da Fatura</h2>
+  
+    <div *ngIf="!invoice" class="alert alert-warning">
+      Fatura não encontrada.
+    </div>
+  
+    <div *ngIf="invoice" class="card">
+      <div class="card-body">
+        <h5 class="card-title">Fatura #{{ invoice.invoiceNumber }}</h5>
+        <p><strong>Cliente:</strong> {{ invoice.clientNIF }}</p>
+        <p><strong>Motorista:</strong> {{ invoice.driverName }}</p>
+        <p><strong>Total:</strong> {{ invoice.total | currency }}</p>
+        <p><strong>Data:</strong> {{ invoice.date | date: 'short' }}</p>
+        <p><strong>Viagem ID:</strong> {{ invoice.tripId }}</p>
+      </div>
+    </div>
+  
+    <a routerLink="/driver/invoice" class="btn btn-primary mt-3">Voltar para a lista de faturas</a>
+</div>
+  

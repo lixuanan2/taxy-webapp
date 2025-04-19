@@ -24,6 +24,10 @@ export class InvoiceService {
   getInvoices(): Observable<Invoice[]> {
     return this.http.get<Invoice[]>(this.apiUrl); // 获取所有发票
   }
+
+  getInvoiceById(invoiceId: string): Observable<Invoice> {
+    return this.http.get<Invoice>(`${this.apiUrl}/${invoiceId}`);
+  }
 }
 
 

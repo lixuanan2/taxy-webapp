@@ -21,21 +21,22 @@ export class IssueInvoiceComponent implements OnInit {
     this.loadTrips();  // 只调用一次，加载旅程
   }
 
+  // 生成发票后清除当前旅程，并重新加载列表
   issue(trip: Trip): void {
     const invoice = {
       tripId: trip._id!,
       driverName: trip.driverName,
       clientNIF: trip.clientNIF,
       total: trip.price,
-      date: new Date().toISOString()  // 日期格式需要改为 string
+      date: new Date().toISOString()
     };
 
     // 调用服务生成发票
     this.invoiceService.createInvoice(invoice).subscribe({
       next: () => {
         alert('✅ Fatura emitida com sucesso!');
-        // 刷新 trip 列表，移除已经开票的 trip
-        this.loadTrips();
+        this.trips = this.trips.filter(t => t._id !== trip._id); // 刷新已开票旅程列表
+        this.loadTrips(); // 重新加载旅程
       },
       error: err => {
         alert('❌ Erro ao emitir fatura.');
@@ -43,6 +44,7 @@ export class IssueInvoiceComponent implements OnInit {
       }
     });
   }
+
 
   // 加载旅程并确保只显示未开票的旅程
   loadTrips(): void {

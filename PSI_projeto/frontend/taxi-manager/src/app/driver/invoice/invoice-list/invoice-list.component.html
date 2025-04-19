@@ -1,29 +1,40 @@
 <div class="container mt-4">
     <h2>📄 Lista de Faturas</h2>
-    
-    <div *ngIf="invoices.length === 0" class="alert alert-info">
+  
+    <div *ngIf="trips.length === 0" class="alert alert-info">
       Nenhuma fatura disponível.
     </div>
-    
+  
     <table class="table">
       <thead>
         <tr>
           <th>#</th>
-          <th>Cliente</th>
+          <th>Origem</th>
+          <th>Destino</th>
           <th>Total</th>
           <th>Data</th>
           <th>Detalhes</th>
+          <th>Estado</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let invoice of invoices">
-          <td>{{ invoice.invoiceNumber }}</td>
-          <td>{{ invoice.clientNIF }}</td>
-          <td>{{ invoice.total }} €</td>
-          <td>{{ invoice.date | date: 'short' }}</td>
-          <td><a routerLink="/driver/invoice/{{ invoice.invoiceId }}">Ver Detalhes</a></td>
+        <tr *ngFor="let trip of trips">
+          <td>{{ trip.clientNIF }}</td>
+          <td>{{ trip.from }}</td>
+          <td>{{ trip.to }}</td>
+          <td>{{ trip.price | currency }}</td>
+          <td>{{ trip.startTime | date: 'short' }}</td>
+          <td>
+            <!-- 修改 routerLink 使用 trip.invoiceId -->
+            <a *ngIf="trip.invoiceId" [routerLink]="['/driver/invoice/detail', trip.invoiceId]">Ver Detalhes</a>
+          </td>
+          <td>
+            <!-- 显示是否已经有发票 -->
+            <button *ngIf="!trip.invoiceId" (click)="issue(trip)" class="btn btn-warning">Emitir</button>
+            <span *ngIf="trip.invoiceId" class="text-success">Fatura Emitida</span>
+          </td>
         </tr>
       </tbody>
     </table>
-</div>
+  </div>
   
