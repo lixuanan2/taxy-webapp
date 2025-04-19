@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { PriceConfig } from '@models/price.model';
-
 import { PriceService } from '@services/price.service';
 
 @Component({
@@ -15,13 +14,12 @@ export class PriceFormComponent {
     nightBonus: 20, // 20%
   };
 
-  // 表单测试部分的绑定变量
   testStartTime: string = '';
   testEndTime: string = '';
   testComfort: 'basic' | 'luxury' = 'basic';
   testResult: number | null = null;
 
-  constructor(private priceService: PriceService) {} // ✅ 注入服务
+  constructor(private priceService: PriceService) {}
 
   ngOnInit(): void {
     this.priceService.getLatestPrice().subscribe({
@@ -32,32 +30,55 @@ export class PriceFormComponent {
 
   onSubmit() {
     const dataToSave = { ...this.price, createdAt: undefined, _id: undefined };
-  
     this.priceService.createPrice(dataToSave).subscribe({
       next: () => alert('✅ Prices saved!'),
       error: err => alert('❌ Failed to save prices: ' + err.message)
     });
   }
-    
 
+  /**
+   * 按分钟计算属于夜间/日间的分钟数
+   */
+  calculateMinutesWithNightRate(start: Date, end: Date): { day: number, night: number } {
+    let nightMinutes = 0;
+    let dayMinutes = 0;
+    const current = new Date(start);
+
+    while (current < end) {
+      const hour = current.getHours();
+      const isNight = hour >= 21 || hour < 6;
+      if (isNight) {
+        nightMinutes++;
+      } else {
+        dayMinutes++;
+      }
+      current.setMinutes(current.getMinutes() + 1);
+    }
+
+    return { day: dayMinutes, night: nightMinutes };
+  }
+
+  /**
+   * 更精细的价格模拟计算（区分日夜）
+   */
   calculateTestPrice() {
     if (!this.testStartTime || !this.testEndTime) return;
 
     const start = new Date(`1970-01-01T${this.testStartTime}:00`);
-    const end = new Date(`1970-01-01T${this.testEndTime}:00`);
-    const durationMin = (end.getTime() - start.getTime()) / 60000;
+    let end = new Date(`1970-01-01T${this.testEndTime}:00`);
 
-    if (durationMin <= 0) {
-      this.testResult = null;
-      alert('⏰ End time must be after start time.');
-      return;
+    // 跨天处理
+    if (end <= start) {
+      end.setDate(end.getDate() + 1);
     }
 
+    const { day, night } = this.calculateMinutesWithNightRate(start, end);
     const baseRate = this.testComfort === 'basic' ? this.price.basic : this.price.luxury;
-    const isNight = start.getHours() >= 21 || start.getHours() < 6;
-    const rate = isNight ? baseRate * (1 + this.price.nightBonus / 100) : baseRate;
+    const total =
+      day * baseRate +
+      night * baseRate * (1 + this.price.nightBonus / 100);
 
-    this.testResult = +(durationMin * rate).toFixed(2);
+    this.testResult = +total.toFixed(2);
   }
 
   getDefaultPrice(): PriceConfig {
@@ -67,5 +88,4 @@ export class PriceFormComponent {
       nightBonus: 20
     };
   }
-  
 }
