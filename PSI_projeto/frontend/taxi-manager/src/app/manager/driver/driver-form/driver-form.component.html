@@ -76,7 +76,8 @@
   
       <div class="col-md-3">
         <label class="form-label">Postal Code</label>
-        <input name="postalCode" [(ngModel)]="driver.address.postalCode" required class="form-control" />
+        <input name="postalCode" [(ngModel)]="driver.address.postalCode"
+       (blur)="onPostalCodeBlur(driver.address.postalCode)" required class="form-control" />
       </div>
   
       <div class="col-md-6">

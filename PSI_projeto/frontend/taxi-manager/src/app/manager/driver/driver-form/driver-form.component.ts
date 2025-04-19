@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Driver } from '@models/driver.model';
 import { DriverService } from '@services/driver.service';
+import { ApiService } from '@services/api.service'; 
 
 @Component({
   selector: 'app-driver-form',
@@ -15,7 +16,10 @@ export class DriverFormComponent {
   // 初始化 driver 对象
   driver: Driver = this.createEmptyDriver();
 
-  constructor(private driverService: DriverService) {}
+  constructor(
+    private driverService: DriverService,
+    private apiService: ApiService
+  ) {}
 
   // 提交表单
   onSubmit() {
@@ -53,4 +57,15 @@ export class DriverFormComponent {
       }
     };
   }
+
+  // 当用户在邮政编码输入框失去焦点时调用
+  onPostalCodeBlur(postalCode: string): void {
+    this.apiService.lookupPostalCode(postalCode).subscribe(cityData => {
+      this.driver.address.city = cityData.city;
+    }, error => {
+      console.error('Error fetching city:', error);
+      alert('Failed to fetch city for the postal code');
+    });
+  }
+  
 }

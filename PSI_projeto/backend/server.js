@@ -19,11 +19,6 @@ const taxiRoutes = require('./routes/taxi.routes');
 // 设置路由前缀为/api/taxis
 app.use('/api/taxis', taxiRoutes); 
 
-// 启动Express服务器,监听指定端口
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
-});
-
 // driver相关
 const driverRoutes = require('./routes/driver.routes');
 app.use('/api/drivers', driverRoutes);
@@ -47,3 +42,12 @@ app.use('/api/trip', tripRoutes);
 // invoice发票 相关(user story9)
 const invoiceRoutes = require('./routes/invoice.routes');
 app.use('/api/invoices', invoiceRoutes);
+
+// codigo postal(story2)
+const postalCodeRouter = require('./routes/postal_code.routes');
+app.use(postalCodeRouter); 
+
+// 启动Express服务器,监听指定端口
+app.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`);
+});
