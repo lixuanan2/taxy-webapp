@@ -30,10 +30,16 @@
                required class="form-control"
                #curRef="ngModel"
                [ngClass]="{ 'is-invalid': curRef.invalid && curRef.touched }" />
+        <small class="text-muted">🌍 Detetado automaticamente (pode editar)</small>
         <div *ngIf="curRef.invalid && curRef.touched" class="invalid-feedback">
           Por favor insira a sua localização.
         </div>
       </div>
+
+      <label class="form-label">
+        Localização Atual
+        <button type="button" class="btn btn-link btn-sm p-0" (click)="autoDetectLocation()">🔄</button>
+      </label>      
   
       <div class="col-md-6">
         <label class="form-label">Destino</label>
@@ -62,7 +68,9 @@
           ✉️ Enviar Pedido
         </button>
       </div>
-  
+      
+      <div *ngIf="isLocating" class="form-text text-info">🔄 A localizar...</div>
+
     </form>
   </div>
   
