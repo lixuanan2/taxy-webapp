@@ -8,5 +8,9 @@ export interface RideRequest {
     status?: string;          // 后端默认是 'pending'
     driverId?: string;
     createdAt?: string;
+    currentLat: number;
+    currentLon: number;
+    destLat: number;
+    destLon: number;
   }
   

@@ -11,6 +11,11 @@ import { HttpClient } from '@angular/common/http';
 })
 export class RequestCreateComponent {
 
+  currentLat: number = 0;
+  currentLon: number = 0;
+  destLat: number = 0;
+  destLon: number = 0;
+
   constructor(
     private router: Router,
     private requestService: RequestService,
@@ -24,7 +29,11 @@ export class RequestCreateComponent {
     gender: '', 
     currentLocation: '',
     destination: '',
-    peopleCount: 1
+    peopleCount: 1,
+    currentLat: 0,
+    currentLon: 0,
+    destLat: 0,
+    destLon: 0,
   };
 
   ngOnInit(): void {
@@ -64,6 +73,10 @@ export class RequestCreateComponent {
         console.error('❌ Erro no reverse geocode:', err);
       }
     });
+    this.currentLat = lat;
+    this.currentLon = lon;
+    this.request.currentLat = lat;
+    this.request.currentLon = lon;
   }
 
   onSubmit() {
@@ -85,7 +98,11 @@ export class RequestCreateComponent {
           gender: '',
           currentLocation: '',
           destination: '',
-          peopleCount: 1
+          peopleCount: 1,
+          currentLat: this.currentLat,
+          currentLon: this.currentLon,
+          destLat: this.destLat,
+          destLon: this.destLon
         };
       },
       error: (err) => {
@@ -97,6 +114,11 @@ export class RequestCreateComponent {
 
   onMapClick(event: any) { // ✅ 或直接写 { lat, lon }
     const url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${event.lat}&lon=${event.lon}`;
+    this.destLat = event.lat;
+    this.destLon = event.lon;
+    this.request.destLat = event.lat;
+    this.request.destLon = event.lon;
+
     this.http.get<any>(url).subscribe(data => {
       this.request.destination = data.display_name;
     });

@@ -9,7 +9,11 @@ const rideRequestSchema = new mongoose.Schema({
   peopleCount: { type: Number, required: true },
   status: { type: String, default: 'pending' }, // pending | accepted | cancelled | rejected
   driverId: { type: String, default: null },
-  createdAt: { type: Date, default: Date.now }
+  createdAt: { type: Date, default: Date.now },
+  currentLat: Number,
+  currentLon: Number,
+  destLat: Number,
+  destLon: Number,
 });
 
 module.exports = mongoose.model('RideRequest', rideRequestSchema);
