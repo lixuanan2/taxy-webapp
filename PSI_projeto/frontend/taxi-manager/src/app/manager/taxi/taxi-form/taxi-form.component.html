@@ -6,14 +6,16 @@
     <div class="col-md-6">
       <label class="form-label">Plate</label>
       <input name="plate" [(ngModel)]="taxi.plate"
+             (input)="onPlateInput($event)" 
              #plateRef="ngModel"
              required
-             pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d\-]+$"
+             [pattern]="getPlatePattern(taxi.year).pattern"  
+             maxlength="8"
              class="form-control"
              [ngClass]="{ 'is-invalid': plateRef.invalid && plateRef.touched }" />
     
       <div *ngIf="plateRef.invalid && plateRef.touched" class="invalid-feedback">
-        Plate must contain both letters and numbers.
+        {{ getPlatePattern(taxi.year).formatTip }} <!-- 显示动态提示 -->
       </div>
     </div>
     
@@ -74,6 +76,7 @@
       <button type="submit" class="btn btn-primary" [disabled]="!taxiForm.form.valid">
         ➕ Create Taxi
       </button>
+      <button type="button" class="btn btn-secondary" (click)="onClearForm()">🧹 Clear Form</button> 
     </div>
   </form>
 </div>

@@ -1,4 +1,3 @@
-// models/rideRequest.model.js
 const mongoose = require('mongoose');
 
 const rideRequestSchema = new mongoose.Schema({
