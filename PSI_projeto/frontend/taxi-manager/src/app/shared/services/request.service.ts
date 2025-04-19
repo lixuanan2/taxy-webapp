@@ -41,5 +41,17 @@ export class RequestService {
   rejectRequest(id: string): Observable<RideRequest> {
     return this.http.patch<RideRequest>(`${this.apiUrl}/${id}/reject`, {});
   }
+
+  // story 5
+  getAcceptedRequest(driverName: string): Observable<RideRequest | null> {
+    return this.http.get<RideRequest | null>(`${this.apiUrl}/accepted/${driverName}`);
+  }
+
+  // 清除完成的request
+  markRequestDone(requestId: string): Observable<any> {
+    return this.http.patch(`${this.apiUrl}/${requestId}/done`, {});
+  }
+  
+  
   
 }

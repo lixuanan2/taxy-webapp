@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RequestService } from '@services/request.service';
 import { RideRequest } from '@models/ride-request.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-request-list',
@@ -12,7 +13,10 @@ export class RequestListComponent implements OnInit {
   loading = true;
   driverName = '';
 
-  constructor(private requestService: RequestService) {}
+  constructor(
+    private requestService: RequestService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.driverName = localStorage.getItem('currentDriverName') || '';
@@ -44,7 +48,7 @@ export class RequestListComponent implements OnInit {
     this.requestService.acceptRequest(requestId, this.driverName).subscribe({
       next: () => {
         alert(`✅ Pedido aceito por ${this.driverName}!`);
-        this.loadRequests();
+        this.router.navigate(['/driver/dashboard']);
       },
       error: (err) => {
         alert('❌ Erro ao aceitar o pedido.');

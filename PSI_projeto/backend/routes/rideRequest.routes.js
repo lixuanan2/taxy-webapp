@@ -90,5 +90,36 @@ router.patch('/:id/reject', async (req, res) => {
   }
 });
 
+// GET /api/requests/accepted/:driverId
+router.get('/accepted/:driverId', async (req, res) => {
+  try {
+    const accepted = await RideRequest.findOne({
+      status: 'accepted',
+      driverId: req.params.driverId
+    });
+    res.json(accepted || null);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+// PATCH /api/request/:id/done → 标记为已完成
+router.patch('/:id/done', async (req, res) => {
+  try {
+    const updated = await RideRequest.findByIdAndUpdate(
+      req.params.id,
+      { status: 'done' },
+      { new: true }
+    );
+    if (!updated) {
+      return res.status(404).json({ error: 'Pedido não encontrado.' });
+    }
+    res.json(updated);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+
 
 module.exports = router;

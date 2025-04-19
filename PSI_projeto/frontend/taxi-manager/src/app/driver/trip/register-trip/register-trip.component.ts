@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { TripService } from '@services/trip.service';
 import { Trip } from '@models/trip.model';
 import { TurnService } from '@services/turn.service';
+import { RequestService } from '@shared/services/request.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register-trip',
@@ -25,7 +27,9 @@ export class RegisterTripComponent implements OnInit {
 
   constructor(
     private tripService: TripService,
-    private turnService: TurnService
+    private turnService: TurnService,
+    private requestService: RequestService,
+    private router: Router
   ) {}
 
   onSubmit(): void {
@@ -67,7 +71,23 @@ export class RegisterTripComponent implements OnInit {
             this.tripService.createTrip(this.trip).subscribe({
               next: () => {
                 alert('✅ Viagem registada com sucesso!');
+                
+                // ✅ 标记 request 为 done（保持原有逻辑）
+                const latestRequest = localStorage.getItem('latestRequest');
+                if (latestRequest) {
+                  const req = JSON.parse(latestRequest);
+                  this.requestService.markRequestDone(req._id).subscribe({
+                    next: () => console.log('🚫 Pedido marcado como concluído.'),
+                    error: err => console.warn('⚠️ Falha ao marcar pedido como concluído:', err)
+                  });
+                }
+            
+                // ✅ 清除缓存
                 localStorage.removeItem('latestRequest');
+            
+                // ✅ 跳转回 dashboard
+                this.router.navigate(['/driver/dashboard']);
+            
                 this.resetForm();
               },
               error: err => {
