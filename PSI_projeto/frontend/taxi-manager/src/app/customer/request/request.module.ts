@@ -6,7 +6,7 @@ import { RequestRoutingModule } from './request-routing.module';
 import { RequestCreateComponent } from './create/request-create.component';
 import { WaitingComponent } from './waiting/waiting.component';
 import { DriverConfirmDialogComponent } from './driver-confirm-dialog/driver-confirm-dialog.component';
-
+import { SharedModule } from '@shared/shared.module'; 
 
 @NgModule({
   declarations: [
@@ -17,7 +17,8 @@ import { DriverConfirmDialogComponent } from './driver-confirm-dialog/driver-con
   imports: [
     CommonModule,
     RequestRoutingModule,
-    FormsModule
+    FormsModule,
+    SharedModule
   ]
 })
 export class RequestModule { }

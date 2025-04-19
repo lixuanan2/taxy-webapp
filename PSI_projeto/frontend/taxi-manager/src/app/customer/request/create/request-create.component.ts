@@ -18,7 +18,7 @@ export class RequestCreateComponent {
   ) {}
 
   isLocating = true;
-  
+
   request: RideRequest = {
     nif: '',
     gender: '', 
@@ -92,6 +92,13 @@ export class RequestCreateComponent {
         console.error('Erro ao enviar pedido:', err);
         alert('❌ Falha ao enviar o pedido. Tente novamente.');
       }
+    });
+  }
+
+  onMapClick(event: any) { // ✅ 或直接写 { lat, lon }
+    const url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${event.lat}&lon=${event.lon}`;
+    this.http.get<any>(url).subscribe(data => {
+      this.request.destination = data.display_name;
     });
   }
 }

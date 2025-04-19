@@ -71,6 +71,8 @@
       
       <div *ngIf="isLocating" class="form-text text-info">🔄 A localizar...</div>
 
+      <app-map-picker (locationSelected)="onMapClick($event)"></app-map-picker>
+
     </form>
   </div>
   
