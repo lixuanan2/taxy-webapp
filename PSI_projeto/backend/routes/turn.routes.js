@@ -49,7 +49,6 @@ router.post('/', async (req, res) => {
 router.get('/driver/:nif', async (req, res) => {
   try {
     const turns = await Turn.find({ driverNif: req.params.nif }).sort({ startTime: 1 });
-    console.log('📋 当前司机 turn:', turns);
     res.json(turns);
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -64,20 +63,14 @@ router.get('/available', async (req, res) => {
     const startDate = new Date(start);
     const endDate = new Date(end);
 
-    console.log('🔍 Received start:', startDate.toISOString());
-    console.log('🔍 Received end:', endDate.toISOString());
-
     const activeTurns = await Turn.find({
       startTime: { $lt: endDate },
       endTime: { $gt: startDate }
     });
 
-    console.log('🔍 Active turns:', activeTurns);
-
     const busyPlates = activeTurns.map(t => t.taxiPlate);
     const availableTaxis = await Taxi.find({ plate: { $nin: busyPlates } });
 
-    console.log('✅ Available taxis:', availableTaxis);
     res.json(availableTaxis);
   } catch (err) {
     console.error('❌ Error in /available:', err);
