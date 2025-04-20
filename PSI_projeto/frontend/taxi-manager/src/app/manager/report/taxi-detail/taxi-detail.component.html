@@ -1,0 +1,35 @@
+<div class="container mt-4">
+    <h2>🚕 Detalhes do Táxi: {{ vehiclePlate }}</h2>
+  
+    <p>Período: {{ start | date:'shortDate' }} até {{ end | date:'shortDate' }}</p>
+  
+    <table class="table table-bordered table-sm mt-3">
+      <thead class="table-light">
+        <tr>
+          <th>Motorista</th>
+          <th>Início</th>
+          <th>Fim</th>
+          <th>Duração (h)</th>
+          <th>KM</th>
+          <th>Origem</th>
+          <th>Destino</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let trip of trips">
+          <td>{{ trip.driverName }}</td>
+          <td>{{ trip.startTime | date:'short' }}</td>
+          <td>{{ trip.endTime | date:'short' }}</td>
+          <td>{{ trip.durationHours.toFixed(2) }}</td>
+          <td>{{ trip.kmTraveled?.toFixed(2) || '—' }}</td>
+          <td>{{ trip.from }}</td>
+          <td>{{ trip.to }}</td>
+        </tr>
+      </tbody>
+    </table>
+</div>
+  
+<div class="mb-3">
+    <a routerLink="/manager/report" class="btn btn-secondary">← Voltar ao relatório</a>
+</div>
+  

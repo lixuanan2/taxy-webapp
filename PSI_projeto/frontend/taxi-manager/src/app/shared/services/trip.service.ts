@@ -24,4 +24,19 @@ export class TripService {
     return this.http.get<Trip[]>(`${this.apiUrl}?driverName=${driverName}`);
   }
   
+  // 为story12服务
+  getTrips(params: any = {}): Observable<any[]> {
+    const query = new URLSearchParams();
+    if (params.start) query.set('start', new Date(params.start).toISOString());
+    if (params.end) query.set('end', new Date(params.end).toISOString());
+    if (params.driverName) query.set('driverName', params.driverName);
+    if (params.vehiclePlate) query.set('vehiclePlate', params.vehiclePlate);
+  
+    return this.http.get<any[]>(`${this.apiUrl}?${query.toString()}`);
+  }
+
+  getTripById(id: string): Observable<Trip> {
+    return this.http.get<Trip>(`${this.apiUrl}/${id}`);
+  }
+  
 }

@@ -1,0 +1,72 @@
+<div class="container mt-4">
+    <h2>📊 Relatório de Viagens</h2>
+  
+    <div class="row mb-3">
+      <div class="col-md-3">
+        <label>Início:</label>
+        <input type="date" [(ngModel)]="start" class="form-control" (change)="onDateChange()" />
+      </div>
+      <div class="col-md-3">
+        <label>Fim:</label>
+        <input type="date" [(ngModel)]="end" class="form-control" (change)="onDateChange()" />
+      </div>
+    </div>
+  
+    <div class="row text-center mb-4">
+        <div class="col-md-4" (click)="goToTrip()">
+        <div class="card bg-light border-primary">
+          <div class="card-body">
+            <h5>Total de Viagens</h5>
+            <h2>{{ totalTrips }}</h2>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4" (click)="goToDriver('')">
+        <div class="card bg-light border-success">
+          <div class="card-body">
+            <h5>Total de Horas</h5>
+            <h2>{{ totalHours }} h</h2>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4" (click)="goToTaxi('')">
+        <div class="card bg-light border-warning">
+          <div class="card-body">
+            <h5>Total de KM</h5>
+            <h2>{{ totalKm }} km</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <h4 class="mt-4">👤 Horas por Motorista</h4>
+    <table class="table table-hover table-sm">
+      <thead><tr><th>Nome</th><th>Horas</th><th>KM</th></tr></thead>
+      <tbody>
+        <tr *ngFor="let d of driverStats" (click)="goToDriver(d.driverName)" style="cursor: pointer;">
+          <td>{{ d.driverName }}</td>
+          <td>{{ d.hours.toFixed(2) }}</td>
+          <td>{{ d.km.toFixed(2) }}</td>
+        </tr>
+        <tr *ngIf="driverStats.length === 0">
+          <td colspan="3" class="text-center text-muted">Nenhum motorista encontrado.</td>
+        </tr>
+      </tbody>      
+    </table>
+  
+    <h4 class="mt-4">🚕 Horas por Táxi</h4>
+    <table class="table table-hover table-sm">
+      <thead><tr><th>Matrícula</th><th>Horas</th><th>KM</th></tr></thead>
+      <tbody>
+        <tr *ngFor="let t of taxiStats" (click)="goToTaxi(t.vehiclePlate)" style="cursor: pointer;">
+          <td>{{ t.vehiclePlate }}</td>
+          <td>{{ t.hours.toFixed(2) }}</td>
+          <td>{{ t.km.toFixed(2) }}</td>
+        </tr>
+        <tr *ngIf="taxiStats.length === 0">
+          <td colspan="3" class="text-center text-muted">Nenhum táxi encontrado.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

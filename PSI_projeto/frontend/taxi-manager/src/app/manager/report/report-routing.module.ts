@@ -1,0 +1,22 @@
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+
+import { ReportDashboardComponent } from './report-dashboard/report-dashboard.component';
+
+import { DriverDetailComponent } from './driver-detail/driver-detail.component';
+import { TaxiDetailComponent } from './taxi-detail/taxi-detail.component';
+import { TripDetailComponent } from './trip-detail/trip-detail.component';
+
+
+const routes: Routes = [
+  { path: '', component: ReportDashboardComponent },
+  { path: 'trip', component: TripDetailComponent },
+  { path: 'driver/:name', component: DriverDetailComponent },
+  { path: 'taxi/:plate', component: TaxiDetailComponent }
+];
+
+@NgModule({
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
+})
+export class ReportRoutingModule { }

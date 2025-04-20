@@ -44,16 +44,143 @@ router.post('/', async (req, res) => {
 
 // GET /api/trip → 获取所有 trip 记录
 router.get('/', async (req, res) => {
-    try {
-      const driver = req.query.driverName;
-  
-      const filter = driver ? { driverName: driver } : {};
-      const trips = await Trip.find(filter);
-      res.json(trips);
-    } catch (err) {
-      res.status(500).json({ error: err.message });
+  try {
+    const driver = req.query.driverName;
+    const start = req.query.start ? new Date(req.query.start) : null;
+    const end = req.query.end ? new Date(req.query.end) : null;
+
+    const filter = {};
+
+    if (driver) filter.driverName = driver;
+    if (start && end) {
+      filter.startTime = { $gte: start, $lte: end };
     }
-  });
+
+    const trips = await Trip.find(filter).sort({ startTime: -1 });
+    res.json(trips);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
   
+// 获取 trip 总统计（默认今天）
+router.get('/stats', async (req, res) => {
+  const start = req.query.start ? new Date(req.query.start) : new Date();
+  start.setHours(0, 0, 0, 0);
+
+  const end = req.query.end ? new Date(req.query.end) : new Date();
+  end.setHours(23, 59, 59, 999);
+
+  const trips = await Trip.find({
+    startTime: { $gte: start, $lte: end }
+  });
+
+  const totalTrips = trips.length;
+  const totalHours = trips.reduce((sum, t) => {
+    const hours = (new Date(t.endTime) - new Date(t.startTime)) / 3600000;
+    return sum + hours;
+  }, 0);
+  const totalKm = trips.reduce((sum, t) => sum + (t.kmTraveled || 0), 0);
+
+  res.json({ totalTrips, totalHours, totalKm });
+});
+
+
+// GET /api/trip/stats/drivers → 每位司机的小时数或公里数
+router.get('/stats/drivers', async (req, res) => {
+  const start = new Date(req.query.start || new Date().setHours(0, 0, 0, 0));
+  const end = new Date(req.query.end || new Date());
+
+  const trips = await Trip.find({ startTime: { $gte: start, $lte: end } });
+
+  const map = new Map();
+
+  for (const t of trips) {
+    const key = t.driverName;
+    const hours = (new Date(t.endTime) - new Date(t.startTime)) / 3600000;
+    const km = t.kmTraveled || 0;
+
+    if (!map.has(key)) {
+      map.set(key, { driverName: key, hours: 0, km: 0 });
+    }
+
+    const d = map.get(key);
+    d.hours += hours;
+    d.km += km;
+  }
+
+  const result = Array.from(map.values()).sort((a, b) => b.hours - a.hours);
+  res.json(result);
+});
+
+// GET /api/trip/stats/taxis → 每辆 taxi 的小时数或公里数
+router.get('/stats/taxis', async (req, res) => {
+  const start = new Date(req.query.start || new Date().setHours(0, 0, 0, 0));
+  const end = new Date(req.query.end || new Date());
+
+  const trips = await Trip.find({
+    startTime: { $gte: start, $lte: end },
+    vehiclePlate: { $ne: '' } // 排除没填 plate 的情况
+  });
+
+  const map = new Map();
+
+  for (const t of trips) {
+    const key = t.vehiclePlate;
+    const hours = (new Date(t.endTime) - new Date(t.startTime)) / 3600000;
+    const km = t.kmTraveled || 0;
+
+    if (!map.has(key)) {
+      map.set(key, { vehiclePlate: key, hours: 0, km: 0 });
+    }
+
+    const d = map.get(key);
+    d.hours += hours;
+    d.km += km;
+  }
+
+  const result = Array.from(map.values()).sort((a, b) => b.hours - a.hours);
+  res.json(result);
+});
+
+// GET /api/trip/stats/driver/:name → 查看某司机的所有旅程（降序）
+router.get('/stats/driver/:name', async (req, res) => {
+  const name = req.params.name;
+  const start = new Date(req.query.start || new Date().setHours(0, 0, 0, 0));
+  const end = new Date(req.query.end || new Date());
+
+  const trips = await Trip.find({
+    driverName: name,
+    startTime: { $gte: start, $lte: end }
+  }).sort({ startTime: -1 }); // 最新在前
+
+  res.json(trips);
+});
+
+// GET /api/trip/stats/taxi/:plate → 查看某辆车的所有旅程（降序）
+router.get('/stats/taxi/:plate', async (req, res) => {
+  const plate = req.params.plate;
+  const start = new Date(req.query.start || new Date().setHours(0, 0, 0, 0));
+  const end = new Date(req.query.end || new Date());
+
+  const trips = await Trip.find({
+    vehiclePlate: plate,
+    startTime: { $gte: start, $lte: end }
+  }).sort({ startTime: -1 });
+
+  res.json(trips);
+});
+
+router.get('/:id', async (req, res) => {
+  try {
+    const trip = await Trip.findById(req.params.id);
+    if (!trip) return res.status(404).json({ message: 'Viagem não encontrada.' });
+    res.json(trip);
+  } catch (err) {
+    res.status(500).json({ message: 'Erro ao buscar viagem.', error: err.message });
+  }
+});
+
+
 
 module.exports = router;
