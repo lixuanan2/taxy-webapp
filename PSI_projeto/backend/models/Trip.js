@@ -13,7 +13,12 @@ const tripSchema = new mongoose.Schema({
   peopleCount: { type: Number, required: true },
   sequenceNumber: { type: Number, required: true },
   invoiceId: { type: mongoose.Schema.Types.ObjectId, ref: 'Invoice' },
-  createdAt: { type: Date, default: Date.now }
+  createdAt: { type: Date, default: Date.now },
+  fromLat: Number,
+  fromLon: Number,
+  toLat: Number,
+  toLon: Number,
+  kmTraveled: Number,
 });
 
 module.exports = mongoose.model('Trip', tripSchema);

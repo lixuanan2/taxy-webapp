@@ -120,6 +120,24 @@ router.patch('/:id/done', async (req, res) => {
   }
 });
 
+// PATCH /api/request/:id/confirm → 客户确认司机提议
+router.patch('/:id/confirm', async (req, res) => {
+  try {
+    const request = await RideRequest.findByIdAndUpdate(
+      req.params.id,
+      { confirmedByClient: true },
+      { new: true }
+    );
+    if (!request) {
+      return res.status(404).json({ error: 'Pedido não encontrado.' });
+    }
+    res.json(request);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+
 
 
 module.exports = router;

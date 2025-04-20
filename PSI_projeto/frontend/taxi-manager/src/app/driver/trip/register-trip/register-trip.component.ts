@@ -4,6 +4,8 @@ import { Trip } from '@models/trip.model';
 import { TurnService } from '@services/turn.service';
 import { RequestService } from '@shared/services/request.service';
 import { Router } from '@angular/router';
+import { PriceService } from '@services/price.service';
+
 
 @Component({
   selector: 'app-register-trip',
@@ -29,6 +31,7 @@ export class RegisterTripComponent implements OnInit {
     private tripService: TripService,
     private turnService: TurnService,
     private requestService: RequestService,
+    private priceService: PriceService,
     private router: Router
   ) {}
 
@@ -42,6 +45,13 @@ export class RegisterTripComponent implements OnInit {
 
     this.tripService.getTripsByDriver(driverName).subscribe({
       next: (existingTrips) => {
+
+        // ✅ 计算 sequenceNumber
+        const sequence = existingTrips.filter(t =>
+          new Date(t.startTime) < newStart
+        ).length + 1;
+        this.trip.sequenceNumber = sequence;
+
         const conflict = existingTrips.some(t => {
           const s = new Date(t.startTime);
           const e = new Date(t.endTime);
@@ -82,12 +92,12 @@ export class RegisterTripComponent implements OnInit {
                   });
                 }
             
-                // ✅ 清除缓存
+                // ✅ 先清除缓存
                 localStorage.removeItem('latestRequest');
-            
-                // ✅ 跳转回 dashboard
+
+                // ✅ 再跳转刷新 dashboard
                 this.router.navigate(['/driver/dashboard']);
-            
+                
                 this.resetForm();
               },
               error: err => {
@@ -127,13 +137,54 @@ export class RegisterTripComponent implements OnInit {
 
   ngOnInit(): void {
     const latestRequest = localStorage.getItem('latestRequest');
-    if (latestRequest) {
-      const request = JSON.parse(latestRequest);
-      this.trip.clientNIF = request.nif;
-      this.trip.from = request.currentLocation;
-      this.trip.to = request.destination;
-      this.trip.peopleCount = request.peopleCount || 1;
-    }
+    if (!latestRequest) return;
+  
+    const cached = JSON.parse(latestRequest);
+  
+    // ⛔ 只用 localStorage 不准，主动向服务器查一次状态
+    this.requestService.getRequestStatus(cached._id).subscribe(fresh => {
+      if (!fresh.confirmedByClient) {
+        alert('⚠️ O cliente ainda não confirmou a viagem.');
+        this.router.navigate(['/driver/dashboard']);
+        return;
+      }
+  
+      // ✅ 使用 fresh 数据填充 trip 信息
+      this.trip.clientNIF = fresh.nif;
+      this.trip.from = fresh.currentLocation;
+      this.trip.to = fresh.destination;
+      this.trip.peopleCount = fresh.peopleCount || 1;
+      this.trip.fromLat = fresh.currentLat;
+      this.trip.fromLon = fresh.currentLon;
+      this.trip.toLat = fresh.destLat;
+      this.trip.toLon = fresh.destLon;
+  
+      this.trip.kmTraveled = this.calculateDistanceKm(
+        fresh.currentLat,
+        fresh.currentLon,
+        fresh.destLat,
+        fresh.destLon
+      );
+  
+      this.estimatePrice(); // 💰估价
+    });
+  }
+  
+  
+  calculateDistanceKm(lat1: number, lon1: number, lat2: number, lon2: number): number {
+    const R = 6371;
+    const dLat = this.toRad(lat2 - lat1);
+    const dLon = this.toRad(lon2 - lon1);
+    const a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(this.toRad(lat1)) * Math.cos(this.toRad(lat2)) *
+      Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    return +(R * c).toFixed(2);  // 保留两位小数
+  }
+  
+  toRad(value: number): number {
+    return value * Math.PI / 180;
   }
 
   get formattedStartTime(): string {
@@ -142,6 +193,7 @@ export class RegisterTripComponent implements OnInit {
   
   set formattedStartTime(value: string) {
     this.trip.startTime = new Date(value);
+    this.estimatePrice();
   }
   
   get formattedEndTime(): string {
@@ -150,10 +202,27 @@ export class RegisterTripComponent implements OnInit {
   
   set formattedEndTime(value: string) {
     this.trip.endTime = new Date(value);
+    this.estimatePrice();
   }
   
   private formatDate(date: Date): string {
-    return date.toISOString().slice(0, 16); // 截取 "yyyy-MM-ddTHH:mm"
+    const offset = date.getTimezoneOffset(); // 时区偏移（分钟）
+    const localDate = new Date(date.getTime() - offset * 60000); // 转成本地时间
+    return localDate.toISOString().slice(0, 16); // yyyy-MM-ddTHH:mm
+  }
+  
+  
+  estimatePrice(): void {
+    this.priceService.getLatestPrice().subscribe(price => {
+      const hour = new Date(this.trip.startTime).getHours();
+      const isNight = hour >= 21 || hour < 6;
+  
+      const base = price.basic;
+      const rate = isNight ? base * (1 + price.nightBonus / 100) : base;
+  
+      const durationMin = (new Date(this.trip.endTime).getTime() - new Date(this.trip.startTime).getTime()) / 60000;
+      this.trip.price = +(durationMin * rate).toFixed(2);
+    });
   }
   
 }

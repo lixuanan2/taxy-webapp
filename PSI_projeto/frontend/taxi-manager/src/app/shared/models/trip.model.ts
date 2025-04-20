@@ -14,5 +14,11 @@ export interface Trip {
     createdAt?: Date;
 
     invoiceId?: string;
+
+    fromLat?: number;
+    fromLon?: number;
+    toLat?: number;
+    toLon?: number;
+    kmTraveled?: number;
   }
   

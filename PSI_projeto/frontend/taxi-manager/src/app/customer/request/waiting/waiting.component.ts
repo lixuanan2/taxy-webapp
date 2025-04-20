@@ -125,12 +125,7 @@ export class WaitingComponent implements OnInit, OnDestroy {
       clearInterval(this.pollingInterval);
     }
   }
-
-  onDriverAccepted(): void {
-    alert('✅ Motorista aceito! Redirecionando...');
-    this.router.navigate(['/customer/dashboard']);
-  }
-
+  
   onDriverRejected(): void {
     alert('❌ Motorista rejeitado. Continuando a procurar...');
     this.showDriverDialog = false;
@@ -151,6 +146,21 @@ export class WaitingComponent implements OnInit, OnDestroy {
   
   toRad(value: number): number {
     return value * Math.PI / 180;
+  }
+
+  onDriverAccepted(): void {
+    if (!this.requestId) return;
+  
+    this.requestService.confirmRequest(this.requestId).subscribe({
+      next: () => {
+        alert('✅ Motorista aceito! Redirecionando...');
+        this.router.navigate(['/customer/dashboard']);
+      },
+      error: err => {
+        console.error('❌ Falha ao confirmar motorista:', err);
+        alert('Erro ao confirmar motorista.');
+      }
+    });
   }
   
 }

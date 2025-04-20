@@ -12,5 +12,6 @@ export interface RideRequest {
     currentLon: number;
     destLat: number;
     destLon: number;
+    confirmedByClient?: boolean; 
   }
   

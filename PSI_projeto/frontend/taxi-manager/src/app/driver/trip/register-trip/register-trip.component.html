@@ -34,14 +34,19 @@
       </div>      
   
       <div class="col-md-6">
-        <label class="form-label">Preço</label>
-        <input type="number" name="price" [(ngModel)]="trip.price" required class="form-control" step="0.01" />
+        <label class="form-label">Preço (€)</label>
+        <input class="form-control" [value]="trip.price" readonly />
       </div>
   
       <div class="col-md-6">
         <label class="form-label">Matrícula</label>
         <input name="vehiclePlate" [(ngModel)]="trip.vehiclePlate" class="form-control" />
       </div>
+
+      <div class="col-md-6">
+        <label class="form-label">Distância (km)</label>
+        <input class="form-control" [value]="trip.kmTraveled" disabled />
+      </div>      
   
       <div class="col-12">
         <button class="btn btn-success" type="submit" [disabled]="!tripForm.valid">💾 Registar Viagem</button>

@@ -14,6 +14,7 @@ const rideRequestSchema = new mongoose.Schema({
   currentLon: Number,
   destLat: Number,
   destLon: Number,
+  confirmedByClient: { type: Boolean, default: false }
 });
 
 module.exports = mongoose.model('RideRequest', rideRequestSchema);

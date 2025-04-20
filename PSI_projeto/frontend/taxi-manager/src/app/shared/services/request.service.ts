@@ -52,6 +52,9 @@ export class RequestService {
     return this.http.patch(`${this.apiUrl}/${requestId}/done`, {});
   }
   
+  confirmRequest(id: string): Observable<RideRequest> {
+    return this.http.patch<RideRequest>(`${this.apiUrl}/${id}/confirm`, {});
+  }
   
   
 }

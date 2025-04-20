@@ -104,14 +104,18 @@ export class CreateTurnComponent implements OnInit {
   getTodayTime(timeStr: string): Date {
     const [hours, minutes] = timeStr.split(':').map(Number);
     const now = new Date();
-    return new Date(
+    const local = new Date(
       now.getFullYear(),
       now.getMonth(),
       now.getDate(),
       hours,
       minutes
     );
+    // 💡 补回本地时区偏移（防止 UTC 偏差）
+    const offset = local.getTimezoneOffset();
+    return new Date(local.getTime() - offset * 60000);
   }
+  
 
 
   resetForm() {

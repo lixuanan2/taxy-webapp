@@ -34,15 +34,39 @@ export class DashboardComponent implements OnInit {
 
   checkForPendingTrip() {
     const driverName = localStorage.getItem('currentDriverName') || '';
-    this.requestService.getAcceptedRequest(driverName).subscribe({
-      next: (req) => {
-        this.hasPendingTrip = !!req;
+    const latestRequest = localStorage.getItem('latestRequest');
+  
+    if (!latestRequest) {
+      this.hasPendingTrip = false;
+      return;
+    }
+  
+    const req = JSON.parse(latestRequest);
+  
+    this.requestService.getRequestStatus(req._id).subscribe({
+      next: fresh => {
+        if (fresh.status === 'rejected' || fresh.status === 'cancelled' || fresh.status === 'done') {
+          // ❌ 被拒绝、取消或已完成 → 清除 localStorage 并隐藏提示
+          localStorage.removeItem('latestRequest');
+          this.hasPendingTrip = false;
+          return;
+        }
+  
+        if (fresh.status === 'accepted' && fresh.confirmedByClient) {
+          // ✅ 已接受且客户确认
+          this.hasPendingTrip = true;
+        } else {
+          // ⛔ 未确认，隐藏提示（你可以在这里弹 alert 提醒司机）
+          this.hasPendingTrip = false;
+        }
       },
       error: err => {
         console.warn('⚠️ Falha ao verificar pedidos aceites:', err);
+        this.hasPendingTrip = false;
       }
     });
   }
+  
 
   loadInvoices() {
     this.invoiceService.getInvoices().subscribe({
