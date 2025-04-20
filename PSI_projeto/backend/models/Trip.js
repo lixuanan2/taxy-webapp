@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 
 const tripSchema = new mongoose.Schema({
   driverName: { type: String, required: true },
+  //driverNIF: { type: String, required: true },  
   clientNIF: { type: String, required: true },
   from: { type: String, required: true },        // 起点地址（简化为文字）
   to: { type: String, required: true },          // 终点地址（简化为文字）
@@ -10,6 +11,7 @@ const tripSchema = new mongoose.Schema({
   endTime: { type: Date, required: true },
   price: { type: Number, required: true },
   vehiclePlate: { type: String },                // 可选，司机的车牌号
+  //vehiclePlate: { type: String, required: true }, 
   peopleCount: { type: Number, required: true },
   sequenceNumber: { type: Number, required: true },
   invoiceId: { type: mongoose.Schema.Types.ObjectId, ref: 'Invoice' },

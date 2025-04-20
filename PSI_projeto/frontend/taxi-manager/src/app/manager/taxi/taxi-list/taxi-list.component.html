@@ -1,5 +1,4 @@
-
-<h2>Taxi List</h2>
+<h2>🚕 Taxi List</h2>
 
 <table class="table table-striped table-bordered table-hover mt-3">
   <thead>
@@ -10,6 +9,7 @@
       <th>Year</th>
       <th>Comfort</th>
       <th>Created</th>
+      <th>Actions</th>
     </tr>
   </thead>
   <tbody>
@@ -20,6 +20,10 @@
       <td>{{ taxi.year }}</td>
       <td>{{ taxi.comfortLevel }}</td>
       <td>{{ taxi.createdAt | date:'short' }}</td>
+      <td>
+        <button class="btn btn-sm btn-primary" (click)="editTaxi(taxi.plate)">Editar</button>
+        <button class="btn btn-sm btn-outline-danger" (click)="deleteTaxi(taxi.plate)">🗑️ Delete</button>
+      </td>
     </tr>
   </tbody>
 </table>

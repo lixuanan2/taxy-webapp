@@ -20,4 +20,17 @@ export class TaxiService {
   createTaxi(taxi: Taxi): Observable<Taxi> {
     return this.http.post<Taxi>(this.apiUrl, taxi);   // 发送POST请求,创建新taxi
   }
+
+  deleteTaxi(plate: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${plate}`);
+  }
+
+  getTaxiByPlate(plate: string): Observable<Taxi> {
+    return this.http.get<Taxi>(`${this.apiUrl}/${plate}`);
+  }
+
+  updateTaxi(taxi: Taxi): Observable<Taxi> {
+    return this.http.put<Taxi>(`${this.apiUrl}/${taxi.plate}`, taxi);
+  }  
+  
 }

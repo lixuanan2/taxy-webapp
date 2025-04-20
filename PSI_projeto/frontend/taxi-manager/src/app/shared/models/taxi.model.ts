@@ -6,5 +6,6 @@ export interface Taxi {
     year: number;                           // 购买年份
     comfortLevel: 'basic' | 'luxury';       // 舒适度
     createdAt?: Date;              // 该文档创建时间，用于展示
+    updatedAt?: Date;
 }
   

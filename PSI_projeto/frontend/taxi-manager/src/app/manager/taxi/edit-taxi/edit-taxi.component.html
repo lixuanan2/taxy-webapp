@@ -1,0 +1,28 @@
+<div class="container mt-4">
+    <h2>✏️ Editar Táxi: {{ taxi.plate }}</h2>
+  
+    <form (ngSubmit)="onSubmit()" #editForm="ngForm">
+      <div class="mb-3">
+        <label class="form-label">Marca</label>
+        <input [(ngModel)]="taxi.brand" name="brand" required class="form-control" />
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Modelo</label>
+        <input [(ngModel)]="taxi.model" name="model" required class="form-control" />
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Ano</label>
+        <input [(ngModel)]="taxi.year" name="year" required type="number" class="form-control" />
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Conforto</label>
+        <select [(ngModel)]="taxi.comfortLevel" name="comfortLevel" class="form-control">
+          <option value="basic">Básico</option>
+          <option value="luxury">Luxo</option>
+        </select>
+      </div>
+  
+      <button class="btn btn-success" type="submit">💾 Guardar Alterações</button>
+    </form>
+  </div>
+  

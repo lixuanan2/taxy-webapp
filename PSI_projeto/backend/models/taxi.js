@@ -7,7 +7,8 @@ const taxiSchema = new mongoose.Schema({
   model: { type: String, required: true },
   year: { type: Number, required: true },
   comfortLevel: { type: String, enum: ['basic', 'luxury'], required: true },
-  createdAt: { type: Date, default: Date.now }
+  createdAt: { type: Date, default: Date.now },
+  updatedAt: { type: Date, default: Date.now }
 });
 
 module.exports = mongoose.model('Taxi', taxiSchema);

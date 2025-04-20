@@ -5,12 +5,14 @@ import { FormsModule } from '@angular/forms';
 import { TaxiRoutingModule } from './taxi-routing.module';
 import { TaxiListComponent } from './taxi-list/taxi-list.component';
 import { TaxiFormComponent } from './taxi-form/taxi-form.component';
+import { EditTaxiComponent } from './edit-taxi/edit-taxi.component';
 
 
 @NgModule({
   declarations: [
     TaxiListComponent,
-    TaxiFormComponent
+    TaxiFormComponent,
+    EditTaxiComponent
   ],
   imports: [
     CommonModule,
