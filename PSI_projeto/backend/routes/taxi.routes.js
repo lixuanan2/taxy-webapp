@@ -3,6 +3,7 @@ const router = express.Router();
 const Taxi = require('../models/Taxi');
 const Turn = require('../models/Turn'); // 引入turn
 const Trip = require('../models/Trip'); // 引入trip
+const Driver = require('../models/Driver'); 
 
 // POST: 添加一个新的taxi
 router.post('/', async (req, res) => {
@@ -75,16 +76,22 @@ router.put('/:plate', async (req, res) => {
     const taxi = await Taxi.findOne({ plate });
     if (!taxi) return res.status(404).json({ message: 'Táxi não encontrado.' });
 
-    // 🚧 新逻辑：通过 turn 找出用过这辆车的司机，再看司机是否已进行 trip
+    // 🚕 1. 找出所有与这辆车绑定的 Turn 记录
     const relatedTurns = await Turn.find({ taxiPlate: plate });
     const relatedNifs = relatedTurns.map(t => t.driverNif);
 
     let usedInTrip = false;
+
     if (relatedNifs.length > 0) {
-      usedInTrip = await Trip.exists({ driverNIF: { $in: relatedNifs } });
+      // 👤 2. 查找所有对应的 driverName
+      const drivers = await Driver.find({ nif: { $in: relatedNifs } });
+      const relatedNames = drivers.map(d => d.name);
+
+      // 📦 3. 用这些 driverName 去 Trip 表查有没有行程
+      usedInTrip = await Trip.exists({ driverName: { $in: relatedNames } });
     }
 
-    // 🚫 如果想改 comfortLevel，但该 taxi 已用于 trip，就禁止
+    // ❌ 如果 taxi 已用于 trip，禁止修改 comfortLevel
     if (
       usedInTrip &&
       updateData.comfortLevel &&
