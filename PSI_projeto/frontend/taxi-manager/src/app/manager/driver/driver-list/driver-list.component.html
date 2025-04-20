@@ -23,7 +23,15 @@
             {{ driver.address.street }}, {{ driver.address.number }},
             {{ driver.address.postalCode }} {{ driver.address.city }}
           </td>
-        </tr>
+          <td>
+            <button
+              class="btn btn-sm btn-primary"
+              [routerLink]="['/manager/driver/edit', driver.nif]">
+              Editar
+            </button>
+            <button class="btn btn-sm btn-danger" (click)="onDelete(driver)">Remover</button>
+          </td>
+        </tr>        
       </tbody>
     </table>
   </div>

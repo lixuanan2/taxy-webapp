@@ -16,4 +16,17 @@ export class DriverService {
   createDriver(driver: Driver): Observable<Driver> {
     return this.http.post<Driver>(this.apiUrl, driver);
   }
+
+  deleteDriver(nif: string) {
+    return this.http.delete(`/api/drivers/${nif}`);
+  }
+  
+  getDriverByNif(nif: string): Observable<Driver> {
+    return this.http.get<Driver>(`${this.apiUrl}/${nif}`);
+  }
+  
+  updateDriver(nif: string, data: Driver): Observable<any> {
+    return this.http.put(`${this.apiUrl}/${nif}`, data);
+  }
+  
 }

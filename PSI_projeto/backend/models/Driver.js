@@ -15,7 +15,8 @@ const driverSchema = new mongoose.Schema({
   nif: { type: String, required: true, unique: true },
   licenseNumber: { type: String, required: true, unique: true },
   address: { type: addressSchema, required: true },
-  createdAt: { type: Date, default: Date.now }
+  createdAt: { type: Date, default: Date.now },
+  updatedAt: { type: Date, default: Date.now }
 });
 
 module.exports = mongoose.model('Driver', driverSchema);

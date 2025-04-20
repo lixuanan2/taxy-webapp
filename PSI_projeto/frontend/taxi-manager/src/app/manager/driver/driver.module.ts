@@ -6,11 +6,13 @@ import { DriverListComponent } from './driver-list/driver-list.component';
 import { DriverFormComponent } from './driver-form/driver-form.component';
 import { FormsModule } from '@angular/forms';
 import { SharedModule } from '@shared/shared.module';
+import { EditDriverComponent } from './edit-driver/edit-driver.component';
 
 @NgModule({
   declarations: [
     DriverListComponent,
-    DriverFormComponent
+    DriverFormComponent,
+    EditDriverComponent
   ],
   imports: [
     CommonModule,

@@ -13,4 +13,6 @@ export interface Driver {
     };
     lat?: number;   // 为地图服务
     lon?: number; 
+    createdAt?: Date;              // 该文档创建时间，用于展示
+    updatedAt?: Date;
 }
