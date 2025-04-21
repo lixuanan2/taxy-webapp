@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { DriverLoginComponent } from '@driver/login/login.component';
 import { DashboardComponent } from '@driver/dashboard/dashboard.component';
-import { RequestListComponent } from './request/request-list/request-list.component';
+import { RequestListComponent } from './request-list/request-list.component';
 
 const routes: Routes = [
   { path: 'login', component: DriverLoginComponent },          // 登录页

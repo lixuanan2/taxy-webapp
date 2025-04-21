@@ -21,6 +21,8 @@
         <button class="btn btn-success w-50" (click)="accept(req._id!)">Aceitar</button>
         <button class="btn btn-outline-danger w-50" (click)="reject(req._id!)">Rejeitar</button>
       </div>      
+      <p><strong>Previsão:</strong> {{ getEstimatedTime(req) }}</p>
+
     </div>
   </div>
   
