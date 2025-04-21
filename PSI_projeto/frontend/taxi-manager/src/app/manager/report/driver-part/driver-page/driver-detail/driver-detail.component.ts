@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { TripService } from '@services/trip.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ReportService } from '@shared/services/report.service';
 
 @Component({
   selector: 'app-driver-detail',
@@ -9,27 +9,36 @@ import { TripService } from '@services/trip.service';
 })
 export class DriverDetailComponent implements OnInit {
   driverName = '';
-  start = new Date(new Date().setHours(0, 0, 0, 0));
-  end = new Date();
+  start = '';
+  end = '';
   trips: any[] = [];
 
-  constructor(private route: ActivatedRoute, private tripService: TripService) {}
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private reportService: ReportService
+  ) {}
 
   ngOnInit(): void {
     this.driverName = this.route.snapshot.paramMap.get('name') || '';
+    this.start = this.route.snapshot.queryParamMap.get('start') || '';
+    this.end = this.route.snapshot.queryParamMap.get('end') || '';
+
     this.loadTrips();
   }
 
   loadTrips(): void {
-    this.tripService.getTrips({
-      start: this.start,
-      end: this.end,
-      driverName: this.driverName
-    }).subscribe(data => {
-      this.trips = data.map((t: any) => ({
+    this.reportService.getTripsByDriver(this.driverName, this.start, this.end).subscribe(data => {
+      this.trips = data.map(t => ({
         ...t,
         durationHours: (new Date(t.endTime).getTime() - new Date(t.startTime).getTime()) / 3600000
       }));
+    });
+  }
+
+  goBack(): void {
+    this.router.navigate(['/manager/report/driver-list'], {
+      queryParams: { start: this.start, end: this.end }
     });
   }
 }

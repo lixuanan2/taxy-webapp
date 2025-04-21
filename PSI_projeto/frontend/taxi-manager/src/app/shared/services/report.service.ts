@@ -46,7 +46,7 @@ export class ReportService {
       .set('start', start)
       .set('end', end);
     return this.http.get<any[]>(`${this.tripApiUrl}/details/taxi`, { params });
-  }
+  }  
 
   // ✅ 获取客户统计数据（来自 request 模块）
   getCustomerStats(start: string, end: string): Observable<any[]> {

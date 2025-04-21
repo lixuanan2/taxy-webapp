@@ -2,9 +2,11 @@ const express = require('express');
 const router = express.Router();
 const Trip = require('../models/Trip');
 const Turn = require('../models/Turn');
+const Driver = require('../models/Driver');
+
 
 // POST /api/trip → 注册新旅程
-// POST /api/trip → 注册新旅程
+/** 
 router.post('/', async (req, res) => {
   try {
     const driver = req.body.driverName;
@@ -50,7 +52,57 @@ router.post('/', async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
-  
+*/
+
+// POST /api/trip → 注册新旅程
+router.post('/', async (req, res) => {
+  try {
+    const driverName = req.body.driverName;
+    const newStart = new Date(req.body.startTime);
+    const newEnd = new Date(req.body.endTime);
+
+    if (newStart >= newEnd) {
+      return res.status(400).json({ error: 'Hora de início deve ser anterior à de fim.' });
+    }
+
+    const overlap = await Trip.findOne({
+      driverName,
+      $or: [
+        { startTime: { $lt: newEnd }, endTime: { $gt: newStart } }
+      ]
+    });
+    if (overlap) {
+      return res.status(400).json({ error: 'Já existe uma viagem neste horário.' });
+    }
+
+    const tripCount = await Trip.countDocuments({ driverName });
+    const sequence = tripCount + 1;
+
+    // ✅ 查询 Driver 表获取 NIF
+    const driverDoc = await Driver.findOne({ name: driverName });
+    const driverNIF = driverDoc?.nif;
+
+    // ✅ 查询 Turn 表获取车牌（匹配 driverNIF + 时间）
+    const matchedTurn = await Turn.findOne({
+      driverNIF,
+      startTime: { $lte: newStart },
+      endTime: { $gte: newEnd }
+    });
+
+    const newTrip = new Trip({
+      ...req.body,
+      sequenceNumber: sequence,
+      vehiclePlate: matchedTurn?.vehiclePlate || ''
+    });
+
+    await newTrip.save();
+    res.status(201).json(newTrip);
+
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 
 // GET /api/trip → 获取所有 trip 记录
 router.get('/', async (req, res) => {
@@ -309,6 +361,46 @@ router.get('/stats/customer/:nif', async (req, res) => {
       clientNIF: nif,
       createdAt: { $gte: start, $lte: end }
     }).sort({ createdAt: -1 });
+
+    res.json(trips);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// GET /api/trip/details/driver → 查询某司机的旅程（按 startTime 降序）
+router.get('/details/driver', async (req, res) => {
+  try {
+    const name = req.query.driverName;
+    const start = req.query.start ? new Date(req.query.start) : new Date();
+    start.setHours(0, 0, 0, 0);
+    const end = req.query.end ? new Date(req.query.end) : new Date();
+    end.setHours(23, 59, 59, 999);
+
+    const trips = await Trip.find({
+      driverName: name,
+      startTime: { $gte: start, $lte: end }
+    }).sort({ startTime: -1 });
+
+    res.json(trips);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// GET /api/trip/details/taxi → 某辆出租车的旅程（按 startTime 降序）
+router.get('/details/taxi', async (req, res) => {
+  try {
+    const plate = req.query.vehiclePlate;
+    const start = req.query.start ? new Date(req.query.start) : new Date();
+    start.setHours(0, 0, 0, 0);
+    const end = req.query.end ? new Date(req.query.end) : new Date();
+    end.setHours(23, 59, 59, 999);
+
+    const trips = await Trip.find({
+      vehiclePlate: plate,
+      startTime: { $gte: start, $lte: end }
+    }).sort({ startTime: -1 });
 
     res.json(trips);
   } catch (err) {
