@@ -1,16 +1,34 @@
 <div class="container mt-4">
-    <h2>📌 Detalhes do Cliente</h2>
-    <div *ngIf="customer">
-      <ul class="list-group">
-        <li class="list-group-item"><strong>Nome:</strong> {{ customer.nif }}</li>
-        <li class="list-group-item"><strong>Gênero:</strong> {{ customer.gender }}</li>
-        <li class="list-group-item"><strong>Localização Atual:</strong> {{ customer.currentLocation }}</li>
-        <li class="list-group-item"><strong>Destino:</strong> {{ customer.destination }}</li>
-        <li class="list-group-item"><strong>Passageiros:</strong> {{ customer.peopleCount }}</li>
-        <li class="list-group-item"><strong>Status:</strong> {{ customer.status || 'Pendente' }}</li>
-        <li class="list-group-item"><strong>Confirmado pelo cliente:</strong> {{ customer.confirmedByClient ? 'Sim' : 'Não' }}</li>
-      </ul>
-      <button class="btn btn-secondary mt-3" (click)="goBack()">⬅ Voltar</button>
-    </div>
+  <h2>📌 Detalhes do Cliente</h2>
+
+  <div class="mb-3">
+    <strong>Cliente NIF:</strong> {{ clientNIF }}
   </div>
-  
+
+  <div *ngIf="trips.length > 0; else noTrips">
+    <table class="table table-bordered table-sm table-hover">
+      <thead class="thead-light">
+        <tr>
+          <th>ID da Viagem</th>
+          <th>Data</th>
+          <th>Valor (€)</th>
+          <th>Motorista</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let trip of trips">
+          <td>{{ trip.tripId || trip._id }}</td>
+          <td>{{ trip.createdAt | date: 'short' }}</td>
+          <td>{{ trip.value?.toFixed(2) || trip.price?.toFixed(2) }}</td>
+          <td>{{ trip.driverId || trip.driverName }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <ng-template #noTrips>
+    <p>❗ Nenhuma viagem encontrada para este cliente no período selecionado.</p>
+  </ng-template>
+
+  <button class="btn btn-secondary mt-3" (click)="goBack()">⬅ Voltar</button>
+</div>

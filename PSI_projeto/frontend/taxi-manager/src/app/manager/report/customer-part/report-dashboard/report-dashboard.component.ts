@@ -30,7 +30,6 @@ export class CustomerReportDashboardComponent implements OnInit {
 
   loadAllStats(): void {
     this.reportService.getCustomerOverallStats(this.start, this.end).subscribe(data => {
-      console.log('📦 后端总统计数据:', data);
       this.totalAmount = data.totalAmount;
       this.totalTrips = data.totalTrips;
       this.totalClients = data.totalClients;

@@ -65,7 +65,11 @@ export class ReportService {
     return this.http.get<any>(`${this.tripApiUrl}/stats/customers/overall`, { params });
   }
   
-
+  getTripsByClientNIF(nif: string, start: string, end: string): Observable<any[]> {
+    const params = new HttpParams().set('start', start).set('end', end);
+    return this.http.get<any[]>(`${this.tripApiUrl}/stats/customer/${nif}`, { params });
+  }
+  
   
   
 }

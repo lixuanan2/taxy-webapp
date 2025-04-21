@@ -296,5 +296,27 @@ router.get('/stats/customers/overall', async (req, res) => {
   }
 });
 
+// GET /api/trip/stats/customer/:nif → 某客户的所有旅程（按时间降序）
+router.get('/stats/customer/:nif', async (req, res) => {
+  try {
+    const nif = req.params.nif;
+    const start = req.query.start ? new Date(req.query.start) : new Date();
+    start.setHours(0, 0, 0, 0);
+    const end = req.query.end ? new Date(req.query.end) : new Date();
+    end.setHours(23, 59, 59, 999);
+
+    const trips = await Trip.find({
+      clientNIF: nif,
+      createdAt: { $gte: start, $lte: end }
+    }).sort({ createdAt: -1 });
+
+    res.json(trips);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+
+
 
 module.exports = router;
