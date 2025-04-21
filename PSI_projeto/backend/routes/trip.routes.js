@@ -6,7 +6,7 @@ const Driver = require('../models/Driver');
 
 
 // POST /api/trip → 注册新旅程
-/** 
+
 router.post('/', async (req, res) => {
   try {
     const driver = req.body.driverName;
@@ -52,8 +52,8 @@ router.post('/', async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
-*/
 
+/** 
 // POST /api/trip → 注册新旅程
 router.post('/', async (req, res) => {
   try {
@@ -102,7 +102,7 @@ router.post('/', async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
-
+*/
 
 // GET /api/trip → 获取所有 trip 记录
 router.get('/', async (req, res) => {
@@ -245,35 +245,33 @@ router.get('/:id', async (req, res) => {
 
 // GET /api/trip/stats/customers → 每位客户的支付金额和旅程数量
 router.get('/stats/customers', async (req, res) => {
-  try {
-    const start = new Date(req.query.start || new Date().setHours(0, 0, 0, 0));
-    const end = new Date(req.query.end || new Date());
+  const start = new Date(req.query.start || new Date().setHours(0, 0, 0, 0));
+  const end = new Date(req.query.end || new Date());
+  end.setHours(23, 59, 59, 999);
 
-    const trips = await Trip.find({
-      createdAt: { $gte: start, $lte: end }
-    });
+  const trips = await Trip.find({
+    startTime: { $gte: start, $lte: end }
+  });
 
-    const map = new Map();
+  const map = new Map();
 
-    for (const t of trips) {
-      const key = t.clientNIF;
-      const value = t.price;
+  for (const t of trips) {
+    const key = t.clientNIF;
+    const value = t.price;
 
-      if (!map.has(key)) {
-        map.set(key, { clientNIF: key, totalPaid: 0, tripCount: 0 });
-      }
-
-      const c = map.get(key);
-      c.totalPaid += value;
-      c.tripCount += 1;
+    if (!map.has(key)) {
+      map.set(key, { clientNIF: key, totalPaid: 0, tripCount: 0 });
     }
 
-    const result = Array.from(map.values()).sort((a, b) => b.totalPaid - a.totalPaid);
-    res.json(result);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
+    const c = map.get(key);
+    c.totalPaid += value;
+    c.tripCount += 1;
   }
+
+  const result = Array.from(map.values()).sort((a, b) => b.totalPaid - a.totalPaid);
+  res.json(result);
 });
+
 
 // GET /api/trip/stats/trips → 每一笔 Trip 明细（用于下表）
 router.get('/stats/trips', async (req, res) => {
