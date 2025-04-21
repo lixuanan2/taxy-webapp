@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ReportService } from '@shared/services/report.service';  // 你已经有的服务
-import { RequestService } from '@shared/services/request.service';  // 你已经有的服务
+import { ActivatedRoute } from '@angular/router';
+
 
 @Component({
   selector: 'app-customer-report-dashboard',
@@ -21,12 +22,20 @@ export class CustomerReportDashboardComponent implements OnInit {
 
   constructor(
     private reportService: ReportService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
+    const queryStart = this.route.snapshot.queryParamMap.get('start');
+    const queryEnd = this.route.snapshot.queryParamMap.get('end');
+  
+    this.start = queryStart || new Date().toISOString().slice(0, 10);
+    this.end = queryEnd || new Date().toISOString().slice(0, 10);
+  
     this.loadAllStats();
   }
+  
 
   loadAllStats(): void {
     this.reportService.getCustomerOverallStats(this.start, this.end).subscribe(data => {
@@ -55,17 +64,11 @@ export class CustomerReportDashboardComponent implements OnInit {
     });
   }
 
-  goToCustomer(clientNIF: string): void {
-    //if (!clientNIF) return;  // ⛔ 不跳转
-    this.router.navigate(['/manager/customer-report/customer-detail', clientNIF], {
+  goToCustomerList(): void {
+    this.router.navigate(['/manager/customer-report/customer-list'], {
       queryParams: { start: this.start, end: this.end }
     });
   }
   
-  // Other navigational methods if needed
-  goToInvoice(invoiceId: string): void {
-    this.router.navigate(['/manager/custmor-report/invoice', invoiceId], {
-      queryParams: { start: this.start, end: this.end }
-    });
-  }
+  
 }

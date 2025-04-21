@@ -33,7 +33,7 @@ export class CustomerDetailComponent implements OnInit {
   }
 
   goBack(): void {
-    this.router.navigate(['/manager/customer-report'], {
+    this.router.navigate(['/manager/customer-report/customer-list'], {
       queryParams: { start: this.start, end: this.end }
     });
   }

@@ -1,0 +1,23 @@
+<div class="container mt-4">
+    <h2>👤 Lista de Clientes</h2>
+  
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>NIF</th>
+          <th>Euros Pagos</th>
+          <th>Viagens</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let c of customerStats" (click)="goToCustomerDetail(c.clientNIF)">
+          <td>{{ c.clientNIF }}</td>
+          <td>{{ c.totalPaid | currency: 'EUR' }}</td>
+          <td>{{ c.tripCount }}</td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <button class="btn btn-secondary mt-3" (click)="goBack()">⬅ Voltar</button>
+</div>
+  

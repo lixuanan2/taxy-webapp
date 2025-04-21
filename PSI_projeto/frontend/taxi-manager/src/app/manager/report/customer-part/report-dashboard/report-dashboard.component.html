@@ -13,7 +13,7 @@
     </div>
   
     <div class="row text-center mb-4">
-      <div class="col-md-4" (click)="goToCustomer('')">
+      <div class="col-md-4" (click)="goToCustomerList()">
         <div class="card bg-light border-primary">
           <div class="card-body">
             <h5>Total de Euros Cobrados</h5>
@@ -29,7 +29,7 @@
           </div>
         </div>
       </div>
-      <div class="col-md-4" (click)="goToCustomer('')">
+      <div class="col-md-4" (click)="goToCustomerList()">
         <div class="card bg-light border-warning">
           <div class="card-body">
             <h5>Total de Clientes</h5>
@@ -40,35 +40,4 @@
     </div>
 
 
-  
-    <h4 class="mt-4">👤 Euros pagos por Cliente</h4>
-    <table class="table table-hover table-sm">
-      <thead>
-        <tr>
-          <th>Cliente</th>
-          <th>Euros Pagos</th>
-          <th>People Count</th>      
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let stat of customerStats" (click)="goToCustomer(stat.clientNIF)">
-          <td>{{ stat.clientNIF || 'N/A' }}</td>
-          <td>{{ stat.totalPaid | currency: 'EUR' }}</td>
-          <td>{{ stat.tripCount }}</td>
-        </tr>
-      </tbody>
-    </table>
-  
-    <h4 class="mt-4">🚗 Viagens Detalhadas por Cliente</h4>
-    <table class="table table-hover table-sm">
-      <thead><tr><th>Viagem</th><th>Data</th><th>Valor</th><th>Motorista</th></tr></thead>
-      <tbody>
-        <tr *ngFor="let trip of tripStats">
-          <td>{{ trip.tripId }}</td>
-          <td>{{ trip.createdAt | date:'short' }}</td>
-          <td>€{{ trip.value.toFixed(2) }}</td>
-          <td>{{ trip.driverId }}</td>
-        </tr>        
-      </tbody>
-    </table>
 </div>

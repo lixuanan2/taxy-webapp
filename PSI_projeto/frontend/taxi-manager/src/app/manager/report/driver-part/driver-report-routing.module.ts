@@ -3,8 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { ReportDashboardComponent } from './report-dashboard/report-dashboard.component';
 
-import { DriverDetailComponent } from './driver-detail/driver-detail.component';
-import { TaxiDetailComponent } from './taxi-detail/taxi-detail.component';
+import { DriverDetailComponent } from './driver-page/driver-detail/driver-detail.component';
+import { TaxiDetailComponent } from './taxi-page/taxi-detail/taxi-detail.component';
 import { TripDetailComponent } from '../trip-part/trip-detail/trip-detail.component';
 
 

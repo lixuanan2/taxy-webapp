@@ -6,11 +6,13 @@ import { CustomerReportRoutingModule } from './customer-report-routing.module';
 import { CustomerReportDashboardComponent } from './report-dashboard/report-dashboard.component'; 
 import { CustomerDetailComponent } from './customer-detail/customer-detail.component';
 import { DriverReportModule } from '../driver-part/driver-report.module';
+import { CustomerListComponent } from './customer-list/customer-list.component';
 
 @NgModule({
   declarations: [
     CustomerReportDashboardComponent,
-    CustomerDetailComponent
+    CustomerDetailComponent,
+    CustomerListComponent
   ],
   imports: [
     CommonModule,
