@@ -50,19 +50,22 @@ export class ReportService {
   // ✅ 获取客户统计数据（来自 request 模块）
   getCustomerStats(start: string, end: string): Observable<any[]> {
     const params = new HttpParams().set('start', start).set('end', end);
-    return this.http.get<any[]>(`${this.requestApiUrl}/stats/customers`, { params });
+    return this.http.get<any[]>(`${this.tripApiUrl}/stats/customers`, { params });
   }
 
-  // ✅ 获取旅程统计数据（来自 request 模块）
+  // ✅ 旅程明细（用于下方表格：每一笔）
   getTripStats(start: string, end: string): Observable<any[]> {
     const params = new HttpParams().set('start', start).set('end', end);
-    return this.http.get<any[]>(`${this.requestApiUrl}/stats/trips`, { params });
+    return this.http.get<any[]>(`${this.tripApiUrl}/stats/trips`, { params });
   }
 
+  // ✅ 客户统计汇总（用于上方：总金额 / 总客户数 / 总旅程数）
   getCustomerOverallStats(start: string, end: string): Observable<any> {
     const params = new HttpParams().set('start', start).set('end', end);
-    return this.http.get<any>(`http://localhost:3000/api/request/stats`, { params });
+    return this.http.get<any>(`${this.tripApiUrl}/stats/customers/overall`, { params });
   }
+  
+
   
   
 }

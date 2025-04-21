@@ -21,8 +21,7 @@ export class CustomerReportDashboardComponent implements OnInit {
 
   constructor(
     private reportService: ReportService,
-    private router: Router,
-    private requestService: RequestService
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -30,24 +29,22 @@ export class CustomerReportDashboardComponent implements OnInit {
   }
 
   loadAllStats(): void {
-    this.reportService.getOverallStats(this.start, this.end).subscribe(data => {
+    this.reportService.getCustomerOverallStats(this.start, this.end).subscribe(data => {
+      console.log('📦 后端总统计数据:', data);
       this.totalAmount = data.totalAmount;
       this.totalTrips = data.totalTrips;
       this.totalClients = data.totalClients;
     });
-
-    // Fetch customer stats for the report
+  
     this.reportService.getCustomerStats(this.start, this.end).subscribe(data => {
-      console.log('💬 客户统计数据:', data);  // ⛔ 这里看看有没有 clientNIF 字段
       this.customerStats = data;
     });
-    
-
-    // Fetch trip stats for the report
+  
     this.reportService.getTripStats(this.start, this.end).subscribe(data => {
       this.tripStats = data;
     });
   }
+  
 
   onDateChange(): void {
     this.loadAllStats();

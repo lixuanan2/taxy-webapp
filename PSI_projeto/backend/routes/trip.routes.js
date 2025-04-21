@@ -191,6 +191,110 @@ router.get('/:id', async (req, res) => {
   }
 });
 
+// GET /api/trip/stats/customers → 每位客户的支付金额和旅程数量
+router.get('/stats/customers', async (req, res) => {
+  try {
+    const start = new Date(req.query.start || new Date().setHours(0, 0, 0, 0));
+    const end = new Date(req.query.end || new Date());
+
+    const trips = await Trip.find({
+      createdAt: { $gte: start, $lte: end }
+    });
+
+    const map = new Map();
+
+    for (const t of trips) {
+      const key = t.clientNIF;
+      const value = t.price;
+
+      if (!map.has(key)) {
+        map.set(key, { clientNIF: key, totalPaid: 0, tripCount: 0 });
+      }
+
+      const c = map.get(key);
+      c.totalPaid += value;
+      c.tripCount += 1;
+    }
+
+    const result = Array.from(map.values()).sort((a, b) => b.totalPaid - a.totalPaid);
+    res.json(result);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// GET /api/trip/stats/trips → 每一笔 Trip 明细（用于下表）
+router.get('/stats/trips', async (req, res) => {
+  try {
+    const start = new Date(req.query.start || new Date().setHours(0, 0, 0, 0));
+    const end = new Date(req.query.end || new Date());
+
+    const trips = await Trip.find({
+      createdAt: { $gte: start, $lte: end }
+    });
+
+    const result = trips.map(t => ({
+      tripId: t._id,
+      clientNIF: t.clientNIF,
+      value: t.price,
+      driverId: t.driverName,
+      createdAt: t.createdAt
+    })).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+    res.json(result);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+
+// GET /api/trip/stats → 总金额 / 总客户数 / 总旅程数
+router.get('/stats', async (req, res) => {
+  try {
+    const start = req.query.start ? new Date(req.query.start) : new Date();
+    start.setHours(0, 0, 0, 0);
+
+    const end = req.query.end ? new Date(req.query.end) : new Date();
+    end.setHours(23, 59, 59, 999);
+
+    const trips = await Trip.find({
+      createdAt: { $gte: start, $lte: end }
+    });
+
+    const totalAmount = trips.reduce((sum, t) => sum + (t.price || 0), 0);
+    const totalTrips = trips.length;
+    const uniqueClients = new Set(trips.map(t => t.clientNIF));
+    const totalClients = uniqueClients.size;
+
+    res.json({ totalAmount, totalTrips, totalClients });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// GET /api/trip/stats/customers/overall
+router.get('/stats/customers/overall', async (req, res) => {
+  try {
+    const start = req.query.start ? new Date(req.query.start) : new Date();
+    start.setHours(0, 0, 0, 0);
+
+    const end = req.query.end ? new Date(req.query.end) : new Date();
+    end.setHours(23, 59, 59, 999);
+
+    const trips = await Trip.find({
+      createdAt: { $gte: start, $lte: end }
+    });
+
+    const totalAmount = trips.reduce((sum, t) => sum + (t.price || 0), 0);
+    const totalTrips = trips.length;
+    const uniqueClients = new Set(trips.map(t => t.clientNIF));
+    const totalClients = uniqueClients.size;
+
+    res.json({ totalAmount, totalTrips, totalClients });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
 
 
 module.exports = router;
