@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ReportService } from '@shared/services/report.service';
+import { ReportService } from '@shared/services/report/report.service';
 
 @Component({
   selector: 'app-taxi-detail',

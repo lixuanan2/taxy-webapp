@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { PriceConfig } from '@models/price.model';
-import { PriceService } from '@services/price.service';
+import { PriceService } from '@shared/services/price/price.service';
 
 @Component({
   selector: 'app-price-form',

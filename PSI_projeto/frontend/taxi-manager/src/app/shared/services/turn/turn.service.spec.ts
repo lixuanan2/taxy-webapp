@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { TurnService } from '@shared/services/turn.service';
+import { TurnService } from '@shared/services/turn/turn.service';
 
 describe('TaxiRequestService', () => {
   let service: TurnService;

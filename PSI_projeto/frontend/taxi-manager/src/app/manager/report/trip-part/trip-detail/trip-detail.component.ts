@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { TripService } from '@services/trip.service';
+import { TripService } from '@shared/services/trip/trip.service';
 import { Trip } from '@models/trip.model';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
-import { ReportService } from '@shared/services/report.service';
+import { ReportService } from '@shared/services/report/report.service';
 
 @Component({
   selector: 'app-trip-detail',

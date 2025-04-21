@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { InvoiceService } from '@services/invoice.service';
-import { DriverAuthService } from '@services/driver-auth.service';
+import { InvoiceService } from '@shared/services/invoice/invoice.service';
+import { DriverAuthService } from '@shared/services/driver-auth/driver-auth.service';
 import { Router } from '@angular/router';
-import { RequestService } from '@services/request.service';
+import { RequestService } from '@shared/services/request/request.service';
 
 @Component({
   selector: 'app-driver-dashboard',

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ReportService } from '@shared/services/report.service';
+import { ReportService } from '@shared/services/report/report.service';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 

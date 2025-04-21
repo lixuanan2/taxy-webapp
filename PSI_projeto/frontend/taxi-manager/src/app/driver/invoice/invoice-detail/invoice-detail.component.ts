@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { InvoiceService } from '@services/invoice.service';
+import { InvoiceService } from '@shared/services/invoice/invoice.service';
 import { Invoice } from '@models/invoice.model';
 
 @Component({

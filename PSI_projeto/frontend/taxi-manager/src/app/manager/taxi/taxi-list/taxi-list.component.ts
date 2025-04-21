@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TaxiService } from '@services/taxi.service';
+import { TaxiService } from '@shared/services/taxi/taxi.service';
 import { Taxi } from '@models/taxi.model';
 import { Router } from '@angular/router';
 

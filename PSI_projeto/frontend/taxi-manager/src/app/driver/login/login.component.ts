@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { DriverService } from '@services/driver.service';
+import { DriverService } from '@shared/services/driver/driver.service';
 import { Driver } from '@models/driver.model';
 import { Router } from '@angular/router';
-import { DriverAuthService } from '@services/driver-auth.service';
+import { DriverAuthService } from '@shared/services/driver-auth/driver-auth.service';
 
 @Component({
   selector: 'app-driver-login',

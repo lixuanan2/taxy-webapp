@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DriverService } from '@services/driver.service';
+import { DriverService } from '@shared/services/driver/driver.service';
 import { Driver } from '@models/driver.model';
 
 @Component({

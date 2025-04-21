@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Driver } from '@models/driver.model';
-import { DriverService } from '@services/driver.service';
-import { ApiService } from '@services/api.service'; 
+import { DriverService } from '@shared/services/driver/driver.service';
+import { ApiService } from '@shared/services/api/api.service'; 
 import { HttpClient } from '@angular/common/http';
 
 

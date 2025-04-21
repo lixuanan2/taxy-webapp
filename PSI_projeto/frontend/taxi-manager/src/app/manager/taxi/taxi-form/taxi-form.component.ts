@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { Taxi } from '@models/taxi.model';
-import { TaxiService } from '@services/taxi.service';
+import { TaxiService } from '@shared/services/taxi/taxi.service';
 import { NgForm } from '@angular/forms';
 
 @Component({

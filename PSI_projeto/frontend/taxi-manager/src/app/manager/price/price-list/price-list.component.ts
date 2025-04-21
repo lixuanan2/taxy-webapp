@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PriceService } from '@services/price.service';
+import { PriceService } from '@shared/services/price/price.service';
 import { PriceConfig } from '@models/price.model';
 
 @Component({

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { TaxiService } from '@shared/services/taxi.service';
+import { TaxiService } from '@shared/services/taxi/taxi.service';
 import { Taxi } from '@shared/models/taxi.model';
 import { Router } from '@angular/router';
 

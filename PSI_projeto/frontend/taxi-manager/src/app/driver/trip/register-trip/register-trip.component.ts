@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { TripService } from '@services/trip.service';
+import { TripService } from '@shared/services/trip/trip.service';
 import { Trip } from '@models/trip.model';
-import { TurnService } from '@services/turn.service';
-import { RequestService } from '@shared/services/request.service';
+import { TurnService } from '@shared/services/turn/turn.service';
+import { RequestService } from '@shared/services/request/request.service';
 import { Router } from '@angular/router';
-import { PriceService } from '@services/price.service';
+import { PriceService } from '@shared/services/price/price.service';
 
 
 @Component({

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ReportService } from '@shared/services/report.service';  // 你已经有的服务
+import { ReportService } from '@shared/services/report/report.service';  // 你已经有的服务
 import { ActivatedRoute } from '@angular/router';
 
 

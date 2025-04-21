@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { RequestService } from '@services/request.service';
+import { RequestService } from '@shared/services/request/request.service';
 import { RideRequest } from '@models/ride-request.model';
 import { HttpClient } from '@angular/common/http';
 

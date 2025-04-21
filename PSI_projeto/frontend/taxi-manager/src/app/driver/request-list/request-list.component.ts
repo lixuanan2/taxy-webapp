@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RequestService } from '@services/request.service';
+import { RequestService } from '@shared/services/request/request.service';
 import { RideRequest } from '@models/ride-request.model';
 import { Router } from '@angular/router';
 

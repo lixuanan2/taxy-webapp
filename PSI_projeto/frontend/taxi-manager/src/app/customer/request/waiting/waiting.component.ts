@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { RequestService } from '@services/request.service';
+import { RequestService } from '@shared/services/request/request.service';
 import { RideRequest } from '@models/ride-request.model';
-import { PriceService } from '@services/price.service';
+import { PriceService } from '@shared/services/price/price.service';
 import { PriceConfig } from '@models/price.model';
 
 @Component({
