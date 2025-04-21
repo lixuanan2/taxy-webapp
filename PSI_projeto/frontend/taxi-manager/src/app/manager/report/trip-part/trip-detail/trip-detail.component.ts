@@ -3,6 +3,7 @@ import { TripService } from '@services/trip.service';
 import { Trip } from '@models/trip.model';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
+import { ReportService } from '@shared/services/report.service';
 
 @Component({
   selector: 'app-trip-detail',
@@ -11,13 +12,20 @@ import { ActivatedRoute } from '@angular/router';
 export class TripDetailComponent implements OnInit {
   trips: Trip[] = [];
 
+  start: string = '';
+  end: string = '';
+
   constructor(
-    private tripService: TripService,
-    private router: Router
+    private reportService: ReportService,
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-    this.tripService.getTrips().subscribe({
+    this.start = this.route.snapshot.queryParamMap.get('start') || '';
+    this.end = this.route.snapshot.queryParamMap.get('end') || '';
+  
+    this.reportService.getTrips(this.start, this.end).subscribe({
       next: data => this.trips = data,
       error: err => console.error('Erro ao buscar viagens', err)
     });
@@ -31,9 +39,16 @@ export class TripDetailComponent implements OnInit {
   }
 
   goBack(): void {
-    this.router.navigateByUrl(this.router.url.includes('customer-report') 
+    const basePath = this.router.url.includes('customer-report') 
       ? '/manager/customer-report' 
-      : '/manager/report');
+      : '/manager/report';
+  
+    this.router.navigate([basePath], {
+      queryParams: {
+        start: this.start,
+        end: this.end
+      }
+    });
   }
   
 }

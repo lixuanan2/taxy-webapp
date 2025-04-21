@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ReportService } from '@shared/services/report.service';
 import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+
 
 @Component({
   selector: 'app-report-dashboard',
@@ -15,17 +17,22 @@ export class ReportDashboardComponent implements OnInit {
   totalHours = 0;
   totalKm = 0;
 
-  driverStats: any[] = [];
-  taxiStats: any[] = [];
-
   constructor(
     private reportService: ReportService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
+    const urlStart = this.route.snapshot.queryParamMap.get('start');
+    const urlEnd = this.route.snapshot.queryParamMap.get('end');
+  
+    if (urlStart) this.start = urlStart;
+    if (urlEnd) this.end = urlEnd;
+  
     this.loadAllStats();
   }
+  
 
   loadAllStats(): void {
     this.reportService.getOverallStats(this.start, this.end).subscribe(data => {
@@ -34,34 +41,28 @@ export class ReportDashboardComponent implements OnInit {
       this.totalKm = +data.totalKm.toFixed(2);
     });
 
-    this.reportService.getDriverStats(this.start, this.end).subscribe(data => {
-      this.driverStats = data;
-    });
-
-    this.reportService.getTaxiStats(this.start, this.end).subscribe(data => {
-      this.taxiStats = data;
-    });
   }
 
   onDateChange(): void {
     this.loadAllStats();
   }
 
-  goToDriver(name: string): void {
-    this.router.navigate(['/manager/report/driver', name], {
+  goToDriverList(): void {
+    this.router.navigate(['/manager/report/driver-list'], {
       queryParams: { start: this.start, end: this.end }
     });
   }
-
-  goToTaxi(plate: string): void {
-    this.router.navigate(['/manager/report/taxi', plate], {
+  
+  goToTaxiList(): void {
+    this.router.navigate(['/manager/report/taxi-list'], {
       queryParams: { start: this.start, end: this.end }
     });
   }
-
+  
   goToTrip(): void {
     this.router.navigate(['/manager/report/trip'], {
       queryParams: { start: this.start, end: this.end }
     });
   }
+  
 }

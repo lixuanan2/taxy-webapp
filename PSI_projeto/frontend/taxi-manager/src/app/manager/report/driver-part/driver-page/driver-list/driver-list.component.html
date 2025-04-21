@@ -1,1 +1,23 @@
-<p>driver-list works!</p>
+<div class="container mt-4">
+    <h2>👤 Lista de Motoristas</h2>
+  
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Horas</th>
+          <th>KM</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let d of driverStats" (click)="goToDriverDetail(d.driverName)" style="cursor: pointer;">
+          <td>{{ d.driverName }}</td>
+          <td>{{ d.hours.toFixed(2) }}</td>
+          <td>{{ d.km.toFixed(2) }}</td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <button class="btn btn-secondary mt-3" (click)="goBack()">⬅ Voltar</button>
+</div>
+  

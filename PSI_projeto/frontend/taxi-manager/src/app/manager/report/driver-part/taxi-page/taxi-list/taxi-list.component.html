@@ -1,1 +1,23 @@
-<p>taxi-list works!</p>
+<div class="container mt-4">
+    <h2>🚕 Lista de Táxis</h2>
+  
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Matrícula</th>
+          <th>Horas</th>
+          <th>KM</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let t of taxiStats" (click)="goToTaxiDetail(t.vehiclePlate)" style="cursor: pointer;">
+          <td>{{ t.vehiclePlate }}</td>
+          <td>{{ t.hours.toFixed(2) }}</td>
+          <td>{{ t.km.toFixed(2) }}</td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <button class="btn btn-secondary mt-3" (click)="goBack()">⬅ Voltar</button>
+</div>
+  

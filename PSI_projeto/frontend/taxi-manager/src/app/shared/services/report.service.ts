@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Trip } from '@shared/models/trip.model';
 
 @Injectable({
   providedIn: 'root'
@@ -68,6 +69,14 @@ export class ReportService {
   getTripsByClientNIF(nif: string, start: string, end: string): Observable<any[]> {
     const params = new HttpParams().set('start', start).set('end', end);
     return this.http.get<any[]>(`${this.tripApiUrl}/stats/customer/${nif}`, { params });
+  }
+  
+  getTrips(start?: string, end?: string): Observable<Trip[]> {
+    let params = new HttpParams();
+    if (start && end) {
+      params = params.set('start', start).set('end', end);
+    }
+    return this.http.get<Trip[]>('http://localhost:3000/api/trip', { params });
   }
   
   

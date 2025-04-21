@@ -6,11 +6,14 @@ import { ReportDashboardComponent } from './report-dashboard/report-dashboard.co
 import { DriverDetailComponent } from './driver-page/driver-detail/driver-detail.component';
 import { TaxiDetailComponent } from './taxi-page/taxi-detail/taxi-detail.component';
 import { TripDetailComponent } from '../trip-part/trip-detail/trip-detail.component';
-
+import { DriverListComponent } from './driver-page/driver-list/driver-list.component';
+import { TaxiListComponent } from './taxi-page/taxi-list/taxi-list.component'; 
 
 const routes: Routes = [
   { path: '', component: ReportDashboardComponent },
   { path: 'trip', component: TripDetailComponent },
+  { path: 'driver-list', component: DriverListComponent },
+  { path: 'taxi-list', component: TaxiListComponent },
   { path: 'driver/:name', component: DriverDetailComponent },
   { path: 'taxi/:plate', component: TaxiDetailComponent }
 ];
