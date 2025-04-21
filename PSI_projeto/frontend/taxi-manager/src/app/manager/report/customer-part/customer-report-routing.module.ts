@@ -8,9 +8,9 @@ import { TripDetailComponent } from '../trip-part/trip-detail/trip-detail.compon
 
 const routes: Routes = [
   { path: '', component: CustomerReportDashboardComponent },
-  { path: 'customer/:id', component: CustomerDetailComponent },
-  { path: 'invoice/:id', component: InvoiceDetailComponent },
-  { path: 'trip', component: TripDetailComponent }
+  { path: 'trip', component: TripDetailComponent },
+  { path: 'customer-detail/:nif', component: CustomerDetailComponent },
+  { path: 'invoice/:id', component: InvoiceDetailComponent }
 ];
 
 @NgModule({

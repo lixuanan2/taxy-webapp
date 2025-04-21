@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TripService } from '@services/trip.service';
 import { Trip } from '@models/trip.model';
 import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-trip-detail',
@@ -30,6 +31,9 @@ export class TripDetailComponent implements OnInit {
   }
 
   goBack(): void {
-    this.router.navigate(['/manager/report']);
+    this.router.navigateByUrl(this.router.url.includes('customer-report') 
+      ? '/manager/customer-report' 
+      : '/manager/report');
   }
+  
 }

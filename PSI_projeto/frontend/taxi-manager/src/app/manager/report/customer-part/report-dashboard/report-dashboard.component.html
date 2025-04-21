@@ -21,7 +21,7 @@
           </div>
         </div>
       </div>
-      <div class="col-md-4" (click)="goToCustomer('')">
+      <div class="col-md-4" (click)="goToTrip()">
         <div class="card bg-light border-success">
           <div class="card-body">
             <h5>Total de Viagens</h5>
@@ -43,10 +43,9 @@
     <table class="table table-hover table-sm">
       <thead><tr><th>Cliente</th><th>Euros Pagos</th><th>Viagens</th></tr></thead>
       <tbody>
-        <tr *ngFor="let c of customerStats" (click)="goToCustomer(c.clientNIF)" style="cursor: pointer;">
-          <td>{{ c.clientNIF }}</td>
-          <td>{{ c.totalAmount | currency }}</td>
-          <td>{{ c.totalTrips }}</td>
+        <tr *ngFor="let stat of customerStats" (click)="goToCustomer(stat.clientNIF)" style="cursor: pointer;">
+          <td>{{ stat.clientNIF || 'N/A' }}</td>
+          <td>{{ stat.total | currency: 'EUR' }}</td>
         </tr>
       </tbody>
     </table>

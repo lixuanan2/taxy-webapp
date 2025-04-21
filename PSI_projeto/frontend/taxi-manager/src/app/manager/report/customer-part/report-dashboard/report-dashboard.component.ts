@@ -53,20 +53,19 @@ export class CustomerReportDashboardComponent implements OnInit {
     this.loadAllStats();
   }
 
-  goToCustomer(clientNIF: string): void {
-    if (!clientNIF) return;  // ⛔ 不跳转
-    this.router.navigate(['/manager/customer-report/customer-detail', clientNIF], {
-      queryParams: { start: this.start, end: this.end }
-    });
-  }
-  
-
   goToTrip(): void {
     this.router.navigate(['/manager/customer-report/trip'], {
       queryParams: { start: this.start, end: this.end }
     });
   }
 
+  goToCustomer(clientNIF: string): void {
+    //if (!clientNIF) return;  // ⛔ 不跳转
+    this.router.navigate(['/manager/customer-report/customer-detail', clientNIF], {
+      queryParams: { start: this.start, end: this.end }
+    });
+  }
+  
   // Other navigational methods if needed
   goToInvoice(invoiceId: string): void {
     this.router.navigate(['/manager/custmor-report/invoice', invoiceId], {
