@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { ReportDashboardComponent } from './driver-part/report-dashboard/report-dashboard.component';
+import { ReportDashboardComponent } from './report-dashboard/report-dashboard.component';
 
-import { DriverDetailComponent } from './driver-part/driver-detail/driver-detail.component';
-import { TaxiDetailComponent } from './driver-part/taxi-detail/taxi-detail.component';
-import { TripDetailComponent } from './driver-part/trip-detail/trip-detail.component';
+import { DriverDetailComponent } from './driver-detail/driver-detail.component';
+import { TaxiDetailComponent } from './taxi-detail/taxi-detail.component';
+import { TripDetailComponent } from '../trip-part/trip-detail/trip-detail.component';
 
 
 const routes: Routes = [
@@ -19,4 +19,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class ReportRoutingModule { }
+export class DriverReportRoutingModule { }

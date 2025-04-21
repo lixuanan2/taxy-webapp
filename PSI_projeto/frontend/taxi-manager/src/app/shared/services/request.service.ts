@@ -56,5 +56,4 @@ export class RequestService {
     return this.http.patch<RideRequest>(`${this.apiUrl}/${id}/confirm`, {});
   }
   
-  
 }

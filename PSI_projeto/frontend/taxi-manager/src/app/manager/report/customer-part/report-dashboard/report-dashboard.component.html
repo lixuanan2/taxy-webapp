@@ -1,0 +1,66 @@
+<div class="container mt-4">
+    <h2>📊 Relatório de Clientes</h2>
+  
+    <div class="row mb-3">
+      <div class="col-md-3">
+        <label>Início:</label>
+        <input type="date" [(ngModel)]="start" class="form-control" (change)="onDateChange()" />
+      </div>
+      <div class="col-md-3">
+        <label>Fim:</label>
+        <input type="date" [(ngModel)]="end" class="form-control" (change)="onDateChange()" />
+      </div>
+    </div>
+  
+    <div class="row text-center mb-4">
+      <div class="col-md-4" (click)="goToCustomer('')">
+        <div class="card bg-light border-primary">
+          <div class="card-body">
+            <h5>Total de Euros Cobrados</h5>
+            <h2>{{ totalAmount | currency }}</h2>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4" (click)="goToCustomer('')">
+        <div class="card bg-light border-success">
+          <div class="card-body">
+            <h5>Total de Viagens</h5>
+            <h2>{{ totalTrips }}</h2>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4" (click)="goToCustomer('')">
+        <div class="card bg-light border-warning">
+          <div class="card-body">
+            <h5>Total de Clientes</h5>
+            <h2>{{ totalClients }}</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <h4 class="mt-4">👤 Euros pagos por Cliente</h4>
+    <table class="table table-hover table-sm">
+      <thead><tr><th>Cliente</th><th>Euros Pagos</th><th>Viagens</th></tr></thead>
+      <tbody>
+        <tr *ngFor="let c of customerStats" (click)="goToCustomer(c.clientNIF)" style="cursor: pointer;">
+          <td>{{ c.clientNIF }}</td>
+          <td>{{ c.totalAmount | currency }}</td>
+          <td>{{ c.totalTrips }}</td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <h4 class="mt-4">🚗 Viagens Detalhadas por Cliente</h4>
+    <table class="table table-hover table-sm">
+      <thead><tr><th>Viagem</th><th>Data</th><th>Valor</th><th>Motorista</th></tr></thead>
+      <tbody>
+        <tr *ngFor="let trip of tripStats" (click)="goToTrip()" style="cursor: pointer;">
+          <td>{{ trip.tripId }}</td>
+          <td>{{ trip.date | date:'short' }}</td>
+          <td>{{ trip.total | currency }}</td>
+          <td>{{ trip.driverName }}</td>
+        </tr>
+      </tbody>
+    </table>
+</div>

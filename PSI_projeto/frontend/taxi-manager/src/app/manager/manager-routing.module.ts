@@ -8,7 +8,8 @@ const routes: Routes = [
   { path: 'taxi', loadChildren: () => import('@manager/taxi/taxi.module').then(m => m.TaxiModule) },
   { path: 'driver', loadChildren: () => import('@manager/driver/driver.module').then(m => m.DriverModule) },
   { path: 'price', loadChildren: () => import('@manager/price/price.module').then(m => m.PriceModule) },
-  { path: 'report', loadChildren: () => import('./report/report.module').then(m => m.ReportModule) },
+  { path: 'report', loadChildren: () => import('./report/driver-part/driver-report.module').then(m => m.DriverReportModule) },
+  { path: 'customer-report', loadChildren: () => import('./report/customer-part/customer-report.module').then(m => m.CustomerReportModule) },
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
 ];
 

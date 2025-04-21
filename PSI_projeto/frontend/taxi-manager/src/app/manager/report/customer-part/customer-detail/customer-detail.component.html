@@ -1,0 +1,16 @@
+<div class="container mt-4">
+    <h2>📌 Detalhes do Cliente</h2>
+    <div *ngIf="customer">
+      <ul class="list-group">
+        <li class="list-group-item"><strong>Nome:</strong> {{ customer.nif }}</li>
+        <li class="list-group-item"><strong>Gênero:</strong> {{ customer.gender }}</li>
+        <li class="list-group-item"><strong>Localização Atual:</strong> {{ customer.currentLocation }}</li>
+        <li class="list-group-item"><strong>Destino:</strong> {{ customer.destination }}</li>
+        <li class="list-group-item"><strong>Passageiros:</strong> {{ customer.peopleCount }}</li>
+        <li class="list-group-item"><strong>Status:</strong> {{ customer.status || 'Pendente' }}</li>
+        <li class="list-group-item"><strong>Confirmado pelo cliente:</strong> {{ customer.confirmedByClient ? 'Sim' : 'Não' }}</li>
+      </ul>
+      <button class="btn btn-secondary mt-3" (click)="goBack()">⬅ Voltar</button>
+    </div>
+  </div>
+  
