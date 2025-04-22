@@ -1,0 +1,51 @@
+@use './variables' as *;
+
+/* 📦 卡片容器 */
+.dashboard-card {
+  background-color: $card-background;
+  border-radius: $radius-large;
+  box-shadow: $shadow-medium;
+  padding: $card-padding;
+  max-width: 600px;
+  margin: 2rem auto;
+}
+
+/* 📋 分区块（可用于 dashboard 中的模块组） */
+.section-block {
+  margin-bottom: 2rem;
+
+  h4, h5 {
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+  }
+}
+
+/* 🔘 垂直按钮组 */
+.button-group-vertical {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-unit * 1.5;
+  align-items: center;
+}
+
+/* 🔳 分栏卡片区，可用于管理列表页 */
+.grid-card-group {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+/* 📱 移动端简化卡片（可用作响应式逻辑） */
+@media (max-width: 767px) {
+  .dashboard-card {
+    box-shadow: none;
+    border-radius: 0;
+    padding: $spacing-unit * 2;
+    margin: 1rem 0;
+  }
+
+  .grid-card-group {
+    grid-template-columns: 1fr;
+  }
+}

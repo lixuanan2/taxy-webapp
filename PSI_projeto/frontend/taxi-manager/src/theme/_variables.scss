@@ -1,0 +1,32 @@
+// 🌈 Color System
+$primary-color: #1976d2;      // 主色（Material 蓝）
+$primary-hover: #1565c0;
+
+$accent-color: #f50057;       // 副色 / 强调色
+$warn-color: #f44336;         // 错误色 / 警告色
+
+$background-color: #f9f9f9;
+$card-background: #ffffff;
+$text-color: #212121;
+$text-light: #757575;
+
+// 📐 Spacing
+$spacing-unit: 8px;           // 可倍数使用（如 2*$spacing-unit）
+$section-padding: 24px;
+$card-padding: 16px;
+
+// 🧱 Border Radius
+$radius-small: 4px;
+$radius-medium: 8px;
+$radius-large: 16px;
+
+// 🌫 Elevation / Shadow
+$shadow-low: 0 1px 3px rgba(0, 0, 0, 0.12);
+$shadow-medium: 0 4px 8px rgba(0, 0, 0, 0.15);
+$shadow-high: 0 8px 24px rgba(0, 0, 0, 0.18);
+
+// 🔤 Font Sizes
+$font-small: 0.85rem;
+$font-base: 1rem;
+$font-large: 1.25rem;
+$font-title: 1.5rem;

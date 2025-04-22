@@ -1,22 +1,35 @@
-<!-- manager/dashboard/dashboard.component.html -->
-<div class="container mt-4">
-  <h2>🧭 Manager Dashboard</h2>
+<div class="dashboard-card">
+  <h2 class="section-title text-center">🧭 Manager Dashboard</h2>
 
-  <div class="dashboard-buttons">
-    <h4 class="mt-3">🚕 Taxi Management</h4>
-    <a routerLink="/manager/taxi/taxi-form" class="dashboard-button btn btn-outline-primary m-2">Add New Taxi</a>
-    <a routerLink="/manager/taxi/taxi-list" class="dashboard-button btn btn-outline-primary m-2">View Taxi List</a>
+  <div class="section-block">
+    <h4>🚕 Taxi Management</h4>
+    <div class="button-group-vertical">
+      <a routerLink="/manager/taxi/taxi-form" class="btn btn-outline-primary w-100">Add New Taxi</a>
+      <a routerLink="/manager/taxi/taxi-list" class="btn btn-outline-primary w-100">View Taxi List</a>
+    </div>
+  </div>
 
-    <h4 class="mt-4">🧑‍✈️ Driver Management</h4>
-    <a routerLink="/manager/driver/driver-form" class="dashboard-button btn btn-outline-success m-2">Register Driver</a>
-    <a routerLink="/manager/driver/driver-list" class="dashboard-button btn btn-outline-success m-2">View Driver List</a>
+  <div class="section-block">
+    <h4>🧑‍✈️ Driver Management</h4>
+    <div class="button-group-vertical">
+      <a routerLink="/manager/driver/driver-form" class="btn btn-outline-success w-100">Register Driver</a>
+      <a routerLink="/manager/driver/driver-list" class="btn btn-outline-success w-100">View Driver List</a>
+    </div>
+  </div>
 
-    <h4 class="mt-4">📈 Price Management</h4>
-    <a routerLink="/manager/price/price-form" class="dashboard-button btn btn-outline-warning m-2">Set Price Per Minute</a>
-    <a routerLink="/manager/price/price-list" class="dashboard-button btn btn-outline-warning m-2">View Price History</a>
+  <div class="section-block">
+    <h4>📈 Price Management</h4>
+    <div class="button-group-vertical">
+      <a routerLink="/manager/price/price-form" class="btn btn-outline-warning w-100">Set Price Per Minute</a>
+      <a routerLink="/manager/price/price-list" class="btn btn-outline-warning w-100">View Price History</a>
+    </div>
+  </div>
 
-    <a routerLink="/manager/report" class="btn btn-outline-primary me-2">📊 Relatórios</a>
-    <a routerLink="/manager/customer-report" class="btn btn-outline-primary me-2">📊 Relatórios C</a>
-
+  <div class="section-block">
+    <h4>📊 Reports</h4>
+    <div class="button-group-vertical">
+      <a routerLink="/manager/report" class="btn btn-outline-primary w-100">Driver Report</a>
+      <a routerLink="/manager/customer-report" class="btn btn-outline-primary w-100">Customer Report</a>
+    </div>
   </div>
 </div>

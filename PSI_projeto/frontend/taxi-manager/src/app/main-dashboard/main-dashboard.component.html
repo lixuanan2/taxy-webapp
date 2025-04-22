@@ -1,16 +1,18 @@
-<div class="container mt-5">
-    <h2 class="mb-4 text-center">🌐 Main Dashboard</h2>
-  
-    <div class="row justify-content-center">
-      <div class="col-md-4 text-center">
-        <a routerLink="/manager/dashboard" class="btn btn-outline-primary btn-lg w-100 mb-3">👨‍💼 Manager</a>
-      </div>
-      <div class="col-md-4 text-center">
-        <a routerLink="/driver/login" class="btn btn-outline-success btn-lg w-100 mb-3">🧑‍✈️ Driver</a>
-      </div>
-      <div class="col-md-4 text-center">
-        <a routerLink="/customer/dashboard" class="btn btn-outline-warning btn-lg w-100 mb-3">🧍 Customer</a>
-      </div>
-    </div>
+<div class="dashboard-card">
+  <h2 class="section-title text-center">🌐 Choose Your Role</h2>
+  <p class="muted text-center">Select a role below to access your dashboard</p>
+
+  <div class="button-group-vertical mt-4">
+    <a routerLink="/manager/dashboard" class="btn btn-outline-primary w-100">
+      <span class="emoji">👨‍💼</span> Manager
+    </a>
+
+    <a routerLink="/driver/login" class="btn btn-outline-success w-100">
+      <span class="emoji">🧑</span> Driver
+    </a>
+
+    <a routerLink="/customer/dashboard" class="btn btn-outline-warning w-100">
+      <span class="emoji">🧍</span> Customer
+    </a>
+  </div>
 </div>
-  
