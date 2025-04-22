@@ -1,0 +1,39 @@
+@use '../variables' as *;
+
+// 手机端 去卡片
+.dashboard-card,
+.dashboard-card--manager,
+.dashboard-card--driver {
+  @media (max-width: 767px) {
+    box-shadow: none;
+    border-radius: 0;
+    padding: $spacing-unit * 2;
+    margin: 1rem 0;
+  }
+}
+
+// 抬高main dashboard
+.page-wrapper--main {
+    padding-bottom: 20vh;
+  
+    @media (max-width: 767px) {
+      padding-bottom: 10vh;
+    }
+  }
+  
+// 处理manager dash卡片
+.dashboard-card--manager {
+    background-color: #f5f8fc; 
+    width: 90%;
+    max-width: 900px;
+    padding: $card-padding * 1.8;
+    font-size: 1.05rem;
+    margin: auto;
+}
+  
+.dashboard-card--driver {
+    width: 90%;
+    background-color: lighten($card-background, 3%);
+    border-left: 6px solid $primary-color;
+}
+  

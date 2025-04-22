@@ -1,12 +1,8 @@
-form {
-  background-color: #f8f9fa;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-}
-
-button {
-  width: 100%;
+.dashboard-card--form {
+  background-color: #f5f8fc; 
+  padding: 2.5rem;
+  max-width: 880px;
+  width: 90%;
 }
 
 button[disabled] {
@@ -14,4 +10,23 @@ button[disabled] {
   border-color: #adb5bd !important;
   cursor: not-allowed;
   opacity: 1; /* 保持正常不透明 */
+}
+
+.page-wrapper--manager--taxi-form {
+  padding-bottom: 10vh;
+}
+
+.btn-clear {
+  background-color: #fff8e1; 
+  color: #f9a825;
+
+  &:hover {
+    background-color: #ffecb3;
+    color: #f57f17;
+  }
+
+  &:not(:hover) {
+    background-color: #fff8e1;
+    color: #f9a825;
+  }
 }

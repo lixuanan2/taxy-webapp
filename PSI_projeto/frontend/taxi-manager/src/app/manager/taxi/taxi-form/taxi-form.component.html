@@ -1,82 +1,86 @@
-<div class="container mt-4">
-  <h2 class="mb-4">🚕 Register New Taxi</h2>
+<div class="page-wrapper page-wrapper--manager page-wrapper--manager--taxi-form">
+  <div class="dashboard-card dashboard-card--form">
+    <h2 class="section-title text-center mb-4">🚕 Add New Taxi</h2>
 
-  <form (ngSubmit)="onSubmit()" #taxiForm="ngForm" class="row g-3">
+    <form (ngSubmit)="onSubmit()" #taxiForm="ngForm" class="row g-3">
 
-    <div class="col-md-6">
-      <label class="form-label">Plate</label>
-      <input name="plate" [(ngModel)]="taxi.plate"
-             (input)="onPlateInput($event)" 
-             #plateRef="ngModel"
-             required
-             [pattern]="getPlatePattern(taxi.year).pattern"  
-             maxlength="8"
-             class="form-control"
-             [ngClass]="{ 'is-invalid': plateRef.invalid && plateRef.touched }" />
-    
-      <div *ngIf="plateRef.invalid && plateRef.touched" class="invalid-feedback">
-        {{ getPlatePattern(taxi.year).formatTip }} <!-- 显示动态提示 -->
+      <div class="col-md-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Plate</mat-label>
+          <input matInput name="plate"
+                 [(ngModel)]="taxi.plate"
+                 (input)="onPlateInput($event)"
+                 #plateRef="ngModel"
+                 required
+                 [pattern]="getPlatePattern(taxi.year).pattern"
+                 maxlength="8" />
+      
+          <mat-error *ngIf="plateRef.invalid && plateRef.touched">
+            {{ getPlatePattern(taxi.year).formatTip }}
+          </mat-error>
+        </mat-form-field>
       </div>
-    </div>
-    
 
-    <div class="col-md-6">
-      <label class="form-label">Brand</label>
-      <select name="brand" [(ngModel)]="taxi.brand"
-          (change)="onBrandChange()"
-          #brandRef="ngModel"
-          required class="form-select"
-          [ngClass]="{ 'is-invalid': brandRef.invalid && brandRef.touched }">
-        <option value="" disabled>-- Select brand --</option>
-        <option *ngFor="let brand of brands" [value]="brand">{{ brand }}</option>
-      </select>
-    
-      <div *ngIf="brandRef.invalid && brandRef.touched" class="invalid-feedback">
-        Please select a brand.
+      <div class="col-md-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Brand</mat-label>
+          <mat-select name="brand" [(ngModel)]="taxi.brand" required #brandRef="ngModel">
+            <mat-option value="" disabled>-- Select brand --</mat-option>
+            <mat-option *ngFor="let brand of brands" [value]="brand">{{ brand }}</mat-option>
+          </mat-select>
+        
+          <mat-error *ngIf="brandRef.invalid && brandRef.touched">
+            Please select a brand.
+          </mat-error>
+        </mat-form-field>
       </div>
-    </div>
-    
 
-    <div class="col-md-6">
-      <label class="form-label">Model</label>
-      <select name="model" [(ngModel)]="taxi.model" required class="form-select"
-          [disabled]="models.length === 0">
-        <option value="" disabled selected>-- Select model --</option>
-        <option *ngFor="let model of models" [value]="model">{{ model }}</option>
-      </select>
-
-    </div>
-
-    <div class="col-md-6">
-      <label class="form-label">Year</label>
-      <input type="number" name="year" [(ngModel)]="taxi.year"
-             [max]="currentYear" required
-             #yearRef="ngModel"
-             class="form-control"
-             [ngClass]="{ 'is-invalid': yearRef.invalid && yearRef.touched }" />
-    
-      <div *ngIf="yearRef.errors?.['required'] && yearRef.touched" class="invalid-feedback">
-        Year is required.
+      <div class="col-md-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Model</mat-label>
+          <mat-select name="model" [(ngModel)]="taxi.model" required [disabled]="models.length === 0">
+            <mat-option value="" disabled>-- Select model --</mat-option>
+            <mat-option *ngFor="let model of models" [value]="model">{{ model }}</mat-option>
+          </mat-select>
+        </mat-form-field>
       </div>
-      <div *ngIf="yearRef.errors?.['max'] && yearRef.touched" class="invalid-feedback">
-        Year cannot be in the future.
+      
+
+      <div class="col-md-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Year</mat-label>
+          <input matInput type="number" name="year" [(ngModel)]="taxi.year"
+                 [max]="currentYear" required #yearRef="ngModel" />
+          <mat-error *ngIf="yearRef.errors?.['required'] && yearRef.touched">
+            Year is required.
+          </mat-error>
+          <mat-error *ngIf="yearRef.errors?.['max'] && yearRef.touched">
+            Year cannot be in the future.
+          </mat-error>
+        </mat-form-field>
       </div>
-    </div>
-    
+      
 
-    <div class="col-md-6">
-      <label class="form-label">Comfort Level</label>
-      <select name="comfortLevel" [(ngModel)]="taxi.comfortLevel" required class="form-select">
-        <option value="basic">Basic</option>
-        <option value="luxury">Luxury</option>
-      </select>
-    </div>
+      <div class="col-md-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Comfort Level</mat-label>
+          <mat-select name="comfortLevel" [(ngModel)]="taxi.comfortLevel" required>
+            <mat-option value="basic">Basic</mat-option>
+            <mat-option value="luxury">Luxury</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      
 
-    <div class="col-12">
-      <button type="submit" class="btn btn-primary" [disabled]="!taxiForm.form.valid">
-        ➕ Create Taxi
-      </button>
-      <button type="button" class="btn btn-secondary" (click)="onClearForm()">🧹 Clear Form</button> 
-    </div>
-  </form>
+      <div class="col-12 text-end">
+        <button mat-raised-button color="primary" type="submit" [disabled]="!taxiForm.form.valid" class="me-2">
+          ➕ Create Taxi
+        </button>
+        
+        <button mat-raised-button class="btn-clear" type="button" (click)="onClearForm()">
+          🧹 Clear Form
+        </button>               
+      </div>
+    </form>
+  </div>
 </div>

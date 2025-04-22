@@ -1,0 +1,47 @@
+.btn {
+    font-weight: 600;
+    padding: 0.7rem 1rem;
+    border-radius: 0.5rem;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    border: none;
+  }
+  
+  .btn-taxi {
+    background-color: #d0e7fa; 
+    color: #1976d2;
+  
+    &:hover {
+      background-color: #90caf9;
+      color: #0d47a1;
+    }
+  }
+  
+  .btn-driver {
+    background-color: #cdeed5; 
+    color: #2e7d32;
+  
+    &:hover {
+      background-color: #a5d6a7;
+      color: #1b5e20;
+    }
+  }
+  
+  .btn-price {
+    background-color: #ffecb3; 
+    color: #f9a825;
+  
+    &:hover {
+      background-color: #ffe082;
+      color: #f57f17;
+    }
+  }
+  
+  .btn-report {
+    background-color: #f8bbd0; 
+    color: #c2185b;
+  
+    &:hover {
+      background-color: #f48fb1;
+      color: #880e4f;
+    }
+  }
