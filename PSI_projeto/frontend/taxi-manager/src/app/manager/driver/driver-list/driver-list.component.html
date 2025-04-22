@@ -1,38 +1,43 @@
-<div class="container mt-4">
-    <h2 class="mb-3">🚗 Registered Drivers</h2>
-  
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Gender</th>
-          <th>Birth Year</th>
-          <th>NIF</th>
-          <th>License No.</th>
-          <th>Address</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let driver of drivers">
-          <td>{{ driver.name }}</td>
-          <td>{{ driver.gender }}</td>
-          <td>{{ driver.birthYear }}</td>
-          <td>{{ driver.nif }}</td>
-          <td>{{ driver.licenseNumber }}</td>
-          <td>
-            {{ driver.address.street }}, {{ driver.address.number }},
-            {{ driver.address.postalCode }} {{ driver.address.city }}
-          </td>
-          <td>
-            <button
-              class="btn btn-sm btn-primary"
-              [routerLink]="['/manager/driver/edit', driver.nif]">
-              Editar
-            </button>
-            <button class="btn btn-sm btn-danger" (click)="onDelete(driver)">Remover</button>
-          </td>
-        </tr>        
-      </tbody>
-    </table>
+<div class="page-wrapper page-wrapper--manager">
+  <div class="dashboard-card dashboard-card--table">
+    <h2 class="section-title mb-3">🚗 Driver List</h2>
+
+    <div class="table-container">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Gender</th>
+            <th>Birth Year</th>
+            <th>NIF</th>
+            <th>License No.</th>
+            <th>Address</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let driver of drivers">
+            <td>{{ driver.name }}</td>
+            <td>{{ driver.gender }}</td>
+            <td>{{ driver.birthYear }}</td>
+            <td>{{ driver.nif }}</td>
+            <td>{{ driver.licenseNumber }}</td>
+            <td>
+              {{ driver.address.street }}, {{ driver.address.number }},
+              {{ driver.address.postalCode }} {{ driver.address.city }}
+            </td>
+            <td>
+              <button class="btn btn-sm btn-outline-primary me-2"
+                      [routerLink]="['/manager/driver/edit', driver.nif]">
+                ✏️ Edit
+              </button>
+              <button class="btn btn-sm btn-outline-danger" (click)="onDelete(driver)">
+                🗑️ Remove
+              </button>
+            </td>
+          </tr>        
+        </tbody>
+      </table>
+    </div>
   </div>
-  
+</div>

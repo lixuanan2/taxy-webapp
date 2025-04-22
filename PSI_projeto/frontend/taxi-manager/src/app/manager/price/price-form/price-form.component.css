@@ -1,0 +1,24 @@
+.dashboard-card--form {
+    padding: 2.5rem;
+    max-width: 1000px;
+    margin: 2rem auto;
+    background-color: #f7f9fb;
+    border-radius: 16px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+  }
+  
+  .page-wrapper--manager {
+    min-height: 100vh;
+    background-color: #f0f2f5;
+    padding: 3rem 1rem;
+  }
+  
+  .section-subtitle {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #333;
+  }
+  
+  .page-wrapper--manager-price {
+    padding-bottom: 15vh;
+  }

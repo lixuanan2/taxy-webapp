@@ -1,6 +1,50 @@
-table {
+.dashboard-card--table {
+    padding: 2rem;
+    margin: 2rem auto;
+    border-radius: 12px;
     background-color: white;
-    border-radius: 8px;
-    overflow: hidden;
-}
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+    max-width: 1200px;
+  
+    height: 85vh;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .table-container {
+    flex: 1;
+    overflow-y: auto;
+    border-top: 1px solid #eee;
+    margin-top: 1rem;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+  }
+  
+  th {
+    background-color: #1976d2;
+    color: white;
+    padding: 12px;
+    text-align: left;
+    font-weight: 600;
+  }
+  
+  td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  tr:hover {
+    background-color: #f9f9f9;
+  }
+  
+  .btn-sm {
+    font-size: 0.75rem;
+    padding: 4px 10px;
+    line-height: 1.2;
+    font-weight: 500;
+  }
   
