@@ -3,6 +3,12 @@
 // 🌐 字体家族（你可以换成你喜欢的 Google Fonts）
 $font-family-base: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
 
+// app名字 taxy webapp
+.app-name {
+  color: $primary-color;
+  font-weight: bold;
+}
+  
 // 📚 正文文字
 body {
   font-family: $font-family-base;
@@ -11,6 +17,7 @@ body {
   line-height: 1.6;
   margin: 0;
   padding: 0;
+  background: $background-color;
 }
 
 // 🏷️ 标题统一样式
@@ -29,14 +36,13 @@ h4 { font-size: 1.25rem; }
 h5 { font-size: 1rem; }
 h6 { font-size: 0.875rem; }
 
-// ✨ 其他通用文字样式
 .muted {
   color: $text-light;
   font-size: $font-small;
 }
 
 .section-title {
-  font-size: $font-large;
+  font-size: $font-title;
   font-weight: 600;
   margin-bottom: 1rem;
 }

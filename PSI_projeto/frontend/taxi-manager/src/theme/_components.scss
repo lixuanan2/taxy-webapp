@@ -1,16 +1,38 @@
 @use './variables' as *;
 
-/* 📦 卡片容器 */
+/* 🌐 页面容器：主入口布局 */
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 100vh;
+  background-color: $background-color;
+  padding-bottom: 20vh; 
+  gap: 2rem; // 多卡片时保持间距
+
+  // 📱 小屏设备居中显示卡片
+  @media (max-width: 767px) {
+    justify-content: center;
+    padding-top: 0;
+    padding-bottom: 4vh;
+  }
+}
+
+/* 📦 通用卡片容器 */
 .dashboard-card {
   background-color: $card-background;
   border-radius: $radius-large;
   box-shadow: $shadow-medium;
   padding: $card-padding;
+
+  width: 80%;          
+  height: 80%;
   max-width: 600px;
-  margin: 2rem auto;
+  margin: auto;           // ✅ 居中
 }
 
-/* 📋 分区块（可用于 dashboard 中的模块组） */
+/* 📋 功能区块标题分组 */
 .section-block {
   margin-bottom: 2rem;
 
@@ -25,10 +47,10 @@
   display: flex;
   flex-direction: column;
   gap: $spacing-unit * 1.5;
-  align-items: center;
+  align-items: stretch;
 }
 
-/* 🔳 分栏卡片区，可用于管理列表页 */
+/* 🔳 分栏卡片区（如列表页） */
 .grid-card-group {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -36,7 +58,7 @@
   margin-top: 1rem;
 }
 
-/* 📱 移动端简化卡片（可用作响应式逻辑） */
+/* 📱 移动端优化 */
 @media (max-width: 767px) {
   .dashboard-card {
     box-shadow: none;

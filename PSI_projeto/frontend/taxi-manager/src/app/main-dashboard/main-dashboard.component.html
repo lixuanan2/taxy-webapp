@@ -1,18 +1,25 @@
-<div class="dashboard-card">
-  <h2 class="section-title text-center">🌐 Choose Your Role</h2>
-  <p class="muted text-center">Select a role below to access your dashboard</p>
+<div class="page-wrapper">
+  <mat-card class="dashboard-card">
+    <!-- 🔥 欢迎头部 -->
+    <div class="text-center mb-4">
+      <h1 class="section-title">🚖 Welcome to <span class="app-name">Taxy WebApp</span></h1>
+      <p class="muted">Your journey starts here – please choose your role</p>
+    </div>
 
-  <div class="button-group-vertical mt-4">
-    <a routerLink="/manager/dashboard" class="btn btn-outline-primary w-100">
-      <span class="emoji">👨‍💼</span> Manager
-    </a>
+    <!-- 🎯 Material 表单区域 -->
+    <form (ngSubmit)="goToDashboard()" #roleForm="ngForm" class="d-flex flex-column align-items-stretch gap-4">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Who are you?</mat-label>
+        <mat-select [(ngModel)]="selectedRole" name="role" required>
+          <mat-option value="manager">👨‍💼 Manager</mat-option>
+          <mat-option value="driver">🧑 Driver</mat-option>
+          <mat-option value="customer">🧍 Customer</mat-option>
+        </mat-select>
+      </mat-form-field>
 
-    <a routerLink="/driver/login" class="btn btn-outline-success w-100">
-      <span class="emoji">🧑</span> Driver
-    </a>
-
-    <a routerLink="/customer/dashboard" class="btn btn-outline-warning w-100">
-      <span class="emoji">🧍</span> Customer
-    </a>
-  </div>
+      <button mat-raised-button color="primary" type="submit" [disabled]="!selectedRole">
+        Enter Dashboard
+      </button>
+    </form>
+  </mat-card>
 </div>
