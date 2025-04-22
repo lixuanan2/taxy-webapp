@@ -7,6 +7,7 @@ import { DriverFormComponent } from './driver-form/driver-form.component';
 import { FormsModule } from '@angular/forms';
 import { SharedModule } from '@shared/shared.module';
 import { EditDriverComponent } from './edit-driver/edit-driver.component';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { EditDriverComponent } from './edit-driver/edit-driver.component';
     CommonModule,
     FormsModule,
     DriverRoutingModule,
-    SharedModule
+    SharedModule,
+    MatButtonModule
   ]
 })
 export class DriverModule { }

@@ -1,0 +1,27 @@
+.page-wrapper--report-detail {
+    padding-bottom: 10vh;
+  }
+  
+  .dashboard-card--table {
+    padding: 2rem;
+    margin: 2rem auto;
+    border-radius: 12px;
+    background-color: white;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+    max-width: 1000px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .table-container {
+    flex: 1;
+    overflow-x: auto;
+  }
+  
+  .table th,
+  .table td {
+    vertical-align: middle;
+    text-align: left;
+    padding: 10px;
+  }
+  

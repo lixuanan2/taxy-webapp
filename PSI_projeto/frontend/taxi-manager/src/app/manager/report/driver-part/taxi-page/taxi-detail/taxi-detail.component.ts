@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ReportService } from '@shared/services/report/report.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-taxi-detail',
@@ -15,7 +16,8 @@ export class TaxiDetailComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private reportService: ReportService
+    private reportService: ReportService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -31,5 +33,11 @@ export class TaxiDetailComponent implements OnInit {
         }));
       });
     }
+  }
+
+  goBack(): void {
+    this.router.navigate(['/manager/report/taxi-list'], {
+      queryParams: { start: this.start, end: this.end }
+    });
   }
 }

@@ -1,23 +1,34 @@
-<div class="container mt-4">
-    <h2>👤 Lista de Clientes</h2>
-  
-    <table class="table table-hover">
-      <thead>
-        <tr>
-          <th>NIF</th>
-          <th>Euros Pagos</th>
-          <th>Viagens</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let c of customerStats" (click)="goToCustomerDetail(c.clientNIF)">
-          <td>{{ c.clientNIF }}</td>
-          <td>{{ c.totalPaid | currency: 'EUR' }}</td>
-          <td>{{ c.tripCount }}</td>
-        </tr>
-      </tbody>
-    </table>
-  
-    <button class="btn btn-secondary mt-3" (click)="goBack()">⬅ Voltar</button>
+<div class="page-wrapper page-wrapper--manager page-wrapper--manager-rp">
+  <div class="dashboard-card dashboard-card--table-summary">
+    <h2 class="section-title mb-3">👤 Customer Summary</h2>
+
+    <div class="table-container">
+      <table class="table table-striped table-bordered table-hover">
+        <thead>
+          <tr>
+            <th>NIF</th>
+            <th>Amount Paid</th>
+            <th>Trips</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let c of customerStats" (click)="goToCustomerDetail(c.clientNIF)" style="cursor: pointer;">
+            <td>{{ c.clientNIF }}</td>
+            <td>{{ c.totalPaid | currency: 'EUR' }}</td>
+            <td>{{ c.tripCount }}</td>
+            <td>
+              <button mat-stroked-button color="primary" class="btn-sm" (click)="goToCustomerDetail(c.clientNIF); $event.stopPropagation()">
+                📊 Detail
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="text-start mt-4">
+      <button mat-stroked-button class="btn-muted" (click)="goBack()">⬅️ Back</button>
+    </div>
+  </div>
 </div>
-  

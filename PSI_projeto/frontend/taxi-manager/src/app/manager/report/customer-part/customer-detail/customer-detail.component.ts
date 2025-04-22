@@ -21,7 +21,7 @@ export class CustomerDetailComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.clientNIF = this.route.snapshot.paramMap.get('id') || '';
+    this.clientNIF = this.route.snapshot.paramMap.get('id') || '';  //bug
     this.start = this.route.snapshot.queryParamMap.get('start') || '';
     this.end = this.route.snapshot.queryParamMap.get('end') || '';
 

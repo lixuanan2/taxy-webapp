@@ -1,34 +1,40 @@
-<div class="container mt-4">
-  <h2>📌 Detalhes do Cliente</h2>
+<div class="page-wrapper page-wrapper--manager page-wrapper--report-detail">
+  <div class="dashboard-card dashboard-card--table">
+    <h2 class="section-title mb-3">📌 Customer Trip Details</h2>
 
-  <div class="mb-3">
-    <strong>Cliente NIF:</strong> {{ clientNIF }}
+    <div class="mb-3">
+      <strong>Customer NIF:</strong> {{ clientNIF }}
+    </div>
+
+    <div *ngIf="trips.length > 0; else noTrips">
+      <div class="table-container mt-3">
+        <table class="table table-bordered table-striped table-sm table-hover">
+          <thead class="table-light">
+            <tr>
+              <th>Trip ID</th>
+              <th>Date</th>
+              <th>Value (€)</th>
+              <th>Driver</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let trip of trips">
+              <td>{{ trip.tripId || trip._id }}</td>
+              <td>{{ trip.createdAt | date: 'short' }}</td>
+              <td>{{ trip.value?.toFixed(2) || trip.price?.toFixed(2) }}</td>
+              <td>{{ trip.driverId || trip.driverName }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <ng-template #noTrips>
+      <p class="text-muted">❗ No trips found for this customer in the selected period.</p>
+    </ng-template>
+
+    <div class="text-start mt-4">
+      <button mat-stroked-button class="btn-muted" (click)="goBack()">⬅️ Back to Report</button>
+    </div>
   </div>
-
-  <div *ngIf="trips.length > 0; else noTrips">
-    <table class="table table-bordered table-sm table-hover">
-      <thead class="thead-light">
-        <tr>
-          <th>ID da Viagem</th>
-          <th>Data</th>
-          <th>Valor (€)</th>
-          <th>Motorista</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let trip of trips">
-          <td>{{ trip.tripId || trip._id }}</td>
-          <td>{{ trip.createdAt | date: 'short' }}</td>
-          <td>{{ trip.value?.toFixed(2) || trip.price?.toFixed(2) }}</td>
-          <td>{{ trip.driverId || trip.driverName }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <ng-template #noTrips>
-    <p>❗ Nenhuma viagem encontrada para este cliente no período selecionado.</p>
-  </ng-template>
-
-  <button class="btn btn-secondary mt-3" (click)="goBack()">⬅ Voltar</button>
 </div>

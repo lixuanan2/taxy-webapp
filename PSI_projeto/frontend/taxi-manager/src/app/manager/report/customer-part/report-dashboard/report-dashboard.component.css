@@ -1,0 +1,51 @@
+
+.page-wrapper--manager .grid-card-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+  
+  .stat-card {
+    background-color: #f8f9fb;
+    padding: 1.5rem;
+    border-radius: 12px;
+    text-align: center;
+    width: 95%;
+    margin: 0 auto;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.2s ease;
+  
+    &:hover {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+      transform: translateY(-2px);
+    }
+  
+    h5 {
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      color: #444;
+    }
+  
+    .stat-value {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #1976d2;
+    }
+  
+    &.border-primary {
+      border-color: #1976d2;
+    }
+    &.border-success {
+      border-color: #2e7d32;
+    }
+    &.border-warning {
+      border-color: #f9a825;
+    }
+  }
+  
+
+  .page-wrapper--report-customer {
+    padding-bottom: 10vh;
+  }

@@ -1,47 +1,59 @@
-<div class="container mt-4">
-    <h2>✏️ Editar Motorista</h2>
-  
-    <form (ngSubmit)="onSubmit()">
-      <div class="mb-3">
-        <label>Name</label>
+<div class="page-wrapper page-wrapper--manager page-wrapper--edit-driver">
+  <div class="dashboard-card dashboard-card--form">
+    <h2 class="section-title text-center mb-4">✏️ Edit Driver</h2>
+
+    <form (ngSubmit)="onSubmit()" class="row g-3">
+      <div class="col-md-6">
+        <label class="form-label">Name</label>
         <input type="text" class="form-control" [(ngModel)]="driver.name" name="name" required>
       </div>
-  
-      <div class="mb-3">
-        <label>Gender</label>
+
+      <div class="col-md-6">
+        <label class="form-label">Gender</label>
         <select class="form-select" [(ngModel)]="driver.gender" name="gender" required>
           <option value="male">Male</option>
           <option value="female">Female</option>
         </select>
       </div>
-  
-      <div class="mb-3">
-        <label>Birth Year</label>
+
+      <div class="col-md-6">
+        <label class="form-label">Birth Year</label>
         <input type="number" class="form-control" [(ngModel)]="driver.birthYear" name="birthYear" required>
       </div>
-  
-      <div class="mb-3">
-        <label>License Number</label>
+
+      <div class="col-md-6">
+        <label class="form-label">License Number</label>
         <input type="text" class="form-control" [(ngModel)]="driver.licenseNumber" name="licenseNumber" required>
       </div>
-  
-      <h5>📍 Endereço</h5>
-  
-      <div class="mb-2">
-        <input placeholder="Street" class="form-control" [(ngModel)]="driver.address.street" name="street" required>
+
+      <div class="col-12">
+        <h5 class="section-subtitle mt-3">📍 Address</h5>
       </div>
-      <div class="mb-2">
-        <input placeholder="Number" class="form-control" [(ngModel)]="driver.address.number" name="number" required>
+
+      <div class="col-md-6">
+        <label class="form-label">Street</label>
+        <input class="form-control" [(ngModel)]="driver.address.street" name="street" required>
       </div>
-      <div class="mb-2">
-        <input placeholder="Postal Code" class="form-control" [(ngModel)]="driver.address.postalCode" name="postalCode" required>
+
+      <div class="col-md-3">
+        <label class="form-label">Number</label>
+        <input class="form-control" [(ngModel)]="driver.address.number" name="number" required>
       </div>
-      <div class="mb-2">
-        <input placeholder="City" class="form-control" [(ngModel)]="driver.address.city" name="city" required>
+
+      <div class="col-md-3">
+        <label class="form-label">Postal Code</label>
+        <input class="form-control" [(ngModel)]="driver.address.postalCode" name="postalCode" required>
       </div>
-  
-      <button class="btn btn-primary mt-3" type="submit">Salvar</button>
-      <a class="btn btn-secondary mt-3 ms-2" routerLink="/manager/driver/driver-list">Cancelar</a>
+
+      <div class="col-md-6">
+        <label class="form-label">City</label>
+        <input class="form-control" [(ngModel)]="driver.address.city" name="city" required>
+      </div>
+
+      <div class="col-12 text-end">
+        <button class="btn btn-success mt-3" type="submit">💾 Save</button>
+        <a class="btn btn-secondary mt-3 ms-2" routerLink="/manager/driver/driver-list">Cancel</a>
+      </div>
     </form>
   </div>
-  
+</div>

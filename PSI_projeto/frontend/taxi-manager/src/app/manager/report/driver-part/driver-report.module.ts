@@ -12,6 +12,8 @@ import { DriverListComponent } from './driver-page/driver-list/driver-list.compo
 import { TaxiListComponent } from './taxi-page/taxi-list/taxi-list.component';
 
 
+import { MatButtonModule } from '@angular/material/button';
+
 @NgModule({
   declarations: [
     ReportDashboardComponent,
@@ -24,7 +26,8 @@ import { TaxiListComponent } from './taxi-page/taxi-list/taxi-list.component';
   imports: [
     CommonModule,
     DriverReportRoutingModule,
-    FormsModule
+    FormsModule,
+    MatButtonModule
   ]
 })
 export class DriverReportModule { }

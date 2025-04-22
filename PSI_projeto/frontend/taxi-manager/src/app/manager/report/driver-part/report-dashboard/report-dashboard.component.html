@@ -1,43 +1,38 @@
-<div class="container mt-4">
-    <h2>📊 Relatório de Viagens</h2>
-  
-    <div class="row mb-3">
-      <div class="col-md-3">
-        <label>Início:</label>
+<div class="page-wrapper page-wrapper--manager page-wrapper--report-trip">
+  <div class="dashboard-card dashboard-card--report">
+    <h2 class="section-title text-center mb-4">📊 Trip Report</h2>
+
+    <!-- 日期选择 -->
+    <div class="row g-3 justify-content-center mb-4">
+      <div class="col-md-4 col-sm-6">
+        <label class="form-label">Start Date</label>
         <input type="date" [(ngModel)]="start" class="form-control" (change)="onDateChange()" />
       </div>
-      <div class="col-md-3">
-        <label>Fim:</label>
+      <div class="col-md-4 col-sm-6">
+        <label class="form-label">End Date</label>
         <input type="date" [(ngModel)]="end" class="form-control" (change)="onDateChange()" />
       </div>
     </div>
-  
-    <div class="row text-center mb-4">
-      <div class="col-md-4" (click)="goToTrip()">
-        <div class="card bg-light border-primary">
-          <div class="card-body">
-            <h5>Total de Viagens</h5>
-            <h2>{{ totalTrips }}</h2>
-          </div>
-        </div>
+
+    <!-- 统计卡片区域 -->
+    <div class="grid-card-group mt-3">
+      <div class="stat-card border-primary" (click)="goToTrip()">
+        <h5>Total Trips</h5>
+        <div class="stat-value">{{ totalTrips || 0 }}</div>
       </div>
-      <div class="col-md-4" (click)="goToDriverList()">
-        <div class="card bg-light border-success">
-          <div class="card-body">
-            <h5>Total de Horas</h5>
-            <h2>{{ totalHours }} h</h2>
-          </div>
-        </div>
+      <div class="stat-card border-success" (click)="goToDriverList()">
+        <h5>Total Hours</h5>
+        <div class="stat-value">{{ totalHours || 0 }} h</div>
       </div>
-      <div class="col-md-4" (click)="goToTaxiList()">
-        <div class="card bg-light border-warning">
-          <div class="card-body">
-            <h5>Total de KM</h5>
-            <h2>{{ totalKm }} km</h2>
-          </div>
-        </div>
+      <div class="stat-card border-warning" (click)="goToTaxiList()">
+        <h5>Total Distance</h5>
+        <div class="stat-value">{{ totalKm || 0 }} km</div>
       </div>
-    </div>    
-  
+    </div>
+
+    <!-- ⬅️ 返回按钮 -->
+    <div class="text-start mt-4">
+      <a mat-stroked-button class="btn-muted" routerLink="/manager">⬅️ Back</a>
+    </div>
   </div>
-  
+</div>

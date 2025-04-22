@@ -1,33 +1,38 @@
-<div class="container mt-4">
-    <h2>🧾 Todas as Viagens</h2>
-  
-    <table class="table table-striped table-sm mt-3">
-      <thead>
-        <tr>
-          <th>Motorista</th>
-          <th>Táxi</th>
-          <th>Início</th>
-          <th>Fim</th>
-          <th>Duração</th>
-          <th>KM</th>
-          <th>Origem</th>
-          <th>Destino</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let trip of trips">
-          <td>{{ trip.driverName }}</td>
-          <td>{{ trip.vehiclePlate || 'N/A' }}</td>
-          <td>{{ trip.startTime | date:'short' }}</td>
-          <td>{{ trip.endTime | date:'short' }}</td>
-          <td>{{ getDuration(trip) }} h</td>
-          <td>{{ trip.kmTraveled?.toFixed(2) }}</td>
-          <td>{{ trip.from }}</td>
-          <td>{{ trip.to }}</td>
-        </tr>
-      </tbody>
-    </table>
-  
-    <button class="btn btn-secondary" (click)="goBack()">⬅ Voltar</button>
+<div class="page-wrapper page-wrapper--manager page-wrapper--report-detail">
+  <div class="dashboard-card dashboard-card--wide">
+    <h2 class="section-title mb-3">🧾 All Registered Trips</h2>
+
+    <div class="table-container mt-3">
+      <table class="table table-striped table-bordered table-hover">
+        <thead class="table-light">
+          <tr>
+            <th>Driver</th>
+            <th>Taxi</th>
+            <th>Start</th>
+            <th>End</th>
+            <th>Duration (h)</th>
+            <th>KM</th>
+            <th>Origin</th>
+            <th>Destination</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let trip of trips">
+            <td>{{ trip.driverName }}</td>
+            <td>{{ trip.vehiclePlate || 'N/A' }}</td>
+            <td>{{ trip.startTime | date:'short' }}</td>
+            <td>{{ trip.endTime | date:'short' }}</td>
+            <td>{{ getDuration(trip) }} h</td>
+            <td>{{ trip.kmTraveled?.toFixed(2) }}</td>
+            <td>{{ trip.from }}</td>
+            <td>{{ trip.to }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="text-start mt-4">
+      <button mat-stroked-button class="btn-muted" (click)="goBack()">⬅️ Back</button>
+    </div>
   </div>
-  
+</div>

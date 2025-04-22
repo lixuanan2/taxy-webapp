@@ -1,43 +1,37 @@
-<div class="container mt-4">
-    <h2>📊 Relatório de Clientes</h2>
-  
-    <div class="row mb-3">
-      <div class="col-md-3">
-        <label>Início:</label>
+<div class="page-wrapper page-wrapper--manager page-wrapper--report-customer">
+  <div class="dashboard-card dashboard-card--report">
+    <h2 class="section-title text-center mb-4">📊 Customer Report</h2>
+
+    <div class="row g-3 justify-content-center mb-4">
+      <div class="col-md-4 col-sm-6">
+        <label class="form-label">Start Date</label>
         <input type="date" [(ngModel)]="start" class="form-control" (change)="onDateChange()" />
       </div>
-      <div class="col-md-3">
-        <label>Fim:</label>
+      <div class="col-md-4 col-sm-6">
+        <label class="form-label">End Date</label>
         <input type="date" [(ngModel)]="end" class="form-control" (change)="onDateChange()" />
       </div>
     </div>
-  
-    <div class="row text-center mb-4">
-      <div class="col-md-4" (click)="goToCustomerList()">
-        <div class="card bg-light border-primary">
-          <div class="card-body">
-            <h5>Total de Euros Cobrados</h5>
-            <h2>{{ totalAmount || 0 | currency }}</h2>
-          </div>
-        </div>
+
+    <!-- 📦 Stats -->
+    <div class="grid-card-group mt-3">
+      <div class="stat-card border-success" (click)="goToTrip()">
+        <h5>Total Trips</h5>
+        <div class="stat-value">{{ totalTrips || 0 }}</div>
       </div>
-      <div class="col-md-4" (click)="goToTrip()">
-        <div class="card bg-light border-success">
-          <div class="card-body">
-            <h5>Total de Viagens</h5>
-            <h2>{{ totalTrips || 0 }}</h2>
-          </div>
-        </div>
+      <div class="stat-card border-primary" (click)="goToCustomerList()">
+        <h5>Total Amount Charged</h5>
+        <div class="stat-value">{{ totalAmount || 0 | currency:'EUR' }}</div>
       </div>
-      <div class="col-md-4" (click)="goToCustomerList()">
-        <div class="card bg-light border-warning">
-          <div class="card-body">
-            <h5>Total de Clientes</h5>
-            <h2>{{ totalClients || 0 }}</h2>
-          </div>
-        </div>
+      <div class="stat-card border-warning" (click)="goToCustomerList()">
+        <h5>Total Customers</h5>
+        <div class="stat-value">{{ totalClients || 0 }}</div>
       </div>
     </div>
 
-
+    <!-- ⬅️ Back Button -->
+    <div class="text-start mt-4">
+      <a mat-stroked-button class="btn-muted" routerLink="/manager">⬅️ Back</a>
+    </div>
+  </div>
 </div>

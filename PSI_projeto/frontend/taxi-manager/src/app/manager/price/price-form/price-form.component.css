@@ -22,3 +22,28 @@
   .page-wrapper--manager-price {
     padding-bottom: 15vh;
   }
+
+  .result-box {
+    background-color: #f5f7fa;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 1.25rem 2rem;
+    text-align: center;
+    width: 65%;
+    max-width: 600px;      
+    margin: 0 auto;        
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+  }
+  .result-box h4 {
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 0.5rem;
+  }
+  
+  .result-box .result-value {
+    font-size: 1.75rem;
+    font-weight: bold;
+    color: #1976d2;
+  }
+  

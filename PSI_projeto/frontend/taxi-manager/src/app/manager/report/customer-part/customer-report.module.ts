@@ -8,6 +8,9 @@ import { CustomerDetailComponent } from './customer-detail/customer-detail.compo
 import { DriverReportModule } from '../driver-part/driver-report.module';
 import { CustomerListComponent } from './customer-list/customer-list.component';
 
+
+import { MatButtonModule } from '@angular/material/button';
+
 @NgModule({
   declarations: [
     CustomerReportDashboardComponent,
@@ -18,7 +21,8 @@ import { CustomerListComponent } from './customer-list/customer-list.component';
     CommonModule,
     CustomerReportRoutingModule,
     FormsModule,
-    DriverReportModule
+    DriverReportModule,
+    MatButtonModule
   ]
 })
 export class CustomerReportModule { }

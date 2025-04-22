@@ -1,23 +1,34 @@
-<div class="container mt-4">
-    <h2>👤 Lista de Motoristas</h2>
-  
-    <table class="table table-hover">
-      <thead>
-        <tr>
-          <th>Nome</th>
-          <th>Horas</th>
-          <th>KM</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let d of driverStats" (click)="goToDriverDetail(d.driverName)" style="cursor: pointer;">
-          <td>{{ d.driverName }}</td>
-          <td>{{ d.hours.toFixed(2) }}</td>
-          <td>{{ d.km.toFixed(2) }}</td>
-        </tr>
-      </tbody>
-    </table>
-  
-    <button class="btn btn-secondary mt-3" (click)="goBack()">⬅ Voltar</button>
+<div class="page-wrapper page-wrapper--manager page-wrapper--manager-rp">
+  <div class="dashboard-card dashboard-card--table-summary">
+    <h2 class="section-title mb-3">👤 Driver Summary</h2>
+
+    <div class="table-container">
+      <table class="table table-striped table-bordered table-hover">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Total Hours</th>
+            <th>Total KM</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let d of driverStats" (click)="goToDriverDetail(d.driverName)" style="cursor: pointer;">
+            <td>{{ d.driverName }}</td>
+            <td>{{ d.hours.toFixed(2) }}</td>
+            <td>{{ d.km.toFixed(2) }}</td>
+            <td>
+              <button mat-stroked-button color="primary" class="btn-sm" (click)="goToDriverDetail(d.driverName); $event.stopPropagation()">
+                📊 Detail
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="text-start mt-4">
+      <button mat-stroked-button class="btn-muted" (click)="goBack()">⬅️ Back</button>
+    </div>
+  </div>
 </div>
-  

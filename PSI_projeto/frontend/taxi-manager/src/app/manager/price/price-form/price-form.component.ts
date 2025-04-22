@@ -17,7 +17,8 @@ export class PriceFormComponent {
   testStartTime: string = '';
   testEndTime: string = '';
   testComfort: 'basic' | 'luxury' = 'basic';
-  testResult: number | null = null;
+  testResult: number = 0;
+
 
   constructor(private priceService: PriceService) {}
 

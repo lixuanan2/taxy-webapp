@@ -1,1 +1,13 @@
 @use '../variables' as *;
+
+// 返回按钮
+.btn-muted {
+    color: #666 !important;
+    border-color: #ccc !important;
+  
+    &:hover {
+      color: #333 !important;
+      border-color: #aaa !important;
+      background-color: #f3f3f3;
+    }
+}

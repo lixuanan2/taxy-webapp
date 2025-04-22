@@ -7,7 +7,8 @@ import { ReportService } from '@shared/services/report/report.service';
 
 @Component({
   selector: 'app-trip-detail',
-  templateUrl: './trip-detail.component.html'
+  templateUrl: './trip-detail.component.html',
+  styleUrls: ['./trip-detail.component.css']
 })
 export class TripDetailComponent implements OnInit {
   trips: Trip[] = [];

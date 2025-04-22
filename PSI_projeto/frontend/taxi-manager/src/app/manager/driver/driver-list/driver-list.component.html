@@ -27,17 +27,22 @@
               {{ driver.address.postalCode }} {{ driver.address.city }}
             </td>
             <td>
-              <button class="btn btn-sm btn-outline-primary me-2"
+              <button button mat-stroked-button color="primary" class="btn-sm me-2"
                       [routerLink]="['/manager/driver/edit', driver.nif]">
                 ✏️ Edit
               </button>
-              <button class="btn btn-sm btn-outline-danger" (click)="onDelete(driver)">
-                🗑️ Remove
+              <button button mat-stroked-button color="warn" class="btn-sm me-2" (click)="onDelete(driver)">
+                🗑️ Delete
               </button>
             </td>
           </tr>        
         </tbody>
       </table>
+      <div class="mt-4 text-start">
+        <a mat-stroked-button class="btn-muted" routerLink="/manager">
+          ⬅️ Back
+        </a>
+      </div>
     </div>
   </div>
 </div>
