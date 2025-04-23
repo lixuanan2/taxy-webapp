@@ -56,4 +56,9 @@ export class RequestService {
     return this.http.patch<RideRequest>(`${this.apiUrl}/${id}/confirm`, {});
   }
   
+  // 获取所有请求（不按 nif）
+  getAllRequests(): Observable<RideRequest[]> {
+    return this.http.get<RideRequest[]>('http://localhost:3000/api/request/history');
+  }
+
 }

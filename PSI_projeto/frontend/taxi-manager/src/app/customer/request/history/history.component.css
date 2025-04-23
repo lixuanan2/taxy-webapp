@@ -1,0 +1,45 @@
+.dashboard-card--table {
+    padding: 2rem;
+    margin: 2rem auto;
+    border-radius: 12px;
+    background-color: #eaf8f1;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+    max-width: 1000px;
+    height: 85vh;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .table-container {
+    flex: 1;
+    overflow-y: auto;
+    border-top: 1px solid #eee;
+    margin-top: 0;
+  }
+  
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+    min-width: 700px;
+  
+    th {
+      background-color: #66bb6a; /* ✅ 清新绿色主题 */
+      color: white;
+      padding: 12px;
+      text-align: left;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+  
+    td {
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+      vertical-align: middle;
+    }
+  
+    tr:hover {
+      background-color: #f9f9f9;
+    }
+  }
+  

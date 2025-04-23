@@ -13,6 +13,17 @@ router.post('/', async (req, res) => {
   }
 });
 
+// GET /api/request/history → 获取所有叫车历史
+router.get('/history', async (req, res) => {
+  try {
+    const requests = await RideRequest.find().sort({ createdAt: -1 });
+    res.json(requests);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+
 // GET /api/request/:id  →  查询叫车请求状态  story 6
 router.get('/:id', async (req, res) => {
   try {
@@ -136,10 +147,6 @@ router.patch('/:id/confirm', async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
-
-
-
-
 
 
 

@@ -30,4 +30,21 @@
       color: #0d3e13;
     }
   }
+
+  .btn-customer-secondary {
+    background-color: #d5e8dc;      /* 柔和灰绿 */
+    color: #a5d6a7;                 /* 深绿色字体 */
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    border: none;
+  
+    &:hover {
+      background-color: #c8e6c9;    /* 轻微亮一点 */
+      color: #81c784;
+    }
+  }
+  
+  
   
