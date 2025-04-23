@@ -7,6 +7,7 @@ import { RequestCreateComponent } from './create/request-create.component';
 import { WaitingComponent } from './waiting/waiting.component';
 import { DriverConfirmDialogComponent } from './driver-confirm-dialog/driver-confirm-dialog.component';
 import { SharedModule } from '@shared/shared.module'; 
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { SharedModule } from '@shared/shared.module';
     CommonModule,
     RequestRoutingModule,
     FormsModule,
-    SharedModule
+    SharedModule,
+    MatButtonModule
   ]
 })
 export class RequestModule { }

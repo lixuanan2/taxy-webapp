@@ -1,0 +1,50 @@
+.page-wrapper--customer {
+    min-height: 100vh;
+  }
+  
+  .dashboard-card--form {
+    background-color: #eaf8f1;
+    border-radius: 16px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+    padding: 1rem 1rem;
+    max-width: 1000px;
+    max-height: 900px;
+    margin: 0 auto;
+  }
+  
+  .btn-success {
+    background-color: #81c784;
+    color: #0d3e13;
+    font-weight: 600;
+  
+    &:hover {
+      background-color: #66bb6a;
+    }
+  }
+  
+  .btn-muted {
+    color: #666;
+    border-color: #ccc;
+  
+    &:hover {
+      color: #333;
+      border-color: #aaa;
+      background-color: #f3f3f3;
+    }
+  }
+
+  .btn-refresh {
+    background: none;
+    border: none;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    color: #1976d2; /* 或者其他主题色 */
+  }
+  
+  .btn-refresh:hover {
+    transform: rotate(90deg);
+    color: #004ba0;
+  }
+  
+  

@@ -1,16 +1,17 @@
 <div class="modal-backdrop">
-    <div class="modal-content p-4 rounded shadow bg-white">
-      <h5 class="mb-3">🚖 Motorista disponível!</h5>
-      <p><strong>Nome:</strong> {{ driverName }}</p>
-      <p><strong>Distância:</strong> {{ distance || '??' }}</p>
-      <p><strong>Tempo estimado:</strong> {{ eta || '??' }}</p>
-      <p><strong>Preço estimado:</strong> {{ estimatedPrice || '??' }}</p>
-      <p><strong>Táxi:</strong> {{ taxiInfo || 'Desconhecido' }}</p>
-  
-      <div class="d-flex justify-content-between mt-4">
-        <button class="btn btn-success" (click)="accept.emit()">Aceitar</button>
-        <button class="btn btn-outline-danger" (click)="reject.emit()">Rejeitar</button>
-      </div>
+  <div class="modal-content">
+    <h5 class="driver-found text-success fw-semibold mb-3">
+      🚖 A driver is available!
+    </h5>    
+    <p><strong>Name:</strong> {{ driverName }}</p>
+    <p><strong>Distance:</strong> {{ distance || '??' }}</p>
+    <p><strong>ETA:</strong> {{ eta || '??' }}</p>
+    <p><strong>Estimated Price:</strong> {{ estimatedPrice || '??' }}</p>
+    <p><strong>Taxi:</strong> {{ taxiInfo || 'Unknown' }}</p>
+
+    <div class="d-flex justify-content-between mt-4">
+      <button class="btn btn-success" (click)="accept.emit()">✅ Accept</button>
+      <button class="btn btn-outline-danger" (click)="reject.emit()">❌ Reject</button>
     </div>
+  </div>
 </div>
-  

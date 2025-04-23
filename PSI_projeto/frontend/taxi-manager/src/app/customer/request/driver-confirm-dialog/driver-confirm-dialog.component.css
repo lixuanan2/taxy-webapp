@@ -1,0 +1,32 @@
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.2);
+    z-index: 1050;
+  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    min-height: 100vh;
+    padding-bottom: 7.5vh;
+  }
+  
+  .modal-content {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    max-width: 500px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  }
+  
+  .driver-found {
+    font-size: 1.25rem;
+    color: #2e7d32;
+  }
+  

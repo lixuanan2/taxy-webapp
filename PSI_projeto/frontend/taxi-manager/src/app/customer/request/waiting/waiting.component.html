@@ -1,15 +1,17 @@
-<div class="container mt-5 text-center">
-    <h2>🚕 A procurar motorista...</h2>
-    <p class="lead">Por favor aguarde enquanto encontramos um motorista disponível.</p>
-  
-    <div class="spinner-border text-primary mt-4" role="status">
+<div class="page-wrapper page-wrapper--customer">
+  <div class="dashboard-card dashboard-card--waiting text-center">
+    <h2 class="section-title mb-3">🚕 Looking for a Driver...</h2>
+    <p class="lead text-muted">Please wait while we find an available driver for you.</p>
+
+    <div class="spinner-border text-success mt-4" role="status">
       <span class="visually-hidden">Loading...</span>
     </div>
-  
+
     <div class="mt-4">
-        <button class="btn btn-outline-danger" (click)="cancelRequest()">Cancelar Pedido</button>
+      <button class="btn btn-outline-danger" (click)="cancelRequest()">❌ Cancel Request</button>
     </div>
 
+    <!-- Driver Dialog -->
     <app-driver-confirm-dialog *ngIf="showDriverDialog"
       [driverName]="driverName"
       [distance]="driverDistance"
@@ -19,6 +21,5 @@
       (accept)="onDriverAccepted()"
       (reject)="onDriverRejected()">
     </app-driver-confirm-dialog>
-
+  </div>
 </div>
-  

@@ -1,78 +1,96 @@
-<div class="container mt-4">
-    <h2 class="mb-4">🚖 Pedir Táxi</h2>
-  
+<div class="page-wrapper page-wrapper--customer">
+  <div class="dashboard-card dashboard-card--form dashboard-card--wide">
+    <h2 class="section-title text-center fw-semibold mb-4">🚖 Request a Taxi</h2>
+
     <form (ngSubmit)="onSubmit()" #requestForm="ngForm" class="row g-3">
-  
+
+      <!-- 客户基本信息 -->
       <div class="col-md-6">
-        <label class="form-label">NIF</label>
+        <label class="form-label fw-semibold">NIF</label>
         <input name="nif" [(ngModel)]="request.nif"
                #nifRef="ngModel"
                required pattern="^\d{9}$"
                class="form-control"
                [ngClass]="{ 'is-invalid': nifRef.invalid && nifRef.touched }" />
-        <div *ngIf="nifRef.invalid && nifRef.touched" class="invalid-feedback">
-          NIF inválido (9 dígitos).
+        <div class="invalid-feedback" *ngIf="nifRef.invalid && nifRef.touched">
+          Invalid NIF (9 digits).
         </div>
       </div>
 
       <div class="col-md-6">
-        <label class="form-label">Género</label>
+        <label class="form-label fw-semibold">Gender</label>
         <select name="gender" [(ngModel)]="request.gender" required class="form-select">
-          <option value="">-- Selecionar --</option>
-          <option value="masculino">Masculino</option>
-          <option value="feminino">Feminino</option>
+          <option value="">-- Select --</option>
+          <option value="masculino">Male</option>
+          <option value="feminino">Female</option>
         </select>
-      </div>        
-  
-      <div class="col-md-6">
-        <label class="form-label">Localização Atual</label>
-        <input name="currentLocation" [(ngModel)]="request.currentLocation"
+      </div>
+
+      <!-- ✅ 当前地址 -->
+      <div class="col-md-12">
+        <label class="form-label d-flex justify-content-between align-items-center">
+          <span class="fw-semibold">Current Location</span>
+          <div class="d-flex align-items-center gap-2">
+            <button
+              type="button"
+              class="btn btn-refresh"
+              (click)="autoDetectLocation()"
+              title="Refresh location"
+            >
+              🔄
+            </button>
+            <span *ngIf="isLocating" class="form-text text-info mb-0">Locating...</span>
+          </div>
+        </label>        
+        <input name="currentLocation"
+               [(ngModel)]="request.currentLocation"
                required class="form-control"
                #curRef="ngModel"
                [ngClass]="{ 'is-invalid': curRef.invalid && curRef.touched }" />
-        <small class="text-muted">🌍 Detetado automaticamente (pode editar)</small>
         <div *ngIf="curRef.invalid && curRef.touched" class="invalid-feedback">
-          Por favor insira a sua localização.
+          Please enter your current location.
+        </div>
+      </div>
+      
+
+      <!-- ✅ 目的地 -->
+      <div class="col-12">
+        <label class="form-label fw-semibold">Destination</label>
+        <input name="destination" [(ngModel)]="request.destination"
+              required class="form-control"
+              #destRef="ngModel"
+              [ngClass]="{ 'is-invalid': destRef.invalid && destRef.touched }" />
+        <div class="invalid-feedback" *ngIf="destRef.invalid && destRef.touched">
+          Destination is required.
         </div>
       </div>
 
-      <label class="form-label">
-        Localização Atual
-        <button type="button" class="btn btn-link btn-sm p-0" (click)="autoDetectLocation()">🔄</button>
-      </label>      
-  
+
+      <!-- 数量 -->
       <div class="col-md-6">
-        <label class="form-label">Destino</label>
-        <input name="destination" [(ngModel)]="request.destination"
-               required class="form-control"
-               #destRef="ngModel"
-               [ngClass]="{ 'is-invalid': destRef.invalid && destRef.touched }" />
-        <div *ngIf="destRef.invalid && destRef.touched" class="invalid-feedback">
-          Por favor insira o destino.
-        </div>
-      </div>
-  
-      <div class="col-md-6">
-        <label class="form-label">Número de Pessoas</label>
+        <label class="form-label fw-semibold">Number of People</label>
         <input type="number" name="peopleCount" [(ngModel)]="request.peopleCount"
                min="1" required class="form-control"
                #peopleRef="ngModel"
                [ngClass]="{ 'is-invalid': peopleRef.invalid && peopleRef.touched }" />
-        <div *ngIf="peopleRef.invalid && peopleRef.touched" class="invalid-feedback">
-          Deve haver pelo menos uma pessoa.
+        <div class="invalid-feedback" *ngIf="peopleRef.invalid && peopleRef.touched">
+          At least one person required.
         </div>
       </div>
-  
+
+      <!-- 地图 -->
       <div class="col-12">
-        <button type="submit" class="btn btn-primary" [disabled]="!requestForm.valid">
-          ✉️ Enviar Pedido
+        <app-map-picker (locationSelected)="onMapClick($event)"></app-map-picker>
+      </div>
+
+      <!-- 提交按钮 -->
+      <div class="col-12 d-flex justify-content-between align-items-center mt-3">
+        <a mat-stroked-button class="btn-muted" routerLink="/customer">⬅️ Back</a>
+        <button type="submit" class="btn btn-success" [disabled]="!requestForm.valid">
+          ✉️ Send Request
         </button>
       </div>
-      
-      <div *ngIf="isLocating" class="form-text text-info">🔄 A localizar...</div>
-
-      <app-map-picker (locationSelected)="onMapClick($event)"></app-map-picker>
 
     </form>
   </div>
-  
+</div>

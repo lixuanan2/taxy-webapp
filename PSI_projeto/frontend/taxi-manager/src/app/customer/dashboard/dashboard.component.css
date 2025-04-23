@@ -1,9 +1,33 @@
-.card {
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    transition: 0.3s;
-}
-
-.card:hover {
-    transform: scale(1.02);
-}
+.page-wrapper--customer {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem 1rem;
+    padding-bottom: 20vh;
+  }
+  
+  .dashboard-card--home {
+    background-color: #eaf8f1;     
+    padding: 2.5rem;
+    border-radius: 16px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
+    max-width: 500px;
+    width: 100%;
+  }
+  
+  .btn-customer {
+    background-color: #a5d6a7;
+    color: #1b5e20;
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    transition: background-color 0.2s ease;
+  
+    &:hover {
+      background-color: #81c784;
+      color: #0d3e13;
+    }
+  }
   
