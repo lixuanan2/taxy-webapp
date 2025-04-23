@@ -1,83 +1,125 @@
-# Taxi WebApp
+# 🚖 Taxi WebApp (PSI Project)
 
-这是 FCUL 信息工程专业 PSI 科目的一个作业，目的是根据老师提供的讲义内容完成一个出租车公司的 App。
+本项目为 FCUL 信息工程专业 PSI 科目的课程作业，目标是开发一个面向司机、客户和管理者的出租车管理系统。
 
-## 项目介绍
-该项目使用 Angular CLI version 16.1.0-rc.0 生成。
+---
 
-### 详细版本信息：
-- Node.js: v20.11.1
-- MongoDB: v8.0.8
-- Angular: v16
+## 📦 技术栈 & 环境
 
-## 安装和运行步骤
+- **前端框架**：Angular 16 + Angular Material + Bootstrap
+- **地图服务**：Leaflet.js
+- **后端框架**：Node.js + Express
+- **数据库**：MongoDB + Mongoose ODM
+
+---
+
+## 📁 项目结构
+
+```
+/taxy-webapp
+├── frontend/taxi-manager       # Angular 前端项目
+└── backend                     # Node.js 后端服务
+```
+
+---
+
+## ⚙️ 安装和运行（Setup & Run）
 
 ### 1. 克隆项目
-首先，克隆这个项目到本地：
-
 ```bash
-git clone <your-repository-url>
+git clone https://github.com/lixuanan2/taxy-webapp.git
 ```
 
 ### 2. 安装前端依赖
-进入前端文件夹并安装所需的依赖：
-
 ```bash
 cd frontend/taxi-manager
 npm install
 ```
 
 ### 3. 安装后端依赖
-进入后端文件夹并安装所需的依赖：
-
 ```bash
-cd backend
+cd ../../backend
 npm install
 ```
 
-### 4. 启动前端开发服务器
-在前端文件夹，运行 Angular 开发服务器：
-
+### 4. 运行前端
 ```bash
-cd frontend/taxi-manager
+cd ../frontend/taxi-manager
 ng serve
 然后在浏览器中访问 http://localhost:4200，你将看到前端应用的界面
 ```
+访问：`http://localhost:4200`
 
-### 5. 启动后端服务
-在后端文件夹，运行后端服务器：
-
+### 5. 运行后端
 ```bash
-cd backend
+cd ../../backend
 node server.js
 ```
+（确保 MongoDB 服务已开启）
 
-### 6. 构建应用
-如果你需要构建生产环境版本，可以使用以下命令：
+---
 
-```bash
-ng build --prod
-构建的文件会存储在 dist/ 目录下
+## 💡 特性功能（Features）
+
+### 管理端（Manager）
+- 出租车管理（创建、编辑、列表）
+- 司机管理（注册、编辑、列表）
+- 报价策略管理（基本费用、夜间加成）
+- 报告统计（每个司机/车辆/客户的总时长、距离、金额）
+
+### 司机端（Driver）
+- 登录并切换角色
+- 创建工作班次（Turn）
+- 接单/拒单（Request）
+- 注册旅程（Trip）
+- 自动计算价格 & 距离
+- 发票生成与历史查看
+
+### 客户端（Customer）
+- 请求叫车（支持地图点选）
+- 查看司机接单弹窗确认
+- 查看历史请求记录（状态：pending/accepted/rejected）
+
+---
+
+## 🧭 依赖说明
+
+### 前端依赖
+```json
+@angular/core@16
+@angular/material@16
+leaflet@1.9.4
+bootstrap@5.3.5
 ```
+详见 `package.json` 和 `angular.json` 中的 styles 配置。
 
-### 7. 运行单元测试
-运行单元测试来确保功能正常：
-
-```bash
-ng test
-这将使用 Karma 来执行单元测试
+### 后端依赖
+```json
+express, mongoose, cors, dotenv, nodemon
 ```
+详见 `backend/package.json`
 
-### 8. 运行端到端测试
-如果你需要运行端到端测试，可以使用：
+---
 
-```bash
-ng e2e
-这将使用所选的平台来执行端到端测试。
-```
-## 其他帮助
-Angular CLI 帮助：使用 ng help 或访问 Angular CLI 概述和命令参考页面获取更多帮助。
+## 📝 注意事项
 
-功能文档：关于软件功能的详细内容，请参考项目内的 PDF 文档。
+- Leaflet 地图使用需联网，地图样式来自 CDN。
+- Bootstrap 与 Material 样式混用时有冲突，已通过自定义 SCSS 做隔离。
+- 本项目主要优化桌面端，移动端暂未完全适配。
 
-感谢您的使用，祝您开发愉快！
+---
+
+## 💚 贡献与未来
+
+本仓库为 PSI v1 版本实现，后续将通过 `v2` 分支进行逻辑优化、接口抽象与 UI 增强。
+
+欢迎 PR、Fork 与建议。
+
+---
+
+## 📮 联系方式
+
+开发者：[@lixuanan2](https://github.com/lixuanan2)
+
+感谢查看！祝你使用愉快 🚕✨
+
