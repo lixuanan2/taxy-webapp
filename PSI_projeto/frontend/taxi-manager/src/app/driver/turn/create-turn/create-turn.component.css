@@ -11,3 +11,7 @@
   .page-wrapper--driver {
     padding-bottom: 15vh;
   }
+
+  .dashboard-card {
+    background-color: #fffef7;
+  }

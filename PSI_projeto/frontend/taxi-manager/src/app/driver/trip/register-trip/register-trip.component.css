@@ -1,0 +1,9 @@
+.dashboard-card--wide {
+    max-width: 1000px;
+    width: 95%;
+    padding: 40px;
+  }
+  
+  .dashboard-card {
+    background-color: #fffef7;
+  }

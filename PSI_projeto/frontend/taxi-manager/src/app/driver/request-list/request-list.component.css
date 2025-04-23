@@ -1,0 +1,56 @@
+.request-card {
+    background-color: #fdfdfd;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+    padding: 1.5rem;
+    max-width: 1100px;
+    width: 97.5%;
+    margin: 1rem auto;
+  }
+  
+  .request-card p {
+    margin-bottom: 0.5rem;
+  }
+  
+  .request-card .btn-sm {
+    padding: 4px 8px;
+    font-size: 0.85rem;
+    min-width: 100px;
+    font-weight: 600;
+  }
+  
+  .request-info {
+    max-width: 77.5%;
+  }
+
+  .request-card .right-actions {
+    margin-top: 1.2rem;
+  }
+  
+  .dashboard-card {
+    background-color: #fffef7;
+    border-radius: 16px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+    padding: 1rem;
+    max-width: 1200px;
+    width: 90%;
+    margin: 2rem auto;
+    min-height: 800px;
+  }
+  
+  .page-wrapper--driver {
+    padding-bottom: 15vh;
+  }
+  
+  .empty-hint {
+    width: 97.5%;
+    margin: 1rem auto;
+  }
+  
+  .dashboard-card .text-start {
+    padding-left: 1rem;
+  }
+  
+  
+  
