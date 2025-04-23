@@ -1,0 +1,58 @@
+.dashboard-card--table {
+    padding: 2rem;
+    margin: 2rem auto;
+    border-radius: 12px;
+    background-color: #fffef7;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+    max-width: 1000px;
+    height: 85vh;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .table-container {
+    flex: 1;
+    overflow-y: auto;
+    border-top: 1px solid #eee;
+    margin-top: 1rem;
+  }
+  
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 700px;
+  
+    th, td {
+      vertical-align: middle;
+      padding: 10px;
+      text-align: left;
+    }
+  
+    th {
+      background-color: #f9a825;
+      color: white;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+  
+    tr:hover {
+      background-color: #f9f9f9;
+    }
+  }
+  
+  .btn-muted {
+    color: #666 !important;
+    border-color: #ccc !important;
+  
+    &:hover {
+      color: #333 !important;
+      border-color: #aaa !important;
+      background-color: #f3f3f3;
+    }
+  }
+  
+  .empty-hint {
+    width: 95%;
+    margin: 1rem auto;
+  }
+  

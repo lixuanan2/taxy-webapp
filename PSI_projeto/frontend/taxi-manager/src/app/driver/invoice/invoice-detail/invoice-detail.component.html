@@ -1,21 +1,25 @@
-<div class="container mt-4">
-    <h2>📄 Detalhes da Fatura</h2>
-  
-    <div *ngIf="!invoice" class="alert alert-warning">
-      Fatura não encontrada.
+<div class="page-wrapper page-wrapper--driver">
+  <div class="dashboard-card dashboard-card--form dashboard-card--wide">
+    <h2 class="section-title text-center mb-4">🧾 Invoice Detail</h2>
+
+    <div *ngIf="!invoice" class="alert alert-warning text-center">
+      Invoice not found.
     </div>
-  
-    <div *ngIf="invoice" class="card">
-      <div class="card-body">
-        <h5 class="card-title">Fatura #{{ invoice.invoiceNumber }}</h5>
-        <p><strong>Cliente:</strong> {{ invoice.clientNIF }}</p>
-        <p><strong>Motorista:</strong> {{ invoice.driverName }}</p>
-        <p><strong>Total:</strong> {{ invoice.total | currency }}</p>
-        <p><strong>Data:</strong> {{ invoice.date | date: 'short' }}</p>
-        <p><strong>Viagem ID:</strong> {{ invoice.tripId }}</p>
-      </div>
+
+    <div *ngIf="invoice" class="invoice-box p-4">
+      <h5 class="mb-3">Invoice #{{ invoice.invoiceNumber }}</h5>
+      <p><strong>Client:</strong> {{ invoice.clientNIF }}</p>
+      <p><strong>Driver:</strong> {{ invoice.driverName }}</p>
+      <p><strong>Total:</strong> {{ invoice.total | currency:'EUR' }}</p>
+      <p><strong>Date:</strong> {{ invoice.date | date: 'short' }}</p>
+      <p><strong>Trip ID:</strong> {{ invoice.tripId }}</p>
     </div>
-  
-    <a routerLink="/driver/invoice" class="btn btn-primary mt-3">Voltar para a lista de faturas</a>
+
+    <!-- 返回按钮 -->
+    <div class="mt-4 text-start">
+      <a mat-stroked-button class="btn-muted" routerLink="/driver/invoice">
+        ⬅️ Back to Invoice List
+      </a>
+    </div>
+  </div>
 </div>
-  

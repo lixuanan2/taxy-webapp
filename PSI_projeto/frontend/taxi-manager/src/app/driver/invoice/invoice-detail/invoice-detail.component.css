@@ -1,0 +1,33 @@
+.dashboard-card--wide {
+    max-width: 900px;
+    width: 90%;
+    padding: 2rem;
+    margin: 2rem auto;
+    border-radius: 12px;
+    background-color: #fffef7;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+  }
+  
+  .invoice-box {
+    background-color: #fdfdfd;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
+    padding: 1.5rem;
+    line-height: 1.6;
+  }
+  
+  .btn-muted {
+    color: #666 !important;
+    border-color: #ccc !important;
+  
+    &:hover {
+      color: #333 !important;
+      border-color: #aaa !important;
+      background-color: #f3f3f3;
+    }
+  }
+
+  .page-wrapper--driver {
+    padding-bottom: 15vh;
+  }
