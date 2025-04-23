@@ -48,6 +48,7 @@ export class RequestListComponent implements OnInit {
     this.requestService.acceptRequest(requestId, this.driverName).subscribe({
       next: () => {
         alert(`✅ Pedido aceito por ${this.driverName}!`);
+        localStorage.setItem('latestRequestId', requestId);  // 👈 存储 ID，等 dashboard 页面来轮询
         this.router.navigate(['/driver/dashboard']);
       },
       error: (err) => {
@@ -56,6 +57,7 @@ export class RequestListComponent implements OnInit {
       }
     });
   }
+  
 
   reject(requestId: string): void {
     this.requestService.rejectRequest(requestId).subscribe({

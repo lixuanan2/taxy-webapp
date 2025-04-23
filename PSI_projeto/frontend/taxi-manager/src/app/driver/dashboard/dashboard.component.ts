@@ -14,6 +14,9 @@ export class DashboardComponent implements OnInit {
   hasPendingTrip = false; // Determine if there are any pending trips
   invoicesCount: number = 0; // To hold the count of invoices issued
 
+  waitingForClient = false;
+  rejectedByClient = false;
+
   constructor(
     private requestService: RequestService,
     private invoiceService: InvoiceService,
@@ -25,6 +28,13 @@ export class DashboardComponent implements OnInit {
     this.checkForPendingTrip();
     // Fetch the number of invoices for this driver
     this.loadInvoices();
+
+    // 如果刚刚接受了请求，则启动轮询
+    const pendingId = localStorage.getItem('latestRequestId');
+    if (pendingId) {
+      this.waitingForClient = true;
+      this.waitForClientConfirmation(pendingId);
+    }
   }
 
   logout() {
@@ -69,7 +79,8 @@ export class DashboardComponent implements OnInit {
   
 
   loadInvoices() {
-    this.invoiceService.getInvoices().subscribe({
+    const driverName = localStorage.getItem('currentDriverName') || '';
+    this.invoiceService.getInvoicesByDriver(driverName).subscribe({
       next: invoices => {
         this.invoicesCount = invoices.length;
       },
@@ -77,6 +88,45 @@ export class DashboardComponent implements OnInit {
         console.error('❌ Erro ao carregar faturas:', err);
       }
     });
+  }  
+  
+  waitInterval: any;
+
+  waitForClientConfirmation(requestId: string): void {
+    this.waitInterval = setInterval(() => {
+      this.requestService.getRequestStatus(requestId).subscribe({
+        next: (fresh) => {
+          if (fresh.status === 'rejected' || fresh.status === 'cancelled') {
+            localStorage.removeItem('latestRequest');
+            localStorage.removeItem('latestRequestId');
+            this.rejectedByClient = true;         // ✅ 标记应该显示红框
+            this.hasPendingTrip = false;
+            this.waitingForClient = false;
+          }
+           else if (fresh.confirmedByClient) {
+            clearInterval(this.waitInterval);
+            this.hasPendingTrip = true;
+            this.waitingForClient = false; // ⬅️ 添加
+            localStorage.removeItem('latestRequestId');
+          }
+        },
+        error: (err) => {
+          console.error('Erro ao verificar confirmação do cliente:', err);
+        
+          if (err.status === 404) {
+            clearInterval(this.waitInterval);
+            localStorage.removeItem('latestRequestId');
+            this.waitingForClient = false;
+            // 可选：弹窗提示
+            alert('❌ O pedido foi removido ou não existe mais.');
+          }
+        }
+      });
+    }, 3000);
   }
+
+  dismissRejectionAlert(): void {
+    this.rejectedByClient = false;
+  }  
   
 }

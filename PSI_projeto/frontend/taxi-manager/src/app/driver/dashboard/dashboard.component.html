@@ -14,13 +14,7 @@
     <a routerLink="/driver/invoice/list" class="btn btn-info m-2">Ver Faturas</a> 
   </div>
 
-  <!-- No available trips for issuing invoice -->
-  <div *ngIf="hasPendingTrip" class="alert alert-warning d-flex justify-content-between align-items-center mt-3 shadow-sm">
-    <div>
-      <strong>🕒 Tem uma viagem aceite!</strong> Registe a viagem antes de iniciar outra.
-    </div>
-    <a class="btn btn-sm btn-primary" routerLink="/driver/trip/register">Registar Agora</a>
-  </div>
+  
 
   <!-- Displaying the number of invoices (optional) -->
   <div *ngIf="invoicesCount > 0" class="alert alert-success mt-3">
@@ -32,9 +26,34 @@
     Nenhuma fatura emitida até agora.
   </div>
 
+  <!-- dashboard.component.html -->
+  <div *ngIf="waitingForClient" class="alert alert-info mt-3">
+    Aguardando confirmação do cliente...
+  </div>
+
+  <!-- No available trips for issuing invoice -->
+  <div *ngIf="hasPendingTrip" class="alert alert-warning d-flex justify-content-between align-items-center mt-3 shadow-sm">
+    <div>
+      <strong>🕒 Tem uma viagem aceite!</strong> Registe a viagem antes de iniciar outra.
+    </div>
+    <a class="btn btn-sm btn-primary" routerLink="/driver/trip/register">Registar Agora</a>
+  </div>
+
+  <!-- 🚫 未来可用：提示被拒绝 -->
+  <!--
+  <div *ngIf="rejectedByClient" class="alert alert-danger mt-3 d-flex justify-content-between align-items-center">
+    <div>
+      <strong>🚫 Pedido rejeitado pelo cliente.</strong> Esta viagem foi cancelada.
+    </div>
+    <button class="btn btn-outline-light btn-sm" (click)="dismissRejectionAlert()">Entendi</button>
+  </div>
+  -->
+  
+
   <div class="text-end">
     <button class="btn btn-outline-danger btn-sm" (click)="logout()">
       🔒 Logout
     </button>
   </div>  
 </div>
+ 
