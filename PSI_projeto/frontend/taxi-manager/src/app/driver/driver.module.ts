@@ -8,6 +8,8 @@ import { DriverLoginComponent } from './login/login.component';
 import { DashboardComponent } from '@driver/dashboard/dashboard.component';
 import { RequestListComponent } from './request-list/request-list.component';
 
+import { MatButtonModule } from '@angular/material/button';
+
 @NgModule({
   declarations: [
     DriverLoginComponent,
@@ -17,7 +19,8 @@ import { RequestListComponent } from './request-list/request-list.component';
   imports: [
     CommonModule,
     FormsModule,
-    DriverRoutingModule
+    DriverRoutingModule,
+    MatButtonModule
   ]
 })
 export class DriverModule { }

@@ -1,44 +1,51 @@
-<div class="container mt-4">
-  <h2>🕓 Create New Turn</h2>
+<div class="page-wrapper page-wrapper--driver">
+  <div class="dashboard-card dashboard-card--form">
+    <h2 class="section-title text-center mb-4">🕓 Create New Turn</h2>
 
-  <form (ngSubmit)="onSubmit()" #turnForm="ngForm" class="row g-3">
+    <form (ngSubmit)="onSubmit()" #turnForm="ngForm" class="row g-3">
+      
+      <!-- 时间选择 -->
+      <div class="col-md-6">
+        <label class="form-label">Start Time</label>
+        <input type="time" name="startTime" [(ngModel)]="startTime" required class="form-control" />
+      </div>
 
-    <div class="col-md-6">
-      <label class="form-label">Start Time</label>
-      <input type="time" name="startTime" [(ngModel)]="startTime" required class="form-control" />
-    </div>
+      <div class="col-md-6">
+        <label class="form-label">End Time</label>
+        <input type="time" name="endTime" [(ngModel)]="endTime" required class="form-control" />
+      </div>
 
-    <div class="col-md-6">
-      <label class="form-label">End Time</label>
-      <input type="time" name="endTime" [(ngModel)]="endTime" required class="form-control" />
-    </div>
+      <!-- 可选出租车列表 -->
+      <div class="col-md-12">
+        <label class="form-label">Select Taxi</label>
+        <select
+          name="selectedTaxi"
+          [(ngModel)]="selectedTaxiPlate"
+          class="form-select"
+          required
+          [disabled]="!startTime || !endTime || availableTaxis.length === 0"
+        >
+          <option *ngFor="let taxi of availableTaxis" [value]="taxi.plate">
+            {{ taxi.plate }} - {{ taxi.brand }} {{ taxi.model }} ({{ taxi.comfortLevel }})
+          </option>
+        </select>
+      </div>
 
-    <div class="col-12">
-      <button type="button" class="btn btn-outline-primary" (click)="onCheckAvailable()">
-        🔍 Check Available Taxis
-      </button>
-    </div>
+      <!-- ✅ 底部按钮：居中三连 -->
+      <div class="col-12 d-flex justify-content-between align-items-center mt-4">
+        <!-- ⬅️ 返回按钮 -->
+        <a mat-stroked-button class="btn-muted" routerLink="/driver/dashboard">⬅️ Back</a>
 
-    <div class="col-md-12" *ngIf="availableTaxis.length > 0">
-      <label class="form-label">Select Taxi</label>
-      <select name="selectedTaxi" [(ngModel)]="selectedTaxiPlate" required class="form-select">
-        <option *ngFor="let taxi of availableTaxis" [value]="taxi.plate">
-          {{ taxi.plate }} - {{ taxi.brand }} {{ taxi.model }} ({{ taxi.comfortLevel }})
-        </option>
-      </select>
-    </div>
+        <!-- ✅ 创建与列表 -->
+        <div class="d-flex gap-2">
+          <button type="submit" class="btn btn-success" [disabled]="!turnForm.form.valid || !selectedTaxiPlate">
+            ✅ Create
+          </button>
+          <a routerLink="../list" class="btn btn-outline-secondary">📄 My Turns</a>
+        </div>
+      </div>
 
-    <div class="col-12">
-      <button type="submit" class="btn btn-success" [disabled]="!turnForm.form.valid || !selectedTaxiPlate">
-        ✅ Create Turn
-      </button>
-    </div>
 
-    <div class="text-end mb-3">
-      <a routerLink="../list" class="btn btn-outline-secondary">
-        📄 View My Turns
-      </a>
-    </div>
-    
-  </form>
+    </form>
+  </div>
 </div>

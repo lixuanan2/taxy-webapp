@@ -1,59 +1,74 @@
-<div class="container mt-4">
-  <h2>🚗 Dashboard do Motorista</h2>
+<div class="page-wrapper page-wrapper--driver">
+  <div class="dashboard-card dashboard-card--driver-dashboard">
+    <h2 class="driver-dashboard-title text-center mb-3">
+      <span class="emoji">🧑</span> Driver Dashboard
+    </h2>    
 
-  <!-- Welcome message -->
-  <p class="lead">Bem-vindo, {{ driverName }}!</p>
+    <p class="driver-welcome text-center mb-4">
+      Welcome back, <strong class="driver-name">{{ driverName }}</strong>!
+    </p>
+    
 
-  <!-- Dashboard buttons -->
-  <div class="dashboard-buttons">
-    <a routerLink="/driver/turn/create" class="btn btn-success m-2">Solicitar Táxi</a>
-    <a routerLink="/driver/request" class="btn btn-primary m-2">Ver Pedidos</a>
-    <a routerLink="/driver/trip/register" class="btn btn-success m-2">Registrar Viagem</a>
-    <a routerLink="/driver/trip/list" class="btn btn-outline-secondary m-2">📄 Histórico de Viagens</a>
-    <a routerLink="/driver/invoice/issue" class="btn btn-warning m-2">Emitir Fatura</a>
-    <a routerLink="/driver/invoice/list" class="btn btn-info m-2">Ver Faturas</a> 
-  </div>
-
-  
-
-  <!-- Displaying the number of invoices (optional) -->
-  <div *ngIf="invoicesCount > 0" class="alert alert-success mt-3">
-    <strong>{{ invoicesCount }} faturas emitidas</strong>
-  </div>
-
-  <!-- If there are no invoices to show -->
-  <div *ngIf="invoicesCount === 0" class="alert alert-info mt-3">
-    Nenhuma fatura emitida até agora.
-  </div>
-
-  <!-- dashboard.component.html -->
-  <div *ngIf="waitingForClient" class="alert alert-info mt-3">
-    Aguardando confirmação do cliente...
-  </div>
-
-  <!-- No available trips for issuing invoice -->
-  <div *ngIf="hasPendingTrip" class="alert alert-warning d-flex justify-content-between align-items-center mt-3 shadow-sm">
-    <div>
-      <strong>🕒 Tem uma viagem aceite!</strong> Registe a viagem antes de iniciar outra.
+    <!-- 📍 Turn Management -->
+    <div class="section-block">
+      <h4>📍 Turn Management</h4>
+      <a routerLink="/driver/turn/create" class="btn btn-turn btn-block mb-2">🛫 Create Turn</a>
     </div>
-    <a class="btn btn-sm btn-primary" routerLink="/driver/trip/register">Registar Agora</a>
-  </div>
 
-  <!-- 🚫 未来可用：提示被拒绝 -->
-  <!--
-  <div *ngIf="rejectedByClient" class="alert alert-danger mt-3 d-flex justify-content-between align-items-center">
-    <div>
-      <strong>🚫 Pedido rejeitado pelo cliente.</strong> Esta viagem foi cancelada.
+    <!-- 🚖 Ride Operations -->
+    <div class="section-block">
+      <h4>🚖 Ride Operations</h4>
+      <a routerLink="/driver/request" class="btn btn-trip btn-block mb-2">📬 View Requests</a>
+      <a routerLink="/driver/trip/register" class="btn btn-trip btn-block mb-2">📝 Register Trip</a>
+      <a routerLink="/driver/trip/list" class="btn btn-trip btn-block mb-2">📄 Trip History</a>
     </div>
-    <button class="btn btn-outline-light btn-sm" (click)="dismissRejectionAlert()">Entendi</button>
-  </div>
-  -->
-  
 
-  <div class="text-end">
-    <button class="btn btn-outline-danger btn-sm" (click)="logout()">
-      🔒 Logout
-    </button>
-  </div>  
+    <!-- 💰 Invoice Management -->
+    <div class="section-block">
+      <h4>💰 Invoice Management</h4>
+      <a routerLink="/driver/invoice/issue" class="btn btn-invoice btn-block mb-2">🧾 Issue Invoice</a>
+      <a routerLink="/driver/invoice/list" class="btn btn-invoice btn-block mb-2">📁 View Invoices</a>
+    </div>
+
+
+    <!-- 📈 状态反馈区 -->
+    <div class="section-block mt-4">
+      <h4>📢 Status Alerts</h4>
+      <div *ngIf="invoicesCount > 0" class="alert alert-success alert-short mt-3">
+        <strong>{{ invoicesCount }} invoices issued</strong>
+      </div>
+
+      <div *ngIf="invoicesCount === 0" class="alert alert-info alert-short mt-3">
+        No invoices issued yet.
+      </div>
+
+      <div *ngIf="waitingForClient" class="alert alert-info alert-short mt-3">
+        ⏳ Waiting for client confirmation...
+      </div>
+
+      <div *ngIf="hasPendingTrip" class="alert alert-warning alert-long d-flex justify-content-between align-items-center mt-3 shadow-sm">
+        <div>
+          <strong>🕒 You have an accepted trip!</strong> Please register it before starting another.
+        </div>
+        <a class="btn btn-sm btn-primary" routerLink="/driver/trip/register">Register Now</a>
+      </div>
+
+      <!-- 可选：客户端拒绝（将来解锁） -->
+      <!--
+      <div *ngIf="rejectedByClient" class="alert alert-danger mt-3 d-flex justify-content-between align-items-center">
+        <div>
+          <strong>🚫 Request rejected by the client.</strong> This trip was cancelled.
+        </div>
+        <button class="btn btn-outline-light btn-sm" (click)="dismissRejectionAlert()">Got it</button>
+      </div>
+      -->
+    </div>
+
+    <!-- 🔒 Logout -->
+    <div class="text-end mt-4">
+      <button class="btn btn-outline-danger btn-sm" (click)="logout()">
+        🔒 Logout
+      </button>
+    </div>
+  </div>
 </div>
- 

@@ -1,27 +1,38 @@
-<div class="container mt-4">
-    <h2>📋 Turn List</h2>
-  
-    <table class="table table-striped mt-3" *ngIf="turns.length > 0">
-      <thead>
-        <tr>
-          <th>Taxi Plate</th>
-          <th>Start Time</th>
-          <th>End Time</th>
-          <th>Created</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let t of turns">
-          <td>{{ t.taxiPlate }}</td>
-          <td>{{ t.startTime | date: 'shortTime' }}</td>
-          <td>{{ t.endTime | date: 'shortTime' }}</td>
-          <td>{{ t.createdAt | date: 'short' }}</td>
-        </tr>
-      </tbody>
-    </table>
-  
-    <div *ngIf="turns.length === 0" class="alert alert-info">
-      No turns found for this driver.
+<div class="page-wrapper page-wrapper--driver">
+  <div class="dashboard-card dashboard-card--table">
+    <h2 class="section-title mb-3 text-center">📋 My Turns</h2>
+
+    <div class="table-container">
+      <table class="table table-striped table-hover table-bordered table-sm" *ngIf="turns.length > 0">
+        <thead>
+          <tr>
+            <th>Taxi Plate</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <th>Created At</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let t of turns">
+            <td>{{ t.taxiPlate }}</td>
+            <td>{{ t.startTime | date: 'shortTime' }}</td>
+            <td>{{ t.endTime | date: 'shortTime' }}</td>
+            <td>{{ t.createdAt | date: 'short' }}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- 空状态提示 -->
+      <div *ngIf="turns.length === 0" class="alert alert-info text-center mt-3">
+        ℹ️ No turns found for this driver.
+      </div>
+    </div>
+
+    <!-- 返回按钮 -->
+    <div class="text-start mt-4">
+      <a mat-stroked-button class="btn-muted" routerLink="/driver/turn/create">
+        ⬅️ Back
+      </a>
     </div>
   </div>
-  
+</div>

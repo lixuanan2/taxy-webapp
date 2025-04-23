@@ -26,9 +26,27 @@ export class CreateTurnComponent implements OnInit {
       this.driverNif = driver.nif;
     } else {
       alert('🚫 Erro: motorista não autenticado!');
-      // 可以跳转回登录页或禁用功能
     }
+  
+    // 开启时间变化监听器（每 0.5 秒）
+    setInterval(() => {
+      if (this.startTime && this.endTime) {
+        this.tryAutoLoadTaxis();
+      }
+    }, 500);
   }
+  
+  // 👇 避免重复加载
+  lastStart = '';
+  lastEnd = '';
+  tryAutoLoadTaxis() {
+    if (this.startTime === this.lastStart && this.endTime === this.lastEnd) return;
+  
+    this.lastStart = this.startTime;
+    this.lastEnd = this.endTime;
+    this.onCheckAvailable();
+  }
+  
 
   onCheckAvailable() {
     const startDate = this.getTodayTime(this.startTime);
