@@ -1,9 +1,11 @@
+<!-- 🌟 主页面框架 MainDashboard: 选择用户角色后进入对应的 Dashboard -->
+
 <div class="page-wrapper page-wrapper--main">
   <mat-card class="dashboard-card">
-    <!-- 🔥 欢迎头部 -->
+    <!-- 🔥 欢迎头部区域 -->
     <div class="text-center mb-4">
       <h1 class="section-title">🚖 Welcome to <span class="app-name">Taxy WebApp</span></h1>
-      <p class="muted">Your journey starts here – please choose your role</p>
+      <p class="muted">Your journey starts here - please choose your role</p>
     </div>
 
     <!-- 🎯 Material 表单区域 -->
@@ -17,6 +19,7 @@
         </mat-select>
       </mat-form-field>
 
+      <!-- 🚀 进入 Dashboard 按钮 -->
       <button mat-raised-button color="primary" type="submit" [disabled]="!selectedRole">
         Enter Dashboard
       </button>

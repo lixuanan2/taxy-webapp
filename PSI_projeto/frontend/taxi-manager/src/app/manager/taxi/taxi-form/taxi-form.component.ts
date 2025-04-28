@@ -1,3 +1,13 @@
+/**
+ * 📄 TaxiFormComponent
+ * 
+ * 本组件属于 Manager 模块，
+ * 用于添加新出租车(Taxi)的注册表单，包括:
+ * - 填写 Plate、Brand、Model、Year、ComfortLevel
+ * - 校验车牌格式
+ * - 保存出租车到后端数据库
+ */
+
 import { Component, ViewChild } from '@angular/core';
 import { Taxi } from '@models/taxi.model';
 import { TaxiService } from '@shared/services/taxi/taxi.service';
@@ -10,8 +20,10 @@ import { NgForm } from '@angular/forms';
 })
 
 export class TaxiFormComponent {
-  @ViewChild('taxiForm') taxiForm!: NgForm;  // 获取表单的引用
+  // 🚗 表单引用
+  @ViewChild('taxiForm') taxiForm!: NgForm;
 
+  // 🚕 出租车数据对象
   taxi: Taxi = {
     plate: '',
     brand: '',
@@ -20,6 +32,7 @@ export class TaxiFormComponent {
     comfortLevel: 'basic'
   };
 
+  // 🚘 品牌及其对应型号
   brands = ['Toyota', 'Ford', 'Mercedes'];
   brandModels: { [key: string]: string[] } = {
     Toyota: ['Corolla', 'Camry', 'Prius'],
@@ -27,6 +40,7 @@ export class TaxiFormComponent {
     Mercedes: ['A-Class', 'E-Class', 'S-Class']
   };
 
+  // 🚗 当前可选型号列表
   models: string[] = [];
   currentYear = new Date().getFullYear();
 
@@ -34,7 +48,7 @@ export class TaxiFormComponent {
 
   ngOnInit(): void {}
 
-  // 根据年份选择车牌格式并返回提示信息
+  // 📋 根据年份返回车牌格式及提示
   getPlatePattern(year: number): { pattern: string, formatTip: string } {
     if (year >= 2020) {
       return {
@@ -59,14 +73,13 @@ export class TaxiFormComponent {
     }
   }
 
-  // 车牌格式化：自动添加分隔符
+  // ✏️ 格式化车牌（自动加分隔符）
   formatPlate(plate: string): string {
     plate = plate.replace(/[^A-Za-z0-9]/g, '');
-    
-    // 根据年份选择正确的格式
+
     const year = this.taxi.year;
     let formattedPlate = '';
-    
+
     if (year >= 2020) {
       // AA-01-AA 格式
       if (plate.length > 2) formattedPlate = plate.substring(0, 2) + '-' + plate.substring(2);
@@ -84,19 +97,18 @@ export class TaxiFormComponent {
       if (plate.length > 2) formattedPlate = plate.substring(0, 2) + '-' + plate.substring(2);
       if (formattedPlate.length > 5) formattedPlate = formattedPlate.substring(0, 5) + '-' + formattedPlate.substring(5);
     }
-  
-    return formattedPlate.toUpperCase();  // 确保字母为大写
+
+    return formattedPlate.toUpperCase();
   }
 
-  // 处理车牌输入时的格式化
+  // 📋 处理车牌输入变化
   onPlateInput(event: any): void {
     const rawValue = event.target.value;
     this.taxi.plate = this.formatPlate(rawValue);
   }
 
-
-  // 提交表单
-  onSubmit() {
+  // 🚀 提交表单，注册出租车
+  onSubmit(): void {
     this.taxiService.createTaxi(this.taxi).subscribe({
       next: () => {
         alert('✅ Taxi registered successfully!');
@@ -119,19 +131,19 @@ export class TaxiFormComponent {
     });
   }
 
-  // 自动更新 model 列表
+  // 📋 实时检测品牌变化，更新型号
   ngDoCheck(): void {
     this.models = this.brandModels[this.taxi.brand] || [];
   }
 
-  // 添加一个方法，在品牌变更时触发
+  // 🛠 品牌改变时清空型号
   onBrandChange(): void {
     this.models = this.brandModels[this.taxi.brand] || [];
-    this.taxi.model = '';  // 清空 model
+    this.taxi.model = '';
   }
 
-  // 清空表单并恢复为初始值
-  onClearForm() {
+  // 🧹 清空表单内容
+  onClearForm(): void {
     this.taxiForm.reset({
       plate: '',
       brand: '',
@@ -140,5 +152,4 @@ export class TaxiFormComponent {
       comfortLevel: 'basic'
     });
   }
-
 }

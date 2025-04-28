@@ -1,9 +1,16 @@
+<!-- 🌟 Manager 添加出租车页面 (TaxiForm)
+     本页面用于注册新的出租车，填写车牌、品牌、型号、年份和舒适等级
+-->
+
 <div class="page-wrapper page-wrapper--manager page-wrapper--manager--taxi-form">
   <div class="dashboard-card dashboard-card--form">
+    <!-- 🚕 页面标题 -->
     <h2 class="section-title text-center mb-4">🚕 Add New Taxi</h2>
 
+    <!-- 🎯 出租车注册表单 -->
     <form (ngSubmit)="onSubmit()" #taxiForm="ngForm" class="row g-3">
 
+      <!-- 📋 Plate 输入 -->
       <div class="col-md-6">
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>Plate</mat-label>
@@ -14,13 +21,13 @@
                  required
                  [pattern]="getPlatePattern(taxi.year).pattern"
                  maxlength="8" />
-      
           <mat-error *ngIf="plateRef.invalid && plateRef.touched">
             {{ getPlatePattern(taxi.year).formatTip }}
           </mat-error>
         </mat-form-field>
       </div>
 
+      <!-- 📋 Brand 选择 -->
       <div class="col-md-6">
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>Brand</mat-label>
@@ -28,13 +35,13 @@
             <mat-option value="" disabled>-- Select brand --</mat-option>
             <mat-option *ngFor="let brand of brands" [value]="brand">{{ brand }}</mat-option>
           </mat-select>
-        
           <mat-error *ngIf="brandRef.invalid && brandRef.touched">
             Please select a brand.
           </mat-error>
         </mat-form-field>
       </div>
 
+      <!-- 📋 Model 选择 -->
       <div class="col-md-6">
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>Model</mat-label>
@@ -44,8 +51,8 @@
           </mat-select>
         </mat-form-field>
       </div>
-      
 
+      <!-- 📋 Year 输入 -->
       <div class="col-md-6">
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>Year</mat-label>
@@ -59,8 +66,8 @@
           </mat-error>
         </mat-form-field>
       </div>
-      
 
+      <!-- 📋 Comfort Level 选择 -->
       <div class="col-md-6">
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>Comfort Level</mat-label>
@@ -70,14 +77,15 @@
           </mat-select>
         </mat-form-field>
       </div>
-      
 
+      <!-- 🔘 底部按钮区域 -->
       <div class="col-12 d-flex justify-content-between align-items-center mt-3">
         <!-- ⬅️ 返回按钮 -->
         <a mat-stroked-button class="btn-muted" routerLink="/manager">
           ⬅️ Back
         </a>
-      
+
+        <!-- ➕ 创建和清空按钮 -->
         <div class="d-flex gap-2">
           <button mat-raised-button color="primary" type="submit" [disabled]="!taxiForm.form.valid">
             ➕ Create Taxi
@@ -87,6 +95,7 @@
           </button>
         </div>
       </div>
+
     </form>
   </div>
 </div>

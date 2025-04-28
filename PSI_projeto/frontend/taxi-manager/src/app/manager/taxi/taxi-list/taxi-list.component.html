@@ -1,7 +1,14 @@
+<!-- 🌟 Manager 查看出租车列表页面 (TaxiList)
+     本页面展示所有注册的出租车，支持编辑和删除操作
+-->
+
 <div class="page-wrapper page-wrapper--manager">
   <div class="dashboard-card dashboard-card--table">
+
+    <!-- 🚕 页面标题 -->
     <h2 class="section-title mb-3">🚕 Taxi List</h2>
 
+    <!-- 📋 出租车列表表格 -->
     <div class="table-container">
       <table class="table table-striped">
         <thead>
@@ -24,9 +31,12 @@
             <td>{{ taxi.comfortLevel }}</td>
             <td>{{ taxi.createdAt | date:'short' }}</td>
             <td>
+              <!-- ✏️ 编辑按钮 -->
               <button mat-stroked-button color="primary" class="btn-sm me-2" (click)="editTaxi(taxi.plate)">
                 ✏️ Edit
               </button>
+
+              <!-- 🗑️ 删除按钮 -->
               <button mat-stroked-button color="warn" class="btn-sm" (click)="deleteTaxi(taxi.plate)">
                 🗑️ Delete
               </button>
@@ -34,11 +44,14 @@
           </tr>
         </tbody>
       </table>
+
+      <!-- ⬅️ 返回按钮 -->
       <div class="mt-4 text-start">
         <a mat-stroked-button class="btn-muted" routerLink="/manager">
           ⬅️ Back
         </a>
       </div>
     </div>
+
   </div>
 </div>
