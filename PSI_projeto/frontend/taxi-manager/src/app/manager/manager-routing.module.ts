@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+// 🧭 主控制面板组件
 import { DashboardComponent } from './dashboard/dashboard.component';
 
+// 📦 懒加载子模块
 const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: 'taxi', loadChildren: () => import('@manager/taxi/taxi.module').then(m => m.TaxiModule) },
@@ -17,4 +19,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class ManagerRoutingModule { }
+export class ManagerRoutingModule {}

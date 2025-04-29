@@ -1,11 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+// 🚦 子路由配置
 import { ManagerRoutingModule } from './manager-routing.module';
 
+// 🧩 页面组件
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { SharedModule } from '@shared/shared.module';
 
+// 📦 共享模块
+import { SharedModule } from '@shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -17,4 +20,4 @@ import { SharedModule } from '@shared/shared.module';
     SharedModule
   ]
 })
-export class ManagerModule { }
+export class ManagerModule {}

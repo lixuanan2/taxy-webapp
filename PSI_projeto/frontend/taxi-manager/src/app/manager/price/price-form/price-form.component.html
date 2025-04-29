@@ -1,8 +1,15 @@
+<!-- 🌟 Manager 设置出租车价格页面 (PriceForm)
+     本页面用于设置 Basic 和 Luxury 的价格，以及夜间附加费 (Night Bonus),
+     并支持测试价格计算
+-->
+
 <div class="page-wrapper page-wrapper--manager page-wrapper--manager-price">
   <div class="dashboard-card dashboard-card--form">
+
+    <!-- 💰 页面标题 -->
     <h2 class="section-title text-center mb-4">💰 Define Taxi Prices</h2>
 
-    <!-- 设置价格部分 -->
+    <!-- 🎯 设置价格表单 -->
     <form (ngSubmit)="onSubmit()" #priceForm="ngForm" class="row g-3">
       <div class="col-md-6">
         <label class="form-label">Basic Comfort Price per Minute (€)</label>
@@ -21,11 +28,11 @@
       <div class="col-md-6">
         <label class="form-label">Night Bonus (%)</label>
         <input type="number" name="nightBonus" [(ngModel)]="price.nightBonus" step="1"
-               required min="0"
-               class="form-control"
+               required min="0" class="form-control"
                [ngClass]="{ 'is-invalid': priceForm.submitted && price.nightBonus == null }" />
       </div>
 
+      <!-- 💾 保存价格按钮 -->
       <div class="col-12 text-end">
         <button type="submit" class="btn btn-success">
           💾 Save Prices
@@ -35,26 +42,28 @@
 
     <hr class="my-4" />
 
-    <!-- 测试计算区域 -->
+    <!-- 📊 测试计算价格区域 -->
     <div class="result-box mx-auto mb-4">
       <h4 class="mb-2">📊 Price Calculation</h4>
       <div class="result-value">
         {{ testResult | currency:'EUR' }}
       </div>
     </div>
+
+    <!-- 🧮 测试计算表单 -->
     <form class="row g-3">
       <div class="col-md-6">
         <label class="form-label">Start Time</label>
         <input type="time" [(ngModel)]="testStartTime" name="testStartTime"
                class="form-control" required />
       </div>
-      
+
       <div class="col-md-6">
         <label class="form-label">End Time</label>
         <input type="time" [(ngModel)]="testEndTime" name="testEndTime"
                class="form-control" required />
-      </div>      
-      
+      </div>
+
       <div class="col-md-6">
         <label class="form-label">Comfort Level</label>
         <select [(ngModel)]="testComfort" name="testComfort" class="form-select">
@@ -63,17 +72,16 @@
         </select>
       </div>
 
+      <!-- ⬅️ 返回和 🔍 计算按钮 -->
       <div class="col-12 d-flex justify-content-between align-items-center mt-3">
-        <!-- ⬅️ 返回按钮 -->
         <a mat-stroked-button class="btn-muted" routerLink="/manager">
           ⬅️ Back
         </a>
-      
-        <!-- 计算按钮 -->
         <button type="button" class="btn btn-primary" (click)="calculateTestPrice()">
           🔍 Calculate Test Price
         </button>
       </div>
-    </form>   
+    </form>
+
   </div>
 </div>

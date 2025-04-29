@@ -1,9 +1,22 @@
-import { Component } from '@angular/core';
-import { Driver } from '@models/driver.model';
-import { DriverService } from '@shared/services/driver/driver.service';
-import { ApiService } from '@shared/services/api/api.service'; 
-import { HttpClient } from '@angular/common/http';
+/**
+ * 📄 DriverFormComponent
+ * 
+ * 本组件属于 Manager 模块，
+ * 用于注册新司机(Driver),填写个人资料与地址信息,
+ * 并支持从地图上选择地理位置自动补充地址。
+ */
 
+import { Component } from '@angular/core';
+
+// 🚗 模型
+import { Driver } from '@models/driver.model';
+
+// 🛠️ 服务
+import { DriverService } from '@shared/services/driver/driver.service';
+import { ApiService } from '@shared/services/api/api.service';
+
+// 🌐 HTTP 处理
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-driver-form',
@@ -15,7 +28,7 @@ export class DriverFormComponent {
   minBirthYear = this.currentYear - 100;
   maxBirthYear = this.currentYear - 18;
 
-  // 初始化 driver 对象
+  // 🧑 当前表单的 driver 对象
   driver: Driver = this.createEmptyDriver();
 
   constructor(
@@ -24,12 +37,12 @@ export class DriverFormComponent {
     private http: HttpClient
   ) {}
 
-  // 提交表单
-  onSubmit() {
+  // 📝 提交注册司机
+  onSubmit(): void {
     this.driverService.createDriver(this.driver).subscribe({
       next: () => {
         alert('✅ Driver registered successfully!');
-        this.driver = this.createEmptyDriver(); // 清空表单
+        this.driver = this.createEmptyDriver();
       },
       error: err => {
         const msg = err.error?.message || err.message || 'Unknown error';
@@ -44,7 +57,7 @@ export class DriverFormComponent {
     });
   }
 
-  // 工具方法：生成一个空的 driver 模板
+  // 🛠️ 工具方法：生成一个空的 driver
   createEmptyDriver(): Driver {
     return {
       name: '',
@@ -58,39 +71,41 @@ export class DriverFormComponent {
         postalCode: '',
         city: ''
       },
-      lat: undefined,  
-      lon: undefined 
+      lat: undefined,
+      lon: undefined
     };
   }
 
-  // 当用户在邮政编码输入框失去焦点时调用
+  // 📬 根据邮政编码自动填充城市
   onPostalCodeBlur(postalCode: string): void {
-    this.apiService.lookupPostalCode(postalCode).subscribe(cityData => {
-      this.driver.address.city = cityData.city;
-    }, error => {
-      console.error('Error fetching city:', error);
-      alert('Failed to fetch city for the postal code');
+    this.apiService.lookupPostalCode(postalCode).subscribe({
+      next: cityData => {
+        this.driver.address.city = cityData.city;
+      },
+      error: err => {
+        console.error('Error fetching city:', err);
+        alert('❌ Failed to fetch city for the postal code.');
+      }
     });
   }
-  
+
+  // 🗺️ 地图选点回调，自动补充地理信息
   onMapSelected(event: { lat: number, lon: number }): void {
     this.driver.lat = event.lat;
     this.driver.lon = event.lon;
-  
+
     const url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${event.lat}&lon=${event.lon}`;
     this.http.get<any>(url).subscribe({
       next: data => {
         const address = data.address;
         this.driver.address.city = address.city || address.town || address.village || '';
-        this.driver.address.street = address.road || '';  // 注意：street 可能没有门牌号
+        this.driver.address.street = address.road || '';
         this.driver.address.postalCode = address.postcode || '';
       },
       error: err => {
         console.error('Reverse geocode failed:', err);
-        alert('❌ Falha ao obter endereço a partir do mapa.');
+        alert('❌ Failed to get address from the map.');
       }
     });
   }
-  
-  
 }

@@ -9,9 +9,10 @@
  */
 
 import { Component, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
+
 import { Taxi } from '@models/taxi.model';
 import { TaxiService } from '@shared/services/taxi/taxi.service';
-import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-taxi-form',

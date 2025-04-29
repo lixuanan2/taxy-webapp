@@ -1,7 +1,14 @@
+<!-- 🌟 Manager 查看司机列表页面 (DriverList)
+     本页面展示所有注册的司机信息，支持编辑与删除操作
+-->
+
 <div class="page-wrapper page-wrapper--manager">
   <div class="dashboard-card dashboard-card--table">
+
+    <!-- 🚗 页面标题 -->
     <h2 class="section-title mb-3">🚗 Driver List</h2>
 
+    <!-- 📋 司机列表表格 -->
     <div class="table-container">
       <table class="table table-striped">
         <thead>
@@ -27,22 +34,28 @@
               {{ driver.address.postalCode }} {{ driver.address.city }}
             </td>
             <td>
-              <button button mat-stroked-button color="primary" class="btn-sm me-2"
+              <!-- ✏️ 编辑按钮 -->
+              <button mat-stroked-button color="primary" class="btn-sm me-2"
                       [routerLink]="['/manager/driver/edit', driver.nif]">
                 ✏️ Edit
               </button>
-              <button button mat-stroked-button color="warn" class="btn-sm me-2" (click)="onDelete(driver)">
+
+              <!-- 🗑️ 删除按钮 -->
+              <button mat-stroked-button color="warn" class="btn-sm me-2" (click)="onDelete(driver)">
                 🗑️ Delete
               </button>
             </td>
-          </tr>        
+          </tr>
         </tbody>
       </table>
+
+      <!-- ⬅️ 返回按钮 -->
       <div class="mt-4 text-start">
         <a mat-stroked-button class="btn-muted" routerLink="/manager">
           ⬅️ Back
         </a>
       </div>
     </div>
+
   </div>
 </div>

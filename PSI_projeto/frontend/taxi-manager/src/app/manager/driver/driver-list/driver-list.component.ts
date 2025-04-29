@@ -1,6 +1,20 @@
+/**
+ * 📄 DriverListComponent
+ * 
+ * 本组件属于 Manager 模块，
+ * 用于展示所有司机(Driver)的列表信息，
+ * 支持操作: 编辑(Edit)、删除(Delete)
+ */
+
 import { Component, OnInit } from '@angular/core';
+
+// 🚗 模型
 import { Driver } from '@models/driver.model';
+
+// 🛠️ 服务
 import { DriverService } from '@shared/services/driver/driver.service';
+
+// 🚦 路由跳转
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,6 +23,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./driver-list.component.css']
 })
 export class DriverListComponent implements OnInit {
+
+  // 🧑‍💼 当前的司机列表
   drivers: Driver[] = [];
 
   constructor(
@@ -16,6 +32,7 @@ export class DriverListComponent implements OnInit {
     private router: Router
   ) {}
 
+  // 🔄 页面初始化时拉取司机数据
   ngOnInit(): void {
     this.driverService.getDrivers().subscribe({
       next: (data) => this.drivers = data,
@@ -23,31 +40,31 @@ export class DriverListComponent implements OnInit {
     });
   }
 
+  // ✏️ 跳转到编辑司机页面（注意这里的 routerLink 直接写在按钮上了）
   onEdit(driver: Driver): void {
-    // 你可以跳转页面，也可以用弹窗方式
-    // 假设跳转方式：
     this.router.navigate(['/manager/driver-form', driver.nif]);
   }
-  
+
+  // 🗑️ 删除司机
   onDelete(driver: Driver): void {
-    if (confirm(`❗ Confirmar remoção do motorista ${driver.name}?`)) {
+    if (confirm(`❗ Are you sure you want to delete driver ${driver.name}?`)) {
       this.driverService.deleteDriver(driver.nif).subscribe({
         next: () => {
-          alert('✅ Motorista removido com sucesso.');
-          this.refresh(); // 重新加载列表
+          alert('✅ Driver deleted successfully!');
+          this.refresh();
         },
         error: (err) => {
-          alert('🚫 ' + (err.error?.message || 'Erro ao remover motorista.'));
+          alert('🚫 ' + (err.error?.message || 'Error deleting driver.'));
         }
       });
     }
   }
-  
+
+  // 🔄 刷新司机列表
   refresh(): void {
     this.driverService.getDrivers().subscribe({
       next: (data) => this.drivers = data,
-      error: (err) => console.error('Erro ao atualizar lista:', err)
+      error: (err) => console.error('Error refreshing driver list:', err)
     });
   }
-  
 }

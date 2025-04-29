@@ -1,9 +1,17 @@
+<!-- 🌟 Manager 注册新司机页面 (DriverForm)
+     本页面用于填写司机个人信息和地址信息，并支持通过地图选择位置
+-->
+
 <div class="page-wrapper page-wrapper--manager">
   <div class="dashboard-card dashboard-card--form">
+
+    <!-- 🧑 页面标题 -->
     <h2 class="section-title text-center mb-4">🧑 Register New Driver</h2>
 
+    <!-- 🎯 注册司机表单 -->
     <form (ngSubmit)="onSubmit()" #driverForm="ngForm" class="row g-3">
-      <!-- Row 1 -->
+
+      <!-- 🧾 第一行：姓名与性别 -->
       <div class="col-md-6">
         <label class="form-label">Name</label>
         <input name="name" [(ngModel)]="driver.name" required class="form-control" />
@@ -17,13 +25,12 @@
         </select>
       </div>
 
-      <!-- Row 2 -->
+      <!-- 🧾 第二行：出生年份与 NIF -->
       <div class="col-md-6">
         <label class="form-label">Birth Year</label>
         <input type="number" name="birthYear" [(ngModel)]="driver.birthYear"
               [min]="minBirthYear" [max]="maxBirthYear"
-              #birthRef="ngModel"
-              required class="form-control"
+              #birthRef="ngModel" required class="form-control"
               [ngClass]="{ 'is-invalid': birthRef.invalid && birthRef.touched }" />
         <div *ngIf="birthRef.errors?.['required'] && birthRef.touched" class="invalid-feedback">
           Birth year is required.
@@ -36,10 +43,10 @@
       <div class="col-md-6">
         <label class="form-label">NIF</label>
         <input name="nif" [(ngModel)]="driver.nif"
-            #nifRef="ngModel"
-            required pattern="^[1-9][0-9]{8}$"
-            class="form-control"
-            [ngClass]="{ 'is-invalid': nifRef.invalid && nifRef.touched }" />
+               #nifRef="ngModel" required
+               pattern="^[1-9][0-9]{8}$"
+               class="form-control"
+               [ngClass]="{ 'is-invalid': nifRef.invalid && nifRef.touched }" />
         <div *ngIf="nifRef.errors?.['required'] && nifRef.touched" class="invalid-feedback">
           NIF is required.
         </div>
@@ -48,14 +55,14 @@
         </div>
       </div>
 
-      <!-- Row 3 -->
+      <!-- 🧾 第三行：驾照号与地址 -->
       <div class="col-md-6">
         <label class="form-label">License Number</label>
         <input name="licenseNumber" [(ngModel)]="driver.licenseNumber"
-              #licenseRef="ngModel"
-              required pattern="^[A-Za-z0-9\-]+$"
-              class="form-control"
-              [ngClass]="{ 'is-invalid': licenseRef.invalid && licenseRef.touched }" />
+               #licenseRef="ngModel" required
+               pattern="^[A-Za-z0-9\\-]+$"
+               class="form-control"
+               [ngClass]="{ 'is-invalid': licenseRef.invalid && licenseRef.touched }" />
         <div *ngIf="licenseRef.errors?.['required'] && licenseRef.touched" class="invalid-feedback">
           License number is required.
         </div>
@@ -64,7 +71,7 @@
         </div>
       </div>
 
-      <!-- Address Group -->
+      <!-- 📍 地址部分 -->
       <div class="col-md-6">
         <label class="form-label">Street</label>
         <input name="street" [(ngModel)]="driver.address.street" required class="form-control" />
@@ -87,23 +94,21 @@
         <input name="city" [(ngModel)]="driver.address.city" required class="form-control" />
       </div>
 
-      <!-- 地图 -->
+      <!-- 🗺️ 地图选点 -->
       <div class="col-12">
         <app-map-picker (locationSelected)="onMapSelected($event)"></app-map-picker>
       </div>
 
-      <!-- 提交按钮 -->
+      <!-- 🔘 按钮区域 -->
       <div class="col-12 d-flex justify-content-between align-items-center mt-3">
-        <!-- ⬅️ 返回按钮 -->
         <a mat-stroked-button class="btn-muted" routerLink="/manager">
           ⬅️ Back
         </a>
-      
-        <!-- 提交按钮 -->
         <button mat-raised-button color="primary" type="submit" [disabled]="!driverForm.form.valid">
           ➕ Register Driver
         </button>
-      </div>      
+      </div>
+
     </form>
   </div>
 </div>
