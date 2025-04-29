@@ -1,11 +1,23 @@
+/**
+ * 🛠️ Taxi Interface
+ * 
+ * 前端出租车模型，映射后端 Mongoose 的 Taxi Schema。
+ * 
+ * 对应后端: /models/Taxi.js
+ * 使用场景: 注册出租车表单、出租车列表、编辑出租车功能等。
+ * 
+ * 说明：
+ * - id、createdAt、updatedAt 为后端 MongoDB 自动生成字段；
+ * - 其余字段由表单用户输入，或通过 API 请求传输。
+ */
 export interface Taxi {
-    id?: string;                   // 对应MongoDB的_id
-    plate: string;                          // 车牌号
-    brand: string;                          // 品牌
-    model: string;                          // 型号
-    year: number;                           // 购买年份
-    comfortLevel: 'basic' | 'luxury';       // 舒适度
-    createdAt?: Date;              // 该文档创建时间，用于展示
+    id?: string; // MongoDB _id
+    plate: string;
+    brand: string;
+    model: string;
+    year: number;
+    comfortLevel: 'basic' | 'luxury';
+    createdAt?: Date;
     updatedAt?: Date;
-}
+  }
   

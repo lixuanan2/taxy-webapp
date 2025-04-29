@@ -1,46 +1,67 @@
+/**
+ * 📄 Postal Code Routes
+ * 
+ * 本文件定义邮政编码 (Postal Code) 查询相关的 API 接口，
+ * 支持根据邮政编码查找对应的城市名称。
+ * 
+ * 数据来源: /data/codigos_postais.csv
+ * 
+ * 路由列表：
+ * - GET /getCityByPostalCode/:postalCode ➔ 根据邮政编码查询城市
+ */
+
 const express = require('express');
 const { parse } = require('csv-parse');
 const fs = require('fs');
 const path = require('path');
 const router = express.Router();
 
+// 📄 CSV 文件路径
 const postalCodeFile = path.join(__dirname, '../data/codigos_postais.csv');
+
+// 📦 内存缓存
 const POSTAL_CODE_DATA = new Map();
 let isDataLoaded = false;
 
-// 加载 CSV 数据并缓存到内存中
+/**
+ * 🔄 加载 CSV 文件数据到内存 Map
+ */
 function loadData() {
-  if (isDataLoaded) return;  // 如果数据已经加载过，就不再加载
+  if (isDataLoaded) return; // 如果已经加载，直接返回
 
   fs.createReadStream(postalCodeFile)
     .pipe(parse({
-      delimiter: ',', // 分隔符
-      columns: true,  // 使用 CSV 的第一行作为列名
-      trim: true,     // 去除每个字段的前后空格
-      skip_empty_lines: true  // 跳过空行
+      delimiter: ',',
+      columns: true,
+      trim: true,
+      skip_empty_lines: true
     }))
     .on('data', (row) => {
       const fullPostalCode = `${row.num_cod_postal}-${row.ext_cod_postal}`;
-      const city = row.desig_postal && typeof row.desig_postal === 'string' ? row.desig_postal.trim() : 'Unknown City';
+      const city = row.desig_postal && typeof row.desig_postal === 'string'
+        ? row.desig_postal.trim()
+        : 'Unknown City';
       POSTAL_CODE_DATA.set(fullPostalCode, city);
     })
     .on('end', () => {
       console.log(`✅ Data loaded: ${POSTAL_CODE_DATA.size} postal codes.`);
-      isDataLoaded = true;  // 标记数据已加载
+      isDataLoaded = true;
     })
     .on('error', (err) => {
-      console.error('Error reading CSV file:', err);
+      console.error('❌ Error reading CSV file:', err);
     });
 }
 
-// 查询邮政编码对应城市的 API
+/**
+ * 📬 GET /getCityByPostalCode/:postalCode
+ * 根据邮政编码返回对应城市
+ */
 router.get('/getCityByPostalCode/:postalCode', (req, res) => {
-  loadData();  // 在查询时加载数据
+  loadData(); // 每次请求时确保数据已加载
 
-  const postalCode = req.params.postalCode;  // 获取路径参数
-  console.log('Received postal code:', postalCode);  // 调试打印
+  const postalCode = req.params.postalCode;
+  console.log('📥 Received postal code:', postalCode);
 
-  // 查找邮政编码对应的城市
   const city = POSTAL_CODE_DATA.get(postalCode);
 
   if (city) {

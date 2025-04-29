@@ -1,36 +1,50 @@
-import { HttpClient } from '@angular/common/http';   // Angular内置的HTTP客户端模块
-import { Injectable } from '@angular/core';          // 允许服务被注入(DI)
-import { Observable } from 'rxjs';                   // 响应式对象,用于异步数据处理
-import { Taxi } from '@models/taxi.model';       // 导入定义好的Taxi接口
+/**
+ * 🛠️ TaxiService
+ * 
+ * 本服务负责与后端 /api/taxis 接口通讯，
+ * 实现出租车 (Taxi) 的数据获取、创建、更新、删除等功能。
+ * 
+ * 对应后端: taxi.routes.js
+ * 使用场景: Taxi 注册页面、Taxi 列表页面、编辑出租车功能等。
+ */
 
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+
+import { Taxi } from '@models/taxi.model';
 
 @Injectable({
-  providedIn: 'root'    // 注册为全局服务,可以在任何组件中注入使用
+  providedIn: 'root'
 })
 export class TaxiService {
 
-  private apiUrl = 'http://localhost:3000/api/taxis';   // 后端API的基础路径
+  private apiUrl = 'http://localhost:3000/api/taxis';
 
-  constructor(private http: HttpClient) { }       // 依赖注入HttpClient
+  constructor(private http: HttpClient) {}
 
+  // 获取所有出租车列表
   getTaxis(): Observable<Taxi[]> {
-    return this.http.get<Taxi[]>(this.apiUrl);    // 发送GET请求,返回所有taxi
+    return this.http.get<Taxi[]>(this.apiUrl);
   }
 
+  // 创建新出租车
   createTaxi(taxi: Taxi): Observable<Taxi> {
-    return this.http.post<Taxi>(this.apiUrl, taxi);   // 发送POST请求,创建新taxi
+    return this.http.post<Taxi>(this.apiUrl, taxi);
   }
 
+  // 根据车牌删除出租车
   deleteTaxi(plate: string): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${plate}`);
   }
 
+  // 根据车牌查询单个出租车
   getTaxiByPlate(plate: string): Observable<Taxi> {
     return this.http.get<Taxi>(`${this.apiUrl}/${plate}`);
   }
 
+  // 更新出租车信息
   updateTaxi(taxi: Taxi): Observable<Taxi> {
     return this.http.put<Taxi>(`${this.apiUrl}/${taxi.plate}`, taxi);
-  }  
-  
+  }
 }
