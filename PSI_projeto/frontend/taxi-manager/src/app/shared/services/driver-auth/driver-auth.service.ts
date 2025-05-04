@@ -1,3 +1,13 @@
+/**
+ * 🛡️ DriverAuthService
+ *
+ * 本服务负责管理司机 (Driver) 的登录认证状态，
+ * 通过 BehaviorSubject 实现登录、登出、状态持久化功能。
+ *
+ * 对应后端: 无（本地存储 localStorage）
+ * 使用场景: Driver 登录页、Driver 侧边栏展示、需要司机信息的页面鉴权等。
+ */
+
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Driver } from '@models/driver.model';

@@ -1,39 +1,57 @@
+<!-- 🌟 Driver Dashboard 页面
+     本页面是司机的主控台，支持管理 Turn、查看和注册 Trip、开具发票，以及查看当前状态提示
+-->
+
 <div class="page-wrapper page-wrapper--driver">
   <div class="dashboard-card dashboard-card--driver-dashboard">
+
+    <!-- 🧑 页面标题 -->
     <h2 class="driver-dashboard-title text-center mb-3">
       <span class="emoji">🧑</span> Driver Dashboard
-    </h2>    
+    </h2>
 
+    <!-- 🎉 欢迎信息 -->
     <p class="driver-welcome text-center mb-4">
       Welcome back, <strong class="driver-name">{{ driverName }}</strong>!
     </p>
-    
 
     <!-- 📍 Turn Management -->
     <div class="section-block">
       <h4>📍 Turn Management</h4>
-      <a routerLink="/driver/turn/create" class="btn btn-turn btn-block mb-2">🛫 Create Turn</a>
+      <a routerLink="/driver/turn/create" class="btn btn-turn btn-block mb-2">
+        🛫 Create Turn
+      </a>
     </div>
 
     <!-- 🚖 Ride Operations -->
     <div class="section-block">
       <h4>🚖 Ride Operations</h4>
-      <a routerLink="/driver/request" class="btn btn-trip btn-block mb-2">📬 View Requests</a>
-      <a routerLink="/driver/trip/register" class="btn btn-trip btn-block mb-2">📝 Register Trip</a>
-      <a routerLink="/driver/trip/list" class="btn btn-trip btn-block mb-2">📄 Trip History</a>
+      <a routerLink="/driver/request" class="btn btn-trip btn-block mb-2">
+        📬 View Requests
+      </a>
+      <a routerLink="/driver/trip/register" class="btn btn-trip btn-block mb-2">
+        📝 Register Trip
+      </a>
+      <a routerLink="/driver/trip/list" class="btn btn-trip btn-block mb-2">
+        📄 Trip History
+      </a>
     </div>
 
     <!-- 💰 Invoice Management -->
     <div class="section-block">
       <h4>💰 Invoice Management</h4>
-      <a routerLink="/driver/invoice/issue" class="btn btn-invoice btn-block mb-2">🧾 Issue Invoice</a>
-      <a routerLink="/driver/invoice/list" class="btn btn-invoice btn-block mb-2">📁 View Invoices</a>
+      <a routerLink="/driver/invoice/issue" class="btn btn-invoice btn-block mb-2">
+        🧾 Issue Invoice
+      </a>
+      <a routerLink="/driver/invoice/list" class="btn btn-invoice btn-block mb-2">
+        📁 View Invoices
+      </a>
     </div>
-
 
     <!-- 📈 状态反馈区 -->
     <div class="section-block mt-4">
       <h4>📢 Status Alerts</h4>
+
       <div *ngIf="invoicesCount > 0" class="alert alert-success alert-short mt-3">
         <strong>{{ invoicesCount }} invoices issued</strong>
       </div>
@@ -50,10 +68,12 @@
         <div>
           <strong>🕒 You have an accepted trip!</strong> Please register it before starting another.
         </div>
-        <a class="btn btn-sm btn-primary" routerLink="/driver/trip/register">Register Now</a>
+        <a class="btn btn-sm btn-primary" routerLink="/driver/trip/register">
+          Register Now
+        </a>
       </div>
 
-      <!-- 可选：客户端拒绝（将来解锁） -->
+      <!-- 🚫 客户端拒绝请求提示 (预留功能) -->
       <!--
       <div *ngIf="rejectedByClient" class="alert alert-danger mt-3 d-flex justify-content-between align-items-center">
         <div>
@@ -70,5 +90,6 @@
         🔒 Logout
       </button>
     </div>
+
   </div>
 </div>

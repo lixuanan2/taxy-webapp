@@ -1,42 +1,57 @@
+<!-- 🌟 Driver 登录页面 (DriverLoginComponent)
+     本页面允许司机通过输入或选择 NIF 进行登录
+-->
+
 <div class="page-wrapper page-wrapper--driver">
   <div class="dashboard-card dashboard-card--form">
+
+    <!-- 🧑 页面标题 -->
     <h2 class="section-title text-center mb-4">🧑 Driver Login</h2>
 
+    <!-- 🎯 登录表单 -->
     <form (ngSubmit)="onLogin()" #loginForm="ngForm" class="d-flex flex-column gap-3">
-      <!-- 输入 NIF -->
+
+      <!-- 🧾 输入 NIF -->
       <div>
         <label for="nifInput" class="form-label">Enter NIF</label>
-        <input type="text"
-               id="nifInput"
-               class="form-control"
-               [(ngModel)]="selectedNif"
-               name="nif"
-               required
-               pattern="^[1-9][0-9]{8}$"
-               #nifRef="ngModel"
-               [class.is-invalid]="nifRef.invalid && nifRef.touched" />
+        <input
+          type="text"
+          id="nifInput"
+          class="form-control"
+          [(ngModel)]="selectedNif"
+          name="nif"
+          required
+          pattern="^[1-9][0-9]{8}$"
+          #nifRef="ngModel"
+          [class.is-invalid]="nifRef.invalid && nifRef.touched"
+        />
         <div class="invalid-feedback">
           Please enter a valid 9-digit NIF.
         </div>
       </div>
 
-      <!-- 或从列表选择 -->
+      <!-- 📋 或从下拉列表选择司机 -->
       <div>
         <label class="form-label">Or choose from list</label>
-        <select [(ngModel)]="selectedNif"
-                name="nifList"
-                class="form-select"
-                required>
+        <select
+          [(ngModel)]="selectedNif"
+          name="nifList"
+          class="form-select"
+          required
+        >
           <option *ngFor="let driver of drivers" [value]="driver.nif">
             {{ driver.name }} ({{ driver.nif }})
           </option>
         </select>
       </div>
 
-      <!-- 登录按钮 -->
+      <!-- 🔘 登录按钮 -->
       <div class="text-end">
-        <button class="btn btn-primary" type="submit">🚀 Login</button>
+        <button class="btn btn-primary" type="submit">
+          🚀 Login
+        </button>
       </div>
+
     </form>
   </div>
 </div>
