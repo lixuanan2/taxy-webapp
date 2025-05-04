@@ -5,7 +5,7 @@ const Taxi = require('../models/Taxi');
 
 // POST 创建 turn
 router.post('/', async (req, res) => {
-  const { driverNif, startTime, endTime } = req.body;
+  const { driverNIF, startTime, endTime } = req.body;
 
   try {
     const start = new Date(startTime);
@@ -24,7 +24,7 @@ router.post('/', async (req, res) => {
 
     // 校验：同一司机不能有重叠 turn
     const overlappingTurn = await Turn.findOne({
-      driverNif,
+      driverNIF,
       $or: [
         { startTime: { $lt: end }, endTime: { $gt: start } }
       ]
@@ -48,7 +48,7 @@ router.post('/', async (req, res) => {
 // GET 获取所有 turn（可根据 driver 筛选）
 router.get('/driver/:nif', async (req, res) => {
   try {
-    const turns = await Turn.find({ driverNif: req.params.nif }).sort({ startTime: 1 });
+    const turns = await Turn.find({ driverNIF: req.params.nif }).sort({ startTime: 1 });
     res.json(turns);
   } catch (err) {
     res.status(500).json({ message: err.message });

@@ -70,7 +70,7 @@ router.patch('/:id/accept', async (req, res) => {
       req.params.id,
       {
         status: 'accepted',
-        driverId: req.body.driverId  // 前端传入司机名
+        driverNIF: req.body.driverNIF  // 前端传入司机名
       },
       { new: true }
     );
@@ -101,12 +101,12 @@ router.patch('/:id/reject', async (req, res) => {
   }
 });
 
-// GET /api/requests/accepted/:driverId
-router.get('/accepted/:driverId', async (req, res) => {
+// GET /api/requests/accepted/:driverNIF
+router.get('/accepted/:driverNIF', async (req, res) => {
   try {
     const accepted = await RideRequest.findOne({
       status: 'accepted',
-      driverId: req.params.driverId
+      driverNIF: req.params.driverNIF
     });
     res.json(accepted || null);
   } catch (err) {

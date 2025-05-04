@@ -1,4 +1,4 @@
-// user story 
+// user story 6 7
 const mongoose = require('mongoose');
 
 const rideRequestSchema = new mongoose.Schema({
@@ -8,7 +8,7 @@ const rideRequestSchema = new mongoose.Schema({
   destination: { type: String, required: true },
   peopleCount: { type: Number, required: true },
   status: { type: String, default: 'pending' }, // pending | accepted | cancelled | rejected
-  driverId: { type: String, default: null },
+  driverNIF: { type: String, default: null },
   createdAt: { type: Date, default: Date.now },
   currentLat: Number,
   currentLon: Number,
