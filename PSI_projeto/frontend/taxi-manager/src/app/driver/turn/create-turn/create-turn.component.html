@@ -1,21 +1,44 @@
+<!--
+📄 CreateTurn 页面 (CreateTurnComponent)
+
+本页面属于 Driver 模块，
+用于让司机选择起止时间、选择出租车，并创建新的 Turn(班次)。
+-->
+
 <div class="page-wrapper page-wrapper--driver">
   <div class="dashboard-card dashboard-card--form">
+
+    <!-- 🧑 页面标题 -->
     <h2 class="section-title text-center mb-4">🕓 Create New Turn</h2>
 
+    <!-- 📝 创建 Turn 的表单 -->
     <form (ngSubmit)="onSubmit()" #turnForm="ngForm" class="row g-3">
-      
-      <!-- 时间选择 -->
+
+      <!-- 🕰️ 起始时间选择 -->
       <div class="col-md-6">
         <label class="form-label">Start Time</label>
-        <input type="time" name="startTime" [(ngModel)]="startTime" required class="form-control" />
+        <input
+          type="time"
+          name="startTime"
+          [(ngModel)]="startTime"
+          required
+          class="form-control"
+        />
       </div>
 
+      <!-- 🕰️ 结束时间选择 -->
       <div class="col-md-6">
         <label class="form-label">End Time</label>
-        <input type="time" name="endTime" [(ngModel)]="endTime" required class="form-control" />
+        <input
+          type="time"
+          name="endTime"
+          [(ngModel)]="endTime"
+          required
+          class="form-control"
+        />
       </div>
 
-      <!-- 可选出租车列表 -->
+      <!-- 🚖 可选出租车列表 -->
       <div class="col-md-12">
         <label class="form-label">Select Taxi</label>
         <select
@@ -31,20 +54,29 @@
         </select>
       </div>
 
-      <!-- ✅ 底部按钮：居中三连 -->
+      <!-- 🔘 按钮区域：返回 + 创建 + 查看列表 -->
       <div class="col-12 d-flex justify-content-between align-items-center mt-4">
-        <!-- ⬅️ 返回按钮 -->
-        <a mat-stroked-button class="btn-muted" routerLink="/driver/dashboard">⬅️ Back</a>
 
-        <!-- ✅ 创建与列表 -->
+        <!-- ⬅️ 返回 Dashboard -->
+        <a mat-stroked-button class="btn-muted" routerLink="/driver/dashboard">
+          ⬅️ Back
+        </a>
+
+        <!-- ✅ 创建按钮 + 📄 我的 Turns 列表 -->
         <div class="d-flex gap-2">
-          <button type="submit" class="btn btn-success" [disabled]="!turnForm.form.valid || !selectedTaxiPlate">
+          <button
+            type="submit"
+            class="btn btn-success"
+            [disabled]="!turnForm.form.valid || !selectedTaxiPlate"
+          >
             ✅ Create
           </button>
-          <a routerLink="../list" class="btn btn-outline-secondary">📄 My Turns</a>
+          <a routerLink="../list" class="btn btn-outline-secondary">
+            📄 My Turns
+          </a>
         </div>
-      </div>
 
+      </div>
 
     </form>
   </div>
