@@ -1,10 +1,17 @@
+<!-- 🌟 客户发送叫车请求页面 (RequestCreateComponent)
+     本页面用于客户填写叫车信息，包括个人资料、起点、终点、人数等
+-->
+
 <div class="page-wrapper page-wrapper--customer">
   <div class="dashboard-card dashboard-card--form dashboard-card--wide">
+
+    <!-- 🧑 页面标题 -->
     <h2 class="section-title text-center fw-semibold mb-4">🚖 Request a Taxi</h2>
 
+    <!-- 📋 请求表单 -->
     <form (ngSubmit)="onSubmit()" #requestForm="ngForm" class="row g-3">
 
-      <!-- 客户基本信息 -->
+      <!-- 🧾 客户基本信息 -->
       <div class="col-md-6">
         <label class="form-label fw-semibold">NIF</label>
         <input name="nif" [(ngModel)]="request.nif"
@@ -21,12 +28,12 @@
         <label class="form-label fw-semibold">Gender</label>
         <select name="gender" [(ngModel)]="request.gender" required class="form-select">
           <option value="">-- Select --</option>
-          <option value="masculino">Male</option>
-          <option value="feminino">Female</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
         </select>
       </div>
 
-      <!-- ✅ 当前地址 -->
+      <!-- 📍 当前地址 -->
       <div class="col-md-12">
         <label class="form-label d-flex justify-content-between align-items-center">
           <span class="fw-semibold">Current Location</span>
@@ -41,7 +48,7 @@
             </button>
             <span *ngIf="isLocating" class="form-text text-info mb-0">Locating...</span>
           </div>
-        </label>        
+        </label>
         <input name="currentLocation"
                [(ngModel)]="request.currentLocation"
                required class="form-control"
@@ -51,9 +58,8 @@
           Please enter your current location.
         </div>
       </div>
-      
 
-      <!-- ✅ 目的地 -->
+      <!-- 🏁 目的地 -->
       <div class="col-12">
         <label class="form-label fw-semibold">Destination</label>
         <input name="destination" [(ngModel)]="request.destination"
@@ -65,8 +71,7 @@
         </div>
       </div>
 
-
-      <!-- 数量 -->
+      <!-- 👥 搭乘人数 -->
       <div class="col-md-6">
         <label class="form-label fw-semibold">Number of People</label>
         <input type="number" name="peopleCount" [(ngModel)]="request.peopleCount"
@@ -78,12 +83,12 @@
         </div>
       </div>
 
-      <!-- 地图 -->
+      <!-- 🗺️ 地图选点 -->
       <div class="col-12">
         <app-map-picker (locationSelected)="onMapClick($event)"></app-map-picker>
       </div>
 
-      <!-- 提交按钮 -->
+      <!-- 🔘 提交按钮 -->
       <div class="col-12 d-flex justify-content-between align-items-center mt-3">
         <a mat-stroked-button class="btn-muted" routerLink="/customer">⬅️ Back</a>
         <button type="submit" class="btn btn-success" [disabled]="!requestForm.valid">
@@ -92,5 +97,6 @@
       </div>
 
     </form>
+
   </div>
 </div>

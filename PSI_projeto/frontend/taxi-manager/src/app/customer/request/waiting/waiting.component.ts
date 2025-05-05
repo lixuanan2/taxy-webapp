@@ -1,3 +1,5 @@
+// 📄 WaitingComponent - 客户端等待司机接单
+
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { RequestService } from '@shared/services/request/request.service';
@@ -14,8 +16,8 @@ export class WaitingComponent implements OnInit, OnDestroy {
   requestId: string | null = null;
   pollingInterval: any;
 
-  // driver 接收后信息
-  driverId = "";
+  // 🚖 司机确认弹窗参数
+  driverId = '';
   showDriverDialog = false;
   driverName = '';
   driverDistance: string | null = null;
@@ -23,117 +25,125 @@ export class WaitingComponent implements OnInit, OnDestroy {
   driverPrice: string | null = null;
   taxiInfo: string | null = null;
 
-  constructor(
-    private requestService: RequestService,
-    private router: Router,
-    private priceService: PriceService
-  ) {}
-
   priceConfig: PriceConfig = {
     basic: 0.25,
     luxury: 0.35,
     nightBonus: 20
   };
 
+  constructor(
+    private requestService: RequestService,
+    private router: Router,
+    private priceService: PriceService
+  ) {}
+
+  // ====================== //
+  // 🎯 生命周期钩子：初始化
+  // ====================== //
   ngOnInit(): void {
     this.requestId = localStorage.getItem('currentRequestId');
 
     if (!this.requestId) {
-      alert('❌ Pedido inválido. Redirecionando...');
+      alert('❌ Invalid request. Redirecting...');
       this.router.navigate(['/customer/dashboard']);
       return;
     }
 
+    // 加载最新价格配置
     this.priceService.getLatestPrice().subscribe({
       next: data => {
         if (data) this.priceConfig = data;
       },
-      error: err => console.warn('⚠️ Falha ao carregar preço do backend:', err)
+      error: err => console.warn('⚠️ Failed to load price config from backend:', err)
     });
 
-    // ✅ 开始轮询状态
+    // ✅ 开始轮询请求状态
     this.pollingInterval = setInterval(() => {
       this.requestService.getRequestStatus(this.requestId!).subscribe({
         next: (request: RideRequest) => {
-          console.log('📡 Pedido:', request.status);
-    
+          console.log('📡 Request status:', request.status);
+
           if (request.status === 'accepted') {
             clearInterval(this.pollingInterval);
             localStorage.setItem('latestRequest', JSON.stringify(request));
-          
-            // 👉 读取 request 中的真实坐标
-            const customerLat = request.currentLat;
-            const customerLon = request.currentLon;
-            const destLat = request.destLat;
-            const destLon = request.destLon;
-          
-            // 👉 模拟司机位置（后续可换成 request.driverLat 等）
-            const driverLat = 38.7223;
-            const driverLon = -9.1393;
-          
-            const distanceToClient = this.calculateDistanceKm(driverLat, driverLon, customerLat, customerLon);
-            const distanceToDestination = this.calculateDistanceKm(customerLat, customerLon, destLat, destLon);
-          
-            const etaMinutes = Math.round(distanceToClient * 4);
-            const tripMinutes = Math.round(distanceToDestination * 4);
-          
-            const now = new Date();
-            const tripStart = new Date(now.getTime() + etaMinutes * 60000);
-            const hour = tripStart.getHours();
-            const isNight = hour >= 21 || hour < 6;
-          
-            // 👇 加载价格配置（推荐：添加 PriceService）
-            const baseRate = this.priceConfig.basic;  // 可根据舒适等级动态调整
-            const nightBonus = this.priceConfig.nightBonus;
 
-          
-            const rate = isNight ? baseRate * (1 + nightBonus / 100) : baseRate;
-            const estimatedPrice = +(tripMinutes * rate).toFixed(2);
-          
-            // ✅ 展示
-            this.driverName = request.driverId || 'Desconhecido';
-            this.driverDistance = `${distanceToClient.toFixed(2)} km`;
-            this.driverEta = `${etaMinutes} min`;
-            this.driverPrice = `€${estimatedPrice.toFixed(2)}`;
-            this.taxiInfo = `Duração estimada: ${tripMinutes} min`;
-          
-            this.showDriverDialog = true;
+            this.handleAcceptedRequest(request);
           }
-          
         },
         error: err => {
-          console.error('Erro na verificação:', err);
+          console.error('❌ Error while polling request:', err);
         }
       });
     }, 3000);
-    
   }
 
+  // ====================== //
+  // 🎯 生命周期钩子：销毁
+  // ====================== //
+  ngOnDestroy(): void {
+    if (this.pollingInterval) {
+      clearInterval(this.pollingInterval);
+    }
+  }
+
+  // ====================== //
+  // 🛑 取消请求
+  // ====================== //
   cancelRequest(): void {
     if (this.requestId) {
       this.requestService.cancelRequest(this.requestId).subscribe(() => {
-        alert('❌ Pedido cancelado com sucesso.');
+        alert('❌ Request canceled successfully.');
         clearInterval(this.pollingInterval);
         this.router.navigate(['/customer/dashboard']);
       });
     }
   }
 
-  ngOnDestroy(): void {
-    // 🧹 清理定时器
-    if (this.pollingInterval) {
-      clearInterval(this.pollingInterval);
-    }
+  // ====================== //
+  // 📦 处理已接受的请求
+  // ====================== //
+  handleAcceptedRequest(request: RideRequest): void {
+    // 📍 获取客户、司机、目的地的坐标
+    const customerLat = request.currentLat;
+    const customerLon = request.currentLon;
+    const destLat = request.destLat;
+    const destLon = request.destLon;
+    const driverLat = 38.7223;   // 🔥 临时模拟
+    const driverLon = -9.1393;
+
+    // 📏 计算距离与时间
+    const distanceToClient = this.calculateDistanceKm(driverLat, driverLon, customerLat, customerLon);
+    const distanceToDestination = this.calculateDistanceKm(customerLat, customerLon, destLat, destLon);
+
+    const etaMinutes = Math.round(distanceToClient * 4);
+    const tripMinutes = Math.round(distanceToDestination * 4);
+
+    const now = new Date();
+    const tripStart = new Date(now.getTime() + etaMinutes * 60000);
+    const hour = tripStart.getHours();
+    const isNight = hour >= 21 || hour < 6;
+
+    // 💰 估算价格
+    const baseRate = this.priceConfig.basic;
+    const nightBonus = this.priceConfig.nightBonus;
+    const rate = isNight ? baseRate * (1 + nightBonus / 100) : baseRate;
+    const estimatedPrice = +(tripMinutes * rate).toFixed(2);
+
+    // ✅ 设置弹窗数据
+    this.driverName = request.driverId || 'Unknown';
+    this.driverDistance = `${distanceToClient.toFixed(2)} km`;
+    this.driverEta = `${etaMinutes} min`;
+    this.driverPrice = `€${estimatedPrice.toFixed(2)}`;
+    this.taxiInfo = `Estimated duration: ${tripMinutes} min`;
+
+    this.showDriverDialog = true;
   }
-  
-  onDriverRejected(): void {
-    alert('❌ Motorista rejeitado. Continuando a procurar...');
-    this.showDriverDialog = false;
-    // 可选：重新启动轮询（如果你希望客户还能等下一个司机）
-  }
-  
+
+  // ====================== //
+  // 🧮 工具方法：计算地理距离 (Haversine公式)
+  // ====================== //
   calculateDistanceKm(lat1: number, lon1: number, lat2: number, lon2: number): number {
-    const R = 6371; // 地球半径 km
+    const R = 6371; // 地球半径 (公里)
     const dLat = this.toRad(lat2 - lat1);
     const dLon = this.toRad(lon2 - lon1);
     const a =
@@ -143,24 +153,37 @@ export class WaitingComponent implements OnInit, OnDestroy {
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     return R * c;
   }
-  
+
+  // 📐 度数转弧度
   toRad(value: number): number {
     return value * Math.PI / 180;
   }
 
+  // ====================== //
+  // ✅ 接受司机
+  // ====================== //
   onDriverAccepted(): void {
     if (!this.requestId) return;
-  
+
     this.requestService.confirmRequest(this.requestId).subscribe({
       next: () => {
-        alert('✅ Motorista aceito! Redirecionando...');
+        alert('✅ Driver accepted! Redirecting...');
         this.router.navigate(['/customer/dashboard']);
       },
       error: err => {
-        console.error('❌ Falha ao confirmar motorista:', err);
-        alert('Erro ao confirmar motorista.');
+        console.error('❌ Failed to confirm driver:', err);
+        alert('Error confirming driver.');
       }
     });
   }
-  
+
+  // ====================== //
+  // ❌ 拒绝司机
+  // ====================== //
+  onDriverRejected(): void {
+    alert('❌ Driver rejected. Continuing search...');
+    this.showDriverDialog = false;
+    // （可选）重新启动轮询，继续寻找
+  }
+
 }
