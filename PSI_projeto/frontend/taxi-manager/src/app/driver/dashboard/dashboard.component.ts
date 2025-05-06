@@ -4,7 +4,7 @@
  * 本组件属于 Driver 模块，
  * 用于展示司机登录后的主控制台页面，包括：
  * - Turn、Trip、Invoice 管理快捷入口
- * - 状态提醒（如是否有待处理的 Trip）
+ * - 状态提醒 (如是否有待处理的 Trip)
  * - 客户确认请求的轮询检查
  *
  * 使用服务：
@@ -54,6 +54,12 @@ export class DashboardComponent implements OnInit {
     if (pendingId) {
       this.waitingForClient = true;
       this.waitForClientConfirmation(pendingId);
+    }
+
+    // 若客户拒绝请求，显示提示
+    const rejected = localStorage.getItem('rejectedByClient');
+    if (rejected === 'true') {
+      this.rejectedByClient = true;
     }
   }
 
@@ -119,13 +125,14 @@ export class DashboardComponent implements OnInit {
     this.waitInterval = setInterval(() => {
       this.requestService.getRequestStatus(requestId).subscribe({
         next: (fresh) => {
-          if (fresh.status === 'rejected' || fresh.status === 'cancelled') {
+          if (fresh.status === 'rejected' || fresh.status === 'canceled') {
             // ❌ 客户拒绝或取消
             localStorage.removeItem('latestRequest');
             localStorage.removeItem('latestRequestId');
             this.rejectedByClient = true;
             this.hasPendingTrip = false;
             this.waitingForClient = false;
+            localStorage.setItem('rejectedByClient', 'true');
             clearInterval(this.waitInterval);
           } else if (fresh.confirmedByClient) {
             // ✅ 客户确认成功
@@ -151,5 +158,6 @@ export class DashboardComponent implements OnInit {
   // 🚫 用户点击关闭被拒绝提示框
   dismissRejectionAlert(): void {
     this.rejectedByClient = false;
+    localStorage.removeItem('rejectedByClient');
   }
 }

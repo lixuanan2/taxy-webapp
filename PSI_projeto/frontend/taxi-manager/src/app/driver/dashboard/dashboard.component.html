@@ -53,11 +53,11 @@
       <h4>📢 Status Alerts</h4>
 
       <div *ngIf="invoicesCount > 0" class="alert alert-success alert-short mt-3">
-        <strong>{{ invoicesCount }} invoices issued</strong>
+        <span class="emoji">🧾</span> <strong>{{ invoicesCount }} invoices issued</strong>
       </div>
 
       <div *ngIf="invoicesCount === 0" class="alert alert-info alert-short mt-3">
-        No invoices issued yet.
+        <span class="emoji">📭</span> No invoices issued yet.
       </div>
 
       <div *ngIf="waitingForClient" class="alert alert-info alert-short mt-3">
@@ -73,15 +73,13 @@
         </a>
       </div>
 
-      <!-- 🚫 客户端拒绝请求提示 (预留功能) -->
-      <!--
-      <div *ngIf="rejectedByClient" class="alert alert-danger mt-3 d-flex justify-content-between align-items-center">
+      <!-- 🚫 客户端拒绝请求提示 -->
+      <div *ngIf="rejectedByClient" class="alert-danger-short mt-3">
         <div>
-          <strong>🚫 Request rejected by the client.</strong> This trip was cancelled.
+          <strong>🚫 Request rejected by the client.</strong> This trip was canceled.
         </div>
-        <button class="btn btn-outline-light btn-sm" (click)="dismissRejectionAlert()">Got it</button>
+        <button class="btn btn-danger btn-sm" (click)="dismissRejectionAlert()">Got it</button>
       </div>
-      -->
     </div>
 
     <!-- 🔒 Logout -->
