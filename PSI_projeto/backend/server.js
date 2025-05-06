@@ -1,53 +1,71 @@
+/**
+ * 📄 Main Server File
+ * 
+ * 本文件是整个应用的入口，配置并启动 Express 服务器，
+ * 连接 MongoDB, 注册所有模块路由。
+ */
+
+// 📦 引入模块
 const express = require('express');      // Express框架
-const mongoose = require('mongoose');    // Mongoose,用于连接 MongoDB
-const cors = require('cors');            // CORS中间件,允许跨域请求
-require('dotenv').config();              // dotenv,用于读取.env文件的环境变量
+const mongoose = require('mongoose');    // Mongoose, 用于连接MongoDB
+const cors = require('cors');             // CORS中间件, 允许跨域请求
+require('dotenv').config();               // dotenv, 用于读取.env文件的环境变量
 
 const app = express();
 const PORT = 3000;
 
-app.use(cors());            // 允许所有跨域请求
-app.use(express.json());    // 允许处理JSON格式的req.body
+// 🛡️ 中间件
+app.use(cors());                         // 允许所有跨域请求
+app.use(express.json());                 // 允许处理JSON格式的req.body
 
-// 连接本地MongoDB taxiDB(默认端口是27017)
+// 🔗 连接MongoDB(本地数据库 taxiDB, 默认端口27017)
 mongoose.connect("mongodb://127.0.0.1:27017/taxiDB")
   .then(() => console.log("MongoDB connected"))
-  .catch((err) => console.error("MongoDB error:", err));
+  .catch((err) => console.error("MongoDB connection error:", err));
 
-// 加载taxi相关的路由模块
+/* 📚 路由模块注册 */
+
+// 🚕 Taxi相关路由 (User Story 1, 10)
+// - Registar, listar, editar, remover táxis
 const taxiRoutes = require('./routes/taxi.routes');
-// 设置路由前缀为/api/taxis
-app.use('/api/taxis', taxiRoutes); 
+app.use('/api/taxis', taxiRoutes);
 
-// driver相关
+// 👨‍✈️ Driver相关路由 (User Story 2, 11)
+// - Registar, listar, editar, remover motoristas
 const driverRoutes = require('./routes/driver.routes');
 app.use('/api/drivers', driverRoutes);
 
-// price相关
+// 💰 Price相关路由 (User Story 3)
+// - Definir preço por minuto
 const priceRoutes = require('./routes/price.routes');
-app.use('/api/prices', priceRoutes); 
+app.use('/api/prices', priceRoutes);
 
-// create-turn 相关 (user story5)
+// 🕑 Turno相关路由 (User Story 5)
+// - Requisitar táxi para um turno
 const turnRoutes = require('./routes/turn.routes');
 app.use('/api/turns', turnRoutes);
 
-// request(customer) 相关(user story6)
+// 📍 Ride Request (Customer叫车请求) (User Story 6)
+// - Cliente pede táxi
 const rideRequestRoutes = require('./routes/rideRequest.routes');
 app.use('/api/request', rideRequestRoutes);
 
-// trip(driver) 相关(user story8)
+// 🚖 Trip相关路由 (User Story 8)
+// - Motorista regista viagem
 const tripRoutes = require('./routes/trip.routes');
 app.use('/api/trip', tripRoutes);
 
-// invoice发票 相关(user story9)
+// 🧾 Invoice发票相关路由 (User Story 9)
+// - Motorista emite fatura
 const invoiceRoutes = require('./routes/invoice.routes');
 app.use('/api/invoices', invoiceRoutes);
 
-// codigo postal(story2)
+// 🏡 Código Postal服务 (User Story 2辅助功能)
+// - 自动填充邮政编码对应的城市
 const postalCodeRouter = require('./routes/postal_code.routes');
-app.use(postalCodeRouter); 
+app.use(postalCodeRouter);
 
-// 启动Express服务器,监听指定端口
+/* 🚀 启动服务器 */
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });

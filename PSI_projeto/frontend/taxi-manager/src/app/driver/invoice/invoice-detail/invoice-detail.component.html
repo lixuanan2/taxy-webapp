@@ -1,13 +1,18 @@
+<!-- 🧾 Driver 查看单张发票详情页面 (InvoiceDetail) -->
+
 <div class="page-wrapper page-wrapper--driver">
   <div class="dashboard-card dashboard-card--form dashboard-card--wide">
+    <!-- 🧾 页面标题 -->
     <h2 class="section-title text-center mb-4">🧾 Invoice Detail</h2>
 
+    <!-- 📭 找不到发票提示 -->
     <div *ngIf="!invoice" class="alert alert-warning text-center">
       Invoice not found.
     </div>
 
+    <!-- 📋 发票详细信息 -->
     <div *ngIf="invoice" class="invoice-box p-4">
-      <h5 class="mb-3">Invoice #{{ invoice.invoiceNumber }}</h5>
+      <h2 class="mb-3">Invoice #{{ invoice.sequenceNumber }}</h2>
       <p><strong>Client:</strong> {{ invoice.clientNIF }}</p>
       <p><strong>Driver:</strong> {{ invoice.driverName }}</p>
       <p><strong>Total:</strong> {{ invoice.total | currency:'EUR' }}</p>
@@ -15,7 +20,7 @@
       <p><strong>Trip ID:</strong> {{ invoice.tripId }}</p>
     </div>
 
-    <!-- 返回按钮 -->
+    <!-- 🔙 返回按钮 -->
     <div class="mt-4 text-start">
       <a mat-stroked-button class="btn-muted" routerLink="/driver/invoice">
         ⬅️ Back to Invoice List

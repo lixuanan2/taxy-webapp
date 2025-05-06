@@ -1,3 +1,11 @@
+/**
+ * 🧾 InvoiceListComponent
+ *
+ * 本组件属于 Driver 模块，
+ * 用于展示当前司机所有已开具发票 (Invoice) 的旅程 (Trip),
+ * 并支持漏开的旅程直接开票。
+ */
+
 import { Component, OnInit } from '@angular/core';
 import { TripService } from '@shared/services/trip/trip.service';
 import { InvoiceService } from '@shared/services/invoice/invoice.service';
@@ -9,24 +17,22 @@ import { Trip } from '@models/trip.model';
   styleUrls: ['./invoice-list.component.css']
 })
 export class InvoiceListComponent implements OnInit {
-  trips: Trip[] = []; // 用于存储有发票的旅程
-  
+  // 📋 当前司机所有有发票的旅程
+  trips: Trip[] = [];
+
   constructor(
     private tripService: TripService,
     private invoiceService: InvoiceService
   ) {}
 
   ngOnInit(): void {
-    // 获取所有有发票的旅程
-    const driverName = localStorage.getItem('currentDriverName') || '';
-    this.tripService.getTripsByDriver(driverName).subscribe({
-      next: trips => {
-        this.trips = trips.filter(t => t.invoiceId);  // 只保留已经有发票的旅程
-      },
-      error: err => console.error('❌ Erro ao carregar viagens com faturas:', err)
-    });
+    this.loadTrips(); // 页面初始化加载旅程
   }
 
+  /**
+   * 🧾 为旅程补开发票
+   * @param trip 选中的旅程
+   */
   issue(trip: Trip): void {
     const invoice = {
       tripId: trip._id!,
@@ -36,26 +42,28 @@ export class InvoiceListComponent implements OnInit {
       date: new Date().toISOString()
     };
 
-    // 调用发票服务创建发票
     this.invoiceService.createInvoice(invoice).subscribe({
       next: () => {
         alert('✅ Fatura emitida com sucesso!');
-        this.loadTrips(); // 更新旅程列表
+        this.loadTrips(); // 成功后刷新旅程列表
       },
       error: err => {
-        alert('❌ Erro ao emitir fatura.');
+        alert('❌ Error issuing invoice.');
         console.error(err);
       }
     });
   }
 
+  /**
+   * 📋 加载司机的所有有发票的旅程
+   */
   loadTrips(): void {
     const driverName = localStorage.getItem('currentDriverName') || '';
     this.tripService.getTripsByDriver(driverName).subscribe({
       next: trips => {
-        this.trips = trips.filter(t => t.invoiceId);  // 刷新列表，保留已开票的旅程
+        this.trips = trips.filter(t => t.invoiceId);
       },
-      error: err => console.error('❌ Erro ao carregar viagens com faturas:', err)
+      error: err => console.error('❌ Error loading trips with invoices:', err)
     });
   }
 }

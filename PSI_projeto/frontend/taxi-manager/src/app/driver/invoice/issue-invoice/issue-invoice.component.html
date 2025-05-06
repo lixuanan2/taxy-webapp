@@ -1,13 +1,18 @@
+<!-- 🧾 Driver 开具发票页面 (IssueInvoice)
+     本页面用于选择未开票的旅程，生成并提交发票
+-->
+
 <div class="page-wrapper page-wrapper--driver">
   <div class="dashboard-card dashboard-card--table">
+    <!-- 🧾 页面标题 -->
     <h2 class="section-title text-center mb-3">🧾 Issue Invoice</h2>
 
-    <!-- 空状态提示 -->
+    <!-- 📭 空状态提示 -->
     <div *ngIf="trips.length === 0" class="alert alert-info text-center mt-3 empty-hint">
       No trips available for invoicing.
     </div>
 
-    <!-- 表格展示 -->
+    <!-- 📋 旅程列表表格 -->
     <div class="table-container" *ngIf="trips.length > 0">
       <table class="table table-striped table-hover table-bordered table-sm">
         <thead class="table-light">
@@ -28,6 +33,7 @@
             <td>{{ trip.price | number:'1.2-2' }}</td>
             <td>{{ trip.startTime | date: 'short' }}</td>
             <td>
+              <!-- 🧾 发票按钮 -->
               <button class="btn btn-warning btn-sm" (click)="issue(trip)">
                 🧾 Emitir
               </button>

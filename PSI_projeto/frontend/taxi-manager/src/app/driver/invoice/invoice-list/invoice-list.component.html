@@ -1,11 +1,18 @@
+<!-- 🧾 Driver 查看发票列表页面 (InvoiceList)
+     本页面用于查看所有已开具发票的旅程，并可以补开发票
+-->
+
 <div class="page-wrapper page-wrapper--driver">
   <div class="dashboard-card dashboard-card--table">
+    <!-- 📄 页面标题 -->
     <h2 class="section-title text-center mb-3">📄 My Invoices</h2>
 
+    <!-- 📭 空状态提示 -->
     <div *ngIf="trips.length === 0" class="alert alert-info text-center empty-hint">
       No invoices available.
     </div>
 
+    <!-- 📋 发票旅程表格 -->
     <div class="table-container" *ngIf="trips.length > 0">
       <table class="table table-striped table-hover table-bordered table-sm">
         <thead class="table-light">
@@ -27,11 +34,13 @@
             <td>{{ trip.price | currency:'EUR' }}</td>
             <td>{{ trip.startTime | date:'short' }}</td>
             <td>
+              <!-- 🔎 查看发票详情 -->
               <a *ngIf="trip.invoiceId" [routerLink]="['/driver/invoice/detail', trip.invoiceId]">
                 View
               </a>
             </td>
             <td>
+              <!-- 🧾 发票状态 -->
               <button *ngIf="!trip.invoiceId" class="btn btn-warning btn-sm" (click)="issue(trip)">
                 Emit
               </button>
@@ -44,7 +53,7 @@
       </table>
     </div>
 
-    <!-- 返回按钮 -->
+    <!-- 🔙 返回按钮 -->
     <div class="mt-4 text-start">
       <a mat-stroked-button class="btn-muted" routerLink="/driver/dashboard">
         ⬅️ Back

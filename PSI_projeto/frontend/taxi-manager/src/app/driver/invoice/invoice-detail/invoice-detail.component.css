@@ -7,7 +7,7 @@
     background-color: #fffef7;
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
   }
-  
+
   .invoice-box {
     background-color: #fdfdfd;
     border: 1px solid #eee;
@@ -16,11 +16,11 @@
     padding: 1.5rem;
     line-height: 1.6;
   }
-  
+
   .btn-muted {
     color: #666 !important;
     border-color: #ccc !important;
-  
+
     &:hover {
       color: #333 !important;
       border-color: #aaa !important;
@@ -30,4 +30,8 @@
 
   .page-wrapper--driver {
     padding-bottom: 15vh;
+  }
+
+  .section-title {
+    font-weight: bold; /* 或 font-weight: 700 */
   }
