@@ -1,17 +1,38 @@
+<!--
+📄 DriverConfirmDialogComponent 模板
+用于顾客确认司机的弹窗内容展示。
+展示司机基本信息、预计到达时间、预计费用等，
+并提供 "Accept" 或 "Reject" 操作。
+-->
+
 <div class="modal-backdrop">
   <div class="modal-content">
+
+    <!-- 🚖 成功找到司机提示 -->
     <h5 class="driver-found text-success fw-semibold mb-3">
       🚖 A driver is available!
-    </h5>    
+    </h5>
+
+    <!-- 👤 司机姓名 -->
     <p><strong>Name:</strong> {{ driverName }}</p>
+
+    <!-- 📍 距离信息 -->
     <p><strong>Distance:</strong> {{ distance || '??' }}</p>
+
+    <!-- 🕒 预计到达时间 -->
     <p><strong>ETA:</strong> {{ eta || '??' }}</p>
+
+    <!-- 💰 预计费用 -->
     <p><strong>Estimated Price:</strong> {{ estimatedPrice || '??' }}</p>
+
+    <!-- 🚖 出租车信息 -->
     <p><strong>Taxi:</strong> {{ taxiInfo || 'Unknown' }}</p>
 
+    <!-- ✅❌ 操作按钮 -->
     <div class="d-flex justify-content-between mt-4">
       <button class="btn btn-success" (click)="accept.emit()">✅ Accept</button>
       <button class="btn btn-outline-danger" (click)="reject.emit()">❌ Reject</button>
     </div>
+
   </div>
 </div>

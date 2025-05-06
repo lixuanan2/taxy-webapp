@@ -178,12 +178,21 @@ export class WaitingComponent implements OnInit, OnDestroy {
   }
 
   // ====================== //
-  // ❌ 拒绝司机
+  // ❌ 顾客点击拒绝司机
   // ====================== //
   onDriverRejected(): void {
-    alert('❌ Driver rejected. Continuing search...');
-    this.showDriverDialog = false;
-    // （可选）重新启动轮询，继续寻找
+    if (!this.requestId) return;
+
+    this.requestService.cancelRequest(this.requestId).subscribe({
+      next: () => {
+        alert('🚫 You rejected the driver. Request canceled.');
+        this.router.navigate(['/customer/dashboard']);
+      },
+      error: err => {
+        console.error('❌ Failed to cancel request after rejecting driver:', err);
+        alert('Error canceling request.');
+      }
+    });
   }
 
 }

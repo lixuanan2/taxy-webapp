@@ -12,12 +12,13 @@
  * - POST   /api/request           ➔ 创建新的叫车请求
  * - GET    /api/request/history   ➔ 获取所有叫车历史
  * - GET    /api/request/:id       ➔ 查询单个叫车请求状态
- * - DELETE /api/request/:id       ➔ 取消叫车请求
+ * - DELETE /api/request/:id       ➔ 已发生更改，但是保留
  * 
  * 🚖 Story 7 - Driver Accept/Reject Requests
  * - GET    /api/request?status=pending ➔ 根据状态筛选请求(例如 pending)
  * - PATCH  /api/request/:id/accept     ➔ 接受叫车请求
  * - PATCH  /api/request/:id/reject     ➔ 拒绝叫车请求
+ * - PATCH  /api/request/:id/cancel     ➔ 取消叫车请求
  * 
  * 🚖 Story 8 - Confirmations and Finishing Rides
  * - GET    /api/request/accepted/:driverNIF ➔ 查询指定司机接受的请求
@@ -67,7 +68,7 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// DELETE /api/request/:id - Cancel a ride request
+// DELETE /api/request/:id - 已发生更改，但是保留
 router.delete('/:id', async (req, res) => {
   try {
     const deleted = await RideRequest.findByIdAndDelete(req.params.id);
@@ -133,6 +134,24 @@ router.patch('/:id/reject', async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
+
+// PATCH /api/request/:id/cancel - Cancel (mark as canceled) a ride request
+router.patch('/:id/cancel', async (req, res) => {
+  try {
+    const canceledRequest = await RideRequest.findByIdAndUpdate(
+      req.params.id,
+      { status: 'canceled' },
+      { new: true }
+    );
+    if (!canceledRequest) {
+      return res.status(404).json({ error: 'Request not found.' });
+    }
+    res.json(canceledRequest);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 
 
 // ================================================== //

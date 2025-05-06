@@ -108,6 +108,11 @@ export class RequestCreateComponent {
    * ✉️ 提交乘车请求
    */
   onSubmit() {
+    if (this.request.destLat === 0 || this.request.destLon === 0) {
+      alert('❌ Please select a destination on the map before submitting.');
+      return;
+    }
+
     console.log('🚕 Sending request:', this.request);
 
     this.requestService.createRequest(this.request).subscribe({

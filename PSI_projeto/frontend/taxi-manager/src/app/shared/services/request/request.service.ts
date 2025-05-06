@@ -33,8 +33,8 @@ export class RequestService {
   }
 
   // ❌ 取消请求
-  cancelRequest(id: string): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/${id}`);
+  cancelRequest(id: string): Observable<RideRequest> {
+    return this.http.patch<RideRequest>(`${this.apiUrl}/${id}/cancel`, {});
   }
 
   // 📋 获取所有待接单请求 (司机端 Story7)
