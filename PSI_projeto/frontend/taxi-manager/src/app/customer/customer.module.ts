@@ -1,8 +1,8 @@
 /**
  * 📦 CustomerModule
  *
- * 本模块管理客户（Customer）端相关页面与功能，
- * 包括 Dashboard 首页和懒加载子模块（Request）。
+ * 本模块管理客户(Customer)端相关页面与功能，
+ * 包括 Dashboard 首页和懒加载子模块(Request)。
  */
 
 import { NgModule } from '@angular/core';

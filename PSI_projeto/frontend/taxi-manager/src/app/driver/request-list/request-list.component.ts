@@ -40,8 +40,9 @@ export class RequestListComponent implements OnInit {
     this.loading = true;
     this.requestService.getPendingRequests().subscribe({
       next: (data) => {
-        // ✅ 只保留 status === 'pending' 且 driverId 为空的请求
-        this.requests = data.filter(r => r.status === 'pending' && !r.driverId);
+        this.requests = data
+          .filter(r => r.status === 'pending' && !r.driverId)
+          .sort((a, b) => new Date(a.createdAt!).getTime() - new Date(b.createdAt!).getTime());
         this.loading = false;
       },
       error: (err) => {
@@ -50,6 +51,7 @@ export class RequestListComponent implements OnInit {
       }
     });
   }
+
 
   // ✅ 接受一个请求
   accept(requestId: string): void {

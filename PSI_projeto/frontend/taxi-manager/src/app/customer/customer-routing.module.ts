@@ -1,9 +1,9 @@
 /**
  * 🛣️ CustomerRoutingModule
  *
- * 本模块定义客户（Customer）相关的子路由：
+ * 本模块定义客户(Customer)相关的子路由：
  * - Dashboard 首页
- * - Request 子模块（懒加载）
+ * - Request 子模块(Lazy-loaded)
  */
 
 import { NgModule } from '@angular/core';
