@@ -3,7 +3,11 @@
     width: 95%;
     padding: 40px;
   }
-  
+
   .dashboard-card {
     background-color: #fffef7;
+  }
+
+  .page-wrapper--driver {
+    padding-bottom: 10vh;
   }

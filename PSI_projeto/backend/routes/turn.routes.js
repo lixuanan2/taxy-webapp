@@ -60,7 +60,7 @@ router.post('/', async (req, res) => {
 
 /**
  * 🧑‍✈️ GET /api/turns/driver/:nif
- * 根据司机 NIF 查询所有 Turn（按起始时间升序）
+ * 根据司机 NIF 查询所有 Turn(按起始时间升序)
  */
 router.get('/driver/:nif', async (req, res) => {
   try {
@@ -73,7 +73,7 @@ router.get('/driver/:nif', async (req, res) => {
 
 /**
  * 🚕 GET /api/turns/available
- * 查询指定时间段内可用的出租车（未被分配 Turn）
+ * 查询指定时间段内可用的出租车(未被分配 Turn)
  */
 router.get('/available', async (req, res) => {
   const { start, end } = req.query;
@@ -82,7 +82,7 @@ router.get('/available', async (req, res) => {
     const startDate = new Date(start);
     const endDate = new Date(end);
 
-    // 🔍 查找所有冲突的 Turn（已被占用的 taxi）
+    // 🔍 查找所有冲突的 Turn(已被占用的 taxi)
     const activeTurns = await Turn.find({
       startTime: { $lt: endDate },
       endTime: { $gt: startDate }

@@ -35,7 +35,7 @@ router.post('/', async (req, res) => {
     const tripCount = await Trip.countDocuments({ driverName: driver });
     const sequence = tripCount + 1;
 
-    // 🚖 自动匹配 Turn，填写车牌
+    // 🚖 自动匹配 Turn,填写车牌
     const matchedTurn = await Turn.findOne({
       driverName: driver,
       startTime: { $lte: newStart },
@@ -46,20 +46,20 @@ router.post('/', async (req, res) => {
     const newTrip = new Trip({
       ...req.body,
       sequenceNumber: sequence,
-      vehiclePlate: matchedTurn?.vehiclePlate || ''
     });
 
     await newTrip.save();
     res.status(201).json(newTrip);
 
   } catch (err) {
+    console.error('❌ Trip creation failed:', err);
     res.status(500).json({ error: err.message });
   }
 });
 
 /* 
 ❗️之前的设计想法（已废弃）：顺便查 Driver 获取 driverNIF
-✅ 当前版本直接前端发送 driverNIF，更简单清晰
+✅ 当前版本直接前端发送 driverNIF, 更简单清晰
 */
 
 /* --------------------------------------------------

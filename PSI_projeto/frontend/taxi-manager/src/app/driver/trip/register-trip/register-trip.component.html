@@ -1,67 +1,98 @@
+<!-- 📄 Register New Trip 页面 (Driver) -->
+
 <div class="page-wrapper page-wrapper--driver">
   <div class="dashboard-card dashboard-card--form dashboard-card--wide">
+
+    <!-- 📝 页面标题 -->
     <h2 class="section-title text-center mb-4">📝 Register New Trip</h2>
 
+    <!-- 🧾 Trip 登记表单 -->
     <form (ngSubmit)="onSubmit()" #tripForm="ngForm" class="row g-3">
 
-      <!-- 客户信息 -->
+      <!-- 👤 客户 NIF -->
       <div class="col-md-6">
         <label class="form-label">Client NIF</label>
         <input name="clientNIF" [(ngModel)]="trip.clientNIF" required class="form-control" />
       </div>
 
+      <!-- 🚕 选择出租车车牌 (从可选列表) -->
       <div class="col-md-6">
         <label class="form-label">Taxi Plate</label>
-        <input name="vehiclePlate" [(ngModel)]="trip.vehiclePlate" class="form-control" />
+        <select name="vehiclePlate" [(ngModel)]="trip.vehiclePlate" class="form-select" required>
+          <option *ngFor="let plate of taxiPlates" [value]="plate">
+            {{ plate }}
+          </option>
+        </select>
       </div>
 
+      <!-- 📍 出发地 -->
       <div class="col-md-6">
         <label class="form-label">Origin</label>
         <input name="from" [(ngModel)]="trip.from" required class="form-control" />
       </div>
 
+      <!-- 🎯 目的地 -->
       <div class="col-md-6">
         <label class="form-label">Destination</label>
         <input name="to" [(ngModel)]="trip.to" required class="form-control" />
       </div>
 
+      <!-- 🕓 起始时间 -->
       <div class="col-md-6">
         <label class="form-label">Start Time</label>
         <input type="datetime-local" name="startTime" [(ngModel)]="formattedStartTime" class="form-control" />
+        <!-- ⏳ 小提示 -->
+        <div class="form-text text-muted mt-1">
+          ⚡ Note: Saved time will be 1 hour earlier (UTC).
+        </div>
       </div>
 
+      <!-- 🕔 结束时间 -->
       <div class="col-md-6">
         <label class="form-label">End Time</label>
         <input type="datetime-local" name="endTime" [(ngModel)]="formattedEndTime" class="form-control" />
+        <!-- ⏳ 小提示 -->
+        <div class="form-text text-muted mt-1">
+          🕒 Recommended duration: {{ getRecommendedDuration() }}
+        </div>
       </div>
 
+      <!-- 📏 预计行驶距离 (km) -->
       <div class="col-md-6">
         <label class="form-label">Distance (km)</label>
         <input class="form-control" [value]="trip.kmTraveled" disabled />
       </div>
-      
+
+      <!-- 👥 搭乘人数 -->
       <div class="col-md-6">
         <label class="form-label">People</label>
         <input class="form-control" [value]="trip.peopleCount || 1" disabled />
       </div>
-      
+
+      <!-- 💰 预估价格 -->
       <div class="col-md-6">
         <label class="form-label">Price (€)</label>
         <input class="form-control" [value]="trip.price" readonly />
       </div>
 
+      <!-- 🎯 底部按钮区 -->
       <div class="col-12 d-flex justify-content-between align-items-center mt-4">
-        <!-- ⬅️ 返回按钮靠左 -->
+
+        <!-- ⬅️ 返回 Dashboard -->
         <a mat-stroked-button class="btn-muted" routerLink="/driver/dashboard">
           ⬅️ Back
         </a>
-      
-        <!-- ✅ 提交按钮靠右 -->
+
+        <!-- 💾 提交 Trip -->
         <button class="btn btn-success" type="submit" [disabled]="!tripForm.valid">
           💾 Register Trip
         </button>
+
       </div>
 
     </form>
+    <!-- 🧾 Trip 登记表单结束 -->
+
   </div>
 </div>
+<!-- 📄 Register New Trip 页面结束 -->
