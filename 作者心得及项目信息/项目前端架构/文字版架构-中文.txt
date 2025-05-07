@@ -21,15 +21,15 @@
 │       │   ├── driver-page/
 │       │   │   ├── driver-list/
 │       │   │   └── driver-detail/       
-│       │   └── taxi-page/
-│       │       ├── taxi-list/
-│       │       └── taxi-detail         
-│       ├── customer-part/          对应story 13/
-│       │   ├── report-dashboard/
-│       │   ├── customer-list/
-│       │   └── customer-detail/    
-│       └── trip-part/              在story12和13中复用/
-│           └── trip-detail
+│       │   ├── taxi-page/
+│       │   │   ├── taxi-list/
+│       │   │   └── taxi-detail 
+│       │   └── trip-detail/        
+│       └── customer-part/          对应story 13/
+│           ├── report-dashboard/
+│           ├── customer-list/
+│           ├── customer-detail/
+│           └── customer-trip-detail/
 ├── driver/
 │   ├── dashboard/                driver部分dashboard
 │   ├── login/                    对应story 4

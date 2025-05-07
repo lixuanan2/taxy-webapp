@@ -24,12 +24,12 @@ struct for front-end：
 │       │   └── taxi-page/
 │       │       ├── taxi-list/
 │       │       └── taxi-detail/
-│       ├── customer-part/          Related to Story 13 (Customer and Invoice Reports)
-│       │   ├── report-dashboard/
-│       │   ├── customer-list/
-│       │   └── customer-detail/
-│       └── trip-part/              Reused by Story 12 and 13
-│           └── trip-detail/
+│       │   └── trip-detail/        
+│       └── customer-part/          Related to Story 13 (Customer Reports)
+│           ├── report-dashboard/
+│           ├── customer-list/
+│           ├── customer-detail/
+│           └── customer-trip-detail/
 ├── driver/
 │   ├── dashboard/                Driver's dashboard
 │   ├── login/                    Related to Story 4 (Driver Login)
