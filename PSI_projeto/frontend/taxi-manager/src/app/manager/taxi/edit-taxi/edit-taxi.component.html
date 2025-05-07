@@ -1,35 +1,49 @@
+<!-- ✏️ Manager 编辑出租车页面 (EditTaxi) -->
+
 <div class="page-wrapper page-wrapper--manager page-wrapper--edit-taxi">
   <div class="dashboard-card dashboard-card--form">
+    <!-- ✏️ 页面标题 -->
     <h2 class="section-title text-center mb-4">✏️ Edit Taxi: {{ taxi.plate }}</h2>
 
+    <!-- 🎯 出租车编辑表单 -->
     <form (ngSubmit)="onSubmit()" #editForm="ngForm" class="row g-3">
 
+      <!-- 📋 Brand 输入 -->
       <div class="col-md-6">
         <label class="form-label">Brand</label>
         <input [(ngModel)]="taxi.brand" name="brand" required class="form-control" />
       </div>
 
+      <!-- 📋 Model 输入 -->
       <div class="col-md-6">
         <label class="form-label">Model</label>
         <input [(ngModel)]="taxi.model" name="model" required class="form-control" />
       </div>
 
+      <!-- 📋 Year 输入 -->
       <div class="col-md-6">
         <label class="form-label">Year</label>
-        <input [(ngModel)]="taxi.year" name="year" required type="number" class="form-control" />
+        <input [(ngModel)]="taxi.year" name="year" type="number" class="form-control"
+               [max]="currentYear" required />
       </div>
 
+      <!-- 📋 Comfort Level 选择 -->
       <div class="col-md-6">
         <label class="form-label">Comfort Level</label>
-        <select [(ngModel)]="taxi.comfortLevel" name="comfortLevel" class="form-select">
+        <select [(ngModel)]="taxi.comfortLevel" name="comfortLevel" required class="form-select">
           <option value="basic">Basic</option>
           <option value="luxury">Luxury</option>
         </select>
       </div>
 
-      <div class="col-12 text-end">
-        <button type="submit" class="btn btn-success mt-3">💾 Save</button>
-        <a class="btn btn-secondary mt-3 ms-2" routerLink="/manager/taxi/taxi-list">Cancel</a>
+      <!-- 🔘 底部按钮区 -->
+      <div class="col-12 text-end mt-3">
+        <button type="submit" class="btn btn-success" [disabled]="!editForm.form.valid">
+          💾 Save
+        </button>
+        <a class="btn btn-secondary ms-2" routerLink="/manager/taxi/taxi-list">
+          Cancel
+        </a>
       </div>
 
     </form>

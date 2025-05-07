@@ -1,0 +1,58 @@
+这是前端架构的txt版本，如果网页版本不稳定，请看这个版本
+
+.
+├── main-dashboard/            总的dashboard串联manager, driver和customer
+├── manager/
+│   ├── dashboard/               manager部分的dashboard
+│   ├── taxi/                  
+│   │   ├── taxi-form/              对应story 1
+│   │   ├── taxi-list/              对应story 1
+│   │   └── edit-taxi/              对应story 10
+│   ├── driver/                
+│   │   ├── driver-form/            对应story 2
+│   │   ├── driver-list/            对应story 2
+│   │   └── edit-driver/            对应story 11
+│   ├── price/                 
+│   │   ├── price-form/             对应story 3
+│   │   └── price-list/             对应story 3
+│   └── report/                
+│       ├── driver-part/            对应story 12/
+│       │   ├── report-dashboard/
+│       │   ├── driver-page/
+│       │   │   ├── driver-list/
+│       │   │   └── driver-detail/       
+│       │   └── taxi-page/
+│       │       ├── taxi-list/
+│       │       └── taxi-detail         
+│       ├── customer-part/          对应story 13/
+│       │   ├── report-dashboard/
+│       │   ├── customer-list/
+│       │   └── customer-detail/    
+│       └── trip-part/              在story12和13中复用/
+│           └── trip-detail
+├── driver/
+│   ├── dashboard/                driver部分dashboard
+│   ├── login/                    对应story 4
+│   ├── turn/                     对应story 5/
+│   │   ├── create-turn/
+│   │   └── turn-list/
+│   ├── request-list/            对应story 7？ （这部分其实应该叫requests的,但是懒得改了）
+│   ├── trip/                    对应story 8/
+│   │   ├── register-trip/
+│   │   └── trip-list/
+│   └── invoice/                 对应story 9/
+│       ├── issue-invoice/
+│       ├── invoice-list/
+│       └── invoice-detail/
+├── customer/
+│   ├── dashboard/
+│   └── request/                 对应story 6/
+│       ├── create/
+│       ├── driver-confirm-dialog/
+│       ├── waiting/
+│       └── history/              额外添加的功能，方便测试，可以直接观察数据库内容，如果不想要可以在html部分隐藏
+└── shared/
+    ├── map-piker/              用于story6和2的地图
+    ├── pipe/                   有一个减时间功能，用于同步葡萄牙时间和数据库时间
+    ├── models/                 包含所有前端的models
+    └── service/                包含所有service，其中api.service用于story 2邮编自动填充城市

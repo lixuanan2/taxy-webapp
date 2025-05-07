@@ -1,13 +1,19 @@
+<!-- ✏️ Manager 编辑司机页面 (EditDriver) -->
+
 <div class="page-wrapper page-wrapper--manager page-wrapper--edit-driver">
   <div class="dashboard-card dashboard-card--form">
+    <!-- 🧑 页面标题 -->
     <h2 class="section-title text-center mb-4">✏️ Edit Driver</h2>
 
-    <form (ngSubmit)="onSubmit()" class="row g-3">
+    <form (ngSubmit)="onSubmit()" #editForm="ngForm" class="row g-3">
+
+      <!-- 🧾 姓名 -->
       <div class="col-md-6">
         <label class="form-label">Name</label>
         <input type="text" class="form-control" [(ngModel)]="driver.name" name="name" required>
       </div>
 
+      <!-- 🧾 性别 -->
       <div class="col-md-6">
         <label class="form-label">Gender</label>
         <select class="form-select" [(ngModel)]="driver.gender" name="gender" required>
@@ -16,16 +22,28 @@
         </select>
       </div>
 
+      <!-- 🧾 出生年份 -->
       <div class="col-md-6">
         <label class="form-label">Birth Year</label>
-        <input type="number" class="form-control" [(ngModel)]="driver.birthYear" name="birthYear" required>
+        <input type="number" class="form-control" [(ngModel)]="driver.birthYear"
+               name="birthYear" [min]="minBirthYear" [max]="maxBirthYear"
+               #birthRef="ngModel" required
+               [ngClass]="{ 'is-invalid': birthRef.invalid && birthRef.touched }" />
+        <div *ngIf="birthRef.errors?.['required'] && birthRef.touched" class="invalid-feedback">
+          Birth year is required.
+        </div>
+        <div *ngIf="birthRef.errors?.['max'] && birthRef.touched" class="invalid-feedback">
+          Driver must be at least 18 years old.
+        </div>
       </div>
 
+      <!-- 🧾 驾照号 -->
       <div class="col-md-6">
         <label class="form-label">License Number</label>
         <input type="text" class="form-control" [(ngModel)]="driver.licenseNumber" name="licenseNumber" required>
       </div>
 
+      <!-- 📍 地址部分 -->
       <div class="col-12">
         <h5 class="section-subtitle mt-3">📍 Address</h5>
       </div>
@@ -50,10 +68,16 @@
         <input class="form-control" [(ngModel)]="driver.address.city" name="city" required>
       </div>
 
-      <div class="col-12 text-end">
-        <button class="btn btn-success mt-3" type="submit">💾 Save</button>
-        <a class="btn btn-secondary mt-3 ms-2" routerLink="/manager/driver/driver-list">Cancel</a>
+      <!-- 🔘 按钮区 -->
+      <div class="col-12 text-end mt-3">
+        <button class="btn btn-success" type="submit" [disabled]="!editForm.form.valid">
+          💾 Save
+        </button>
+        <a class="btn btn-secondary ms-2" routerLink="/manager/driver/driver-list">
+          Cancel
+        </a>
       </div>
+
     </form>
   </div>
 </div>

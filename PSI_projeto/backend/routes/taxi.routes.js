@@ -103,7 +103,7 @@ router.delete('/:plate', async (req, res) => {
 /**
  * 🚕 PUT /api/taxis/:plate
  * 更新指定车牌的出租车信息
- * 特别注意：如果 taxi 已经用于 trip, 不允许修改 comfortLevel
+ * 限制：如果 taxi 已经用于 trip, 禁止修改 comfortLevel
  */
 router.put('/:plate', async (req, res) => {
   const { plate } = req.params;
@@ -113,33 +113,21 @@ router.put('/:plate', async (req, res) => {
     const taxi = await Taxi.findOne({ plate });
     if (!taxi) return res.status(404).json({ message: 'Taxi not found.' });
 
-    // 🚦 查询与该 taxi 关联的 turn 记录
-    const relatedTurns = await Turn.find({ taxiPlate: plate });
-    const relatedNifs = relatedTurns.map(t => t.driverNif);
+    // 🚦 查询该出租车是否已经用于 Trip
+    const usedInTrip = await Trip.exists({ vehiclePlate: plate });
 
-    let usedInTrip = false;
-
-    if (relatedNifs.length > 0) {
-      // 👥 查询这些 NIF 对应的 driverName
-      const drivers = await Driver.find({ nif: { $in: relatedNifs } });
-      const relatedNames = drivers.map(d => d.name);
-
-      // 🚗 查询这些 driverName 是否存在已完成的 trip
-      usedInTrip = await Trip.exists({ driverName: { $in: relatedNames } });
-    }
-
-    // ❌ 如果已用于 trip，禁止修改 comfortLevel
     if (
       usedInTrip &&
       updateData.comfortLevel &&
       updateData.comfortLevel !== taxi.comfortLevel
     ) {
+      // ❌ 如果已用于 Trip 且尝试改 comfortLevel, 禁止
       return res.status(400).json({
-        message: '🚫 Comfort level cannot be changed because the taxi has completed trips.'
+        message: '🚫 Cannot change comfort level because this taxi has been used in trips.'
       });
     }
 
-    // 📝 正常更新 taxi
+    // 📝 正常允许其他字段更新
     updateData.updatedAt = new Date();
 
     const updated = await Taxi.findOneAndUpdate(
@@ -153,5 +141,6 @@ router.put('/:plate', async (req, res) => {
     res.status(500).json({ message: 'Internal server error.', error: err.message });
   }
 });
+
 
 module.exports = router;

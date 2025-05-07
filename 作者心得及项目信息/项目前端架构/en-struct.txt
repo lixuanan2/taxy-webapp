@@ -1,0 +1,61 @@
+struct for front-end：
+
+.
+├── main-dashboard/            General dashboard linking manager, driver, and customer sections
+├── manager/
+│   ├── dashboard/               Manager's dashboard
+│   ├── taxi/
+│   │   ├── taxi-form/              Related to Story 1 (Register Taxi)
+│   │   ├── taxi-list/              Related to Story 1 (Taxi List)
+│   │   └── edit-taxi/              Related to Story 10 (Edit Taxi)
+│   ├── driver/
+│   │   ├── driver-form/            Related to Story 2 (Register Driver)
+│   │   ├── driver-list/            Related to Story 2 (Driver List)
+│   │   └── edit-driver/            Related to Story 11 (Edit Driver)
+│   ├── price/
+│   │   ├── price-form/             Related to Story 3 (Set Price)
+│   │   └── price-list/             Related to Story 3 (Price List)
+│   └── report/
+│       ├── driver-part/            Related to Story 12 (Taxi and Driver Reports)
+│       │   ├── report-dashboard/
+│       │   ├── driver-page/
+│       │   │   ├── driver-list/
+│       │   │   └── driver-detail/
+│       │   └── taxi-page/
+│       │       ├── taxi-list/
+│       │       └── taxi-detail/
+│       ├── customer-part/          Related to Story 13 (Customer and Invoice Reports)
+│       │   ├── report-dashboard/
+│       │   ├── customer-list/
+│       │   └── customer-detail/
+│       └── trip-part/              Reused by Story 12 and 13
+│           └── trip-detail/
+├── driver/
+│   ├── dashboard/                Driver's dashboard
+│   ├── login/                    Related to Story 4 (Driver Login)
+│   ├── turn/
+│   │   ├── create-turn/           Related to Story 5 (Create Turn)
+│   │   └── turn-list/             Related to Story 5 (Turn List)
+│   ├── request-list/              Related to Story 7 (Accept Requests) 
+│                                 (Note: Should ideally be called "requests", but kept for simplicity)
+│   ├── trip/
+│   │   ├── register-trip/         Related to Story 8 (Register Trip)
+│   │   └── trip-list/             Related to Story 8 (Trip List)
+│   └── invoice/
+│       ├── issue-invoice/         Related to Story 9 (Issue Invoice)
+│       ├── invoice-list/
+│       └── invoice-detail/
+├── customer/
+│   ├── dashboard/
+│   └── request/                  Related to Story 6 (Request Taxi)
+│       ├── create/
+│       ├── driver-confirm-dialog/
+│       ├── waiting/
+│       └── history/              Additional feature to facilitate testing, 
+│                                 (can be hidden in HTML if not needed)
+└── shared/
+    ├── map-picker/               Used in Story 6 and Story 2 (Map Selection)
+    ├── pipe/                     Contains a time adjustment pipe (sync Portugal time and database time)
+    ├── models/                   Contains all frontend data models
+    └── service/                  Contains all services; 
+                                  `api.service` specifically used in Story 2 for postal code → city auto-fill
