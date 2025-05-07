@@ -1,71 +1,80 @@
-/* 📦 卡片容器：用于 Summary 列表页 */
+/* 📦 Summary 列表卡片容器 */
 .dashboard-card--table-summary {
-    max-width: 1200px;
-    margin: 2rem auto;
-    padding: 2rem;
-    border-radius: 12px;
-    background-color: #fff;
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
-    display: flex;
-    flex-direction: column;
-  }
-  
-  /* 📋 表格滚动容器 */
-  .table-container {
-    overflow-x: auto;
-    flex: 1;
-  }
-  
-  /* 📋 表格基础样式 */
-  .table {
-    width: 100%;
-    border-collapse: collapse;
-    min-width: 800px;
-  
-    th, td {
-      padding: 10px 14px;
-      text-align: left;
-      white-space: nowrap;
-      vertical-align: middle;
-    }
-  
-    th {
-      background-color: #f5f5f5;
-      font-weight: 600;
-      border-bottom: 2px solid #ddd;
-    }
-  
-    tr:hover {
-      background-color: #f9f9f9;
-    }
-  }
-  
-  /* 🧾 小按钮样式 */
-  .btn-sm {
-    font-size: 0.75rem;
-    padding: 4px 10px;
-    line-height: 1.2;
-  }
-  
-  /* ⬅️ 返回按钮样式（浅灰） */
-  .btn-muted {
-    color: #666 !important;
-    border-color: #ccc !important;
-  
-    &:hover {
-      color: #333 !important;
-      border-color: #aaa !important;
-      background-color: #f3f3f3;
-    }
-  }
-  
-  /* 📄 页面整体内边距 */
-  .page-wrapper--manager {
-    padding: 3rem 1rem;
-    background-color: #f0f2f5;
-    min-height: 100vh;
-  }
-  
-  .page-wrapper--manager-rp {
-    padding-bottom: 15vh;
-  }
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 2rem;
+  border-radius: 12px;
+  background-color: #f5f8fc;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+}
+
+/* 📋 表格外层滚动容器 */
+.table-container {
+  flex: 1;
+  overflow-x: auto;
+  margin-top: 1rem;
+  border-top: 1px solid #eee;
+}
+
+/* 📋 表格基础样式 */
+.table {
+  width: 100%;
+  min-width: 800px;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+/* 📋 表头 th 样式 */
+.table th {
+  background-color: #f48fb1;
+  color: white;
+  padding: 12px;
+  text-align: left;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* 📋 表格单元格 td 样式 */
+.table td {
+  padding: 10px 14px;
+  border-bottom: 1px solid #ddd;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+/* 📋 表格 hover 效果 */
+.table tr:hover {
+  background-color: #f9f9f9;
+}
+
+/* 🧾 小按钮(Detail按钮) */
+.btn-sm {
+  font-size: 0.75rem;
+  padding: 4px 10px;
+  line-height: 1.2;
+}
+
+/* ⬅️ 返回按钮（浅灰色调） */
+.btn-muted {
+  color: #666 !important;
+  border-color: #ccc !important;
+}
+
+.btn-muted:hover {
+  color: #333 !important;
+  border-color: #aaa !important;
+  background-color: #f3f3f3;
+}
+
+/* 📄 页面整体背景和内边距 */
+.page-wrapper--manager {
+  padding: 3rem 1rem;
+  min-height: 100vh;
+}
+
+/* 📄 额外底部空间（防止贴边） */
+.page-wrapper--manager-rp {
+  padding-bottom: 15vh;
+}

@@ -1,30 +1,114 @@
+/* 📄 Report Detail 页容器 */
 .page-wrapper--report-detail {
-    padding-bottom: 10vh;
-  }
+  padding-bottom: 10vh;
+}
 
-  .dashboard-card--table {
-    padding: 2rem;
-    margin: 2rem auto;
-    border-radius: 12px;
-    background-color: #f7f9fb;
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
-    max-width: 1000px;
-    display: flex;
-    flex-direction: column;
-  }
+/* 📦 Driver Trip Detail 卡片 */
+.dashboard-card--table {
+  padding: 2rem;
+  margin: 2rem auto;
+  border-radius: 12px;
+  background-color: #f5f8fc; /* ✨ 雾霾蓝背景 */
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+  max-width: 1000px;
+  display: flex;
+  flex-direction: column;
+}
 
-  .table-container {
-    flex: 1;
-    overflow-x: auto;
-  }
+/* 📋 表格容器 */
+.table-container {
+  flex: 1;
+  overflow-x: auto;
+}
 
-  .table th,
-  .table td {
-    vertical-align: middle;
-    text-align: left;
-    padding: 10px;
-  }
+/* 📋 表格基础样式 */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 800px;
+}
 
-  .dashboard-card {
-    background-color: #f7f9fb;
-  }
+/* 📋 表头样式 */
+.table th {
+  background-color: #f48fb1; /* ✨ 浅粉色表头 */
+  color: white;
+  font-weight: 600;
+  padding: 12px;
+  text-align: left;
+  white-space: nowrap;
+}
+
+/* 📋 单元格样式 */
+.table td {
+  vertical-align: middle;
+  text-align: left;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+/* 📋 hover 效果 */
+.table tr:hover {
+  background-color: #f9f9f9;
+}
+
+/* 🔵 备用: dashboard-card基底, 如果有共用 */
+.dashboard-card {
+  background-color: #f5f8fc;
+}
+/* 📄 Report Detail 页容器 */
+.page-wrapper--report-detail {
+  padding-bottom: 10vh;
+}
+
+/* 📦 Driver Trip Detail 卡片 */
+.dashboard-card--table {
+  padding: 2rem;
+  margin: 2rem auto;
+  border-radius: 12px;
+  background-color: #f5f8fc; /* ✨ 雾霾蓝背景 */
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+  max-width: 1000px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 📋 表格容器 */
+.table-container {
+  flex: 1;
+  overflow-x: auto;
+}
+
+/* 📋 表格基础样式 */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 800px;
+}
+
+/* 📋 表头样式 */
+.table th {
+  background-color: #f48fb1; /* ✨ 浅粉色表头 */
+  color: white;
+  font-weight: 600;
+  padding: 12px;
+  text-align: left;
+  white-space: nowrap;
+}
+
+/* 📋 单元格样式 */
+.table td {
+  vertical-align: middle;
+  text-align: left;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+/* 📋 hover 效果 */
+.table tr:hover {
+  background-color: #f9f9f9;
+}
+
+/* 🔵 备用：dashboard-card基底，如果有共用 */
+.dashboard-card {
+  background-color: #f5f8fc;
+}

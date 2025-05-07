@@ -1,27 +1,52 @@
+/* 📄 Report Detail 页容器 */
 .page-wrapper--report-detail {
-    padding-bottom: 10vh;
-  }
-  
-  .dashboard-card--table {
-    padding: 2rem;
-    margin: 2rem auto;
-    border-radius: 12px;
-    background-color: white;
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
-    max-width: 1000px;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .table-container {
-    flex: 1;
-    overflow-x: auto;
-  }
-  
-  .table th,
-  .table td {
-    vertical-align: middle;
-    text-align: left;
-    padding: 10px;
-  }
-  
+  padding-bottom: 10vh;
+}
+
+/* 📦 Report Detail 卡片 */
+.dashboard-card--table {
+  padding: 2rem;
+  margin: 2rem auto;
+  border-radius: 12px;
+  background-color: #f5f8fc; /* ✨ 卡片雾霾蓝 */
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+  max-width: 1000px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 📋 表格容器 */
+.table-container {
+  flex: 1;
+  overflow-x: auto;
+}
+
+/* 📋 表格基础样式 */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 800px;
+}
+
+/* 📋 表头（浅粉色） */
+.table th {
+  background-color: #f48fb1; /* 浅粉色 */
+  color: white;
+  font-weight: 600;
+  padding: 12px;
+  text-align: left;
+  white-space: nowrap;
+}
+
+/* 📋 表格单元格 */
+.table td {
+  vertical-align: middle;
+  text-align: left;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+/* 📋 行 hover 效果 */
+.table tr:hover {
+  background-color: #f9f9f9;
+}
