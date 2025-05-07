@@ -55,6 +55,11 @@ app.use('/api/request', rideRequestRoutes);
 const tripRoutes = require('./routes/trip.routes');
 app.use('/api/trip', tripRoutes);
 
+// 📊 Report相关路由 (User Story 12, 13)
+// - Estatísticas de viagens, motoristas, clientes
+const reportRoutes = require('./routes/report.routes');
+app.use('/api/report', reportRoutes);
+
 // 🧾 Invoice发票相关路由 (User Story 9)
 // - Motorista emite fatura
 const invoiceRoutes = require('./routes/invoice.routes');

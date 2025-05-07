@@ -1,7 +1,7 @@
 .page-wrapper--report-detail {
     padding-bottom: 10vh;
   }
-  
+
   .dashboard-card--table {
     padding: 2rem;
     margin: 2rem auto;
@@ -12,16 +12,19 @@
     display: flex;
     flex-direction: column;
   }
-  
+
   .table-container {
     flex: 1;
     overflow-x: auto;
   }
-  
+
   .table th,
   .table td {
     vertical-align: middle;
     text-align: left;
     padding: 10px;
   }
-  
+
+  .dashboard-card {
+    background-color: #f7f9fb;
+  }

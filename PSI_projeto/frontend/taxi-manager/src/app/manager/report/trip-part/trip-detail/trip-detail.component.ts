@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { TripService } from '@shared/services/trip/trip.service';
 import { Trip } from '@models/trip.model';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
@@ -25,7 +24,7 @@ export class TripDetailComponent implements OnInit {
   ngOnInit(): void {
     this.start = this.route.snapshot.queryParamMap.get('start') || '';
     this.end = this.route.snapshot.queryParamMap.get('end') || '';
-  
+
     this.reportService.getTrips(this.start, this.end).subscribe({
       next: data => this.trips = data,
       error: err => console.error('Erro ao buscar viagens', err)
@@ -40,10 +39,10 @@ export class TripDetailComponent implements OnInit {
   }
 
   goBack(): void {
-    const basePath = this.router.url.includes('customer-report') 
-      ? '/manager/customer-report' 
+    const basePath = this.router.url.includes('customer-report')
+      ? '/manager/customer-report'
       : '/manager/report';
-  
+
     this.router.navigate([basePath], {
       queryParams: {
         start: this.start,
@@ -51,5 +50,5 @@ export class TripDetailComponent implements OnInit {
       }
     });
   }
-  
+
 }
