@@ -1,10 +1,18 @@
+<!-- 🚕 Taxi Trip Details 页面
+     本页面用于展示单辆出租车在指定期间内的所有旅程信息，包括起止时间、行驶距离等
+-->
+
 <div class="page-wrapper page-wrapper--manager page-wrapper--report-detail">
   <div class="dashboard-card dashboard-card--table">
+
+    <!-- 🧭 页面标题 -->
     <h2 class="section-title mb-3">🚕 Taxi Trip Details: {{ vehiclePlate }}</h2>
 
-    <p class="text-muted">Period: {{ start | date:'shortDate' }} to {{ end | date:'shortDate' }}</p>
+    <!-- 📅 显示查询区间 -->
+    <p class="text-muted">Period: {{ start | date:'shortDate' }} → {{ end | date:'shortDate' }}</p>
 
-    <div class="table-container mt-3">
+    <!-- 📋 旅程数据表格 -->
+    <div class="table-container mt-3" *ngIf="trips.length > 0; else noTrips">
       <table class="table table-bordered table-striped table-sm">
         <thead class="table-light">
           <tr>
@@ -29,9 +37,15 @@
       </table>
     </div>
 
-    <!-- Back Button -->
+    <!-- ❗ 没有旅程时显示提示 -->
+    <ng-template #noTrips>
+      <p class="text-center text-muted">❗ No trips found for this taxi in the selected period.</p>
+    </ng-template>
+
+    <!-- ⬅️ 返回按钮 -->
     <div class="text-start mt-4">
-      <button mat-stroked-button class="btn-muted" (click)="goBack()">⬅️ Back to Report</button>
+      <button mat-stroked-button class="btn-muted" (click)="goBack()">⬅️ Back to Taxi Summary</button>
     </div>
+
   </div>
 </div>

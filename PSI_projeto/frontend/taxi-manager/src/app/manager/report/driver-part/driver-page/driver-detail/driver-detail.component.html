@@ -1,10 +1,18 @@
+<!-- 👤 Driver Trip Details 页面
+     本页面用于展示单个司机在指定期间的所有旅程明细
+-->
+
 <div class="page-wrapper page-wrapper--manager page-wrapper--report-detail">
   <div class="dashboard-card dashboard-card--table">
+
+    <!-- 🧑 页面标题 -->
     <h2 class="section-title mb-3">👤 Driver Trip Details: {{ driverName }}</h2>
 
-    <p class="text-muted">Period: {{ start | date:'shortDate' }} to {{ end | date:'shortDate' }}</p>
+    <!-- 📅 查询时间段 -->
+    <p class="text-muted">Period: {{ start | date:'shortDate' }} → {{ end | date:'shortDate' }}</p>
 
-    <div class="table-container mt-3">
+    <!-- 📋 旅程表格 -->
+    <div class="table-container mt-3" *ngIf="trips.length > 0; else noTrips">
       <table class="table table-bordered table-striped table-sm">
         <thead class="table-light">
           <tr>
@@ -25,15 +33,19 @@
             <td>{{ trip.from }}</td>
             <td>{{ trip.to }}</td>
           </tr>
-          <tr *ngIf="trips.length === 0">
-            <td colspan="6" class="text-center text-muted">No trips found.</td>
-          </tr>
         </tbody>
       </table>
     </div>
 
+    <!-- ❗ 无旅程提示 -->
+    <ng-template #noTrips>
+      <p class="text-center text-muted">❗ No trips found for this driver in the selected period.</p>
+    </ng-template>
+
+    <!-- ⬅️ 返回按钮 -->
     <div class="text-start mt-4">
-      <button mat-stroked-button class="btn-muted" (click)="goBack()">⬅️ Back to Report</button>
+      <button mat-stroked-button class="btn-muted" (click)="goBack()">⬅️ Back to Driver Summary</button>
     </div>
+
   </div>
 </div>

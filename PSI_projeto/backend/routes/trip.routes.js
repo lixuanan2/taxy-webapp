@@ -1,10 +1,21 @@
-// 📄 trip.routes.js
-// 🚖 Trip 路由模块：负责登记、查询旅程
+/**
+ * 📄 Trip Routes
+ * 
+ * 本文件定义旅程模块 (Trip) 相关的 REST API 接口，
+ * 负责旅程(Trip)的登记、查询和获取详情等操作。
+ * 
+ * 对应数据库模型: Trip
+ * 
+ * 路由列表：
+ * - POST   /api/trip         ➔ 注册新旅程（校验时间/防止重叠）
+ * - GET    /api/trip         ➔ 查询所有旅程（可筛选 driverName / 时间段）
+ * - GET    /api/trip/:id     ➔ 查询单条旅程详情
+ */
 
+// 📦 引入模块
 const express = require('express');
 const router = express.Router();
 const Trip = require('../models/Trip');
-const Turn = require('../models/Turn');
 
 /* --------------------------------------------------
   🛫 注册新旅程

@@ -1,24 +1,33 @@
+<!-- 🌟 Customer Summary 页面
+     本页面用于展示所有客户在选定时间段内的总支付金额与旅程次数
+-->
+
 <div class="page-wrapper page-wrapper--manager page-wrapper--manager-rp">
   <div class="dashboard-card dashboard-card--table-summary">
+
+    <!-- 🧑 页面标题 -->
     <h2 class="section-title mb-3">👤 Customer Summary</h2>
 
+    <!-- 📋 客户统计表格 -->
     <div class="table-container">
       <table class="table table-striped table-bordered table-hover">
         <thead>
           <tr>
-            <th>NIF</th>
-            <th>Amount Paid</th>
-            <th>Trips</th>
+            <th>Client NIF</th>
+            <th>Total Paid</th>
+            <th>Trip Count</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let c of customerStats" (click)="goToCustomerDetail(c.clientNIF)" style="cursor: pointer;">
             <td>{{ c.clientNIF }}</td>
-            <td>{{ c.totalPaid | currency: 'EUR' }}</td>
+            <td>{{ c.totalPaid | currency:'EUR' }}</td>
             <td>{{ c.tripCount }}</td>
             <td>
-              <button mat-stroked-button color="primary" class="btn-sm" (click)="goToCustomerDetail(c.clientNIF); $event.stopPropagation()">
+              <!-- 📊 查看客户详情按钮 -->
+              <button mat-stroked-button color="primary" class="btn-sm"
+                      (click)="goToCustomerDetail(c.clientNIF); $event.stopPropagation()">
                 📊 Detail
               </button>
             </td>
@@ -27,8 +36,10 @@
       </table>
     </div>
 
+    <!-- ⬅️ 返回按钮 -->
     <div class="text-start mt-4">
       <button mat-stroked-button class="btn-muted" (click)="goBack()">⬅️ Back</button>
     </div>
+
   </div>
 </div>

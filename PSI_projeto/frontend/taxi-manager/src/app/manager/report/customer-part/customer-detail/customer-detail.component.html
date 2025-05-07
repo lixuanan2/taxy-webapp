@@ -1,40 +1,50 @@
+<!-- 🌟 Customer Trip Details 页面
+     本页面用于展示指定客户在选定时间段内的所有旅程
+-->
+
 <div class="page-wrapper page-wrapper--manager page-wrapper--report-detail">
   <div class="dashboard-card dashboard-card--table">
+
+    <!-- 🧑‍💼 页面标题 -->
     <h2 class="section-title mb-3">📌 Customer Trip Details</h2>
 
-    <div class="mb-3">
-      <strong>Customer NIF:</strong> {{ clientNIF }}
+    <!-- 🆔 客户基本信息 -->
+    <p class="mb-2"><strong>Customer NIF:</strong> {{ clientNIF }}</p>
+    <p class="text-muted">Period: {{ start | date:'shortDate' }} to {{ end | date:'shortDate' }}</p>
+
+    <!-- 📋 旅程表格 -->
+    <div class="table-container mt-3" *ngIf="trips.length > 0; else noTrips">
+      <table class="table table-bordered table-striped table-sm table-hover">
+        <thead class="table-light">
+          <tr>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <th>Distance (km)</th>
+            <th>Price (€)</th>
+            <th>Driver</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let trip of trips">
+            <td>{{ trip.startTime | date:'short' }}</td>
+            <td>{{ trip.endTime | date:'short' }}</td>
+            <td>{{ trip.kmTraveled?.toFixed(2) || '—' }}</td>
+            <td>{{ trip.price | number:'1.2-2' }}</td>
+            <td>{{ trip.driverName || '—' }}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
 
-    <div *ngIf="trips.length > 0; else noTrips">
-      <div class="table-container mt-3">
-        <table class="table table-bordered table-striped table-sm table-hover">
-          <thead class="table-light">
-            <tr>
-              <th>Trip ID</th>
-              <th>Date</th>
-              <th>Value (€)</th>
-              <th>Driver</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let trip of trips">
-              <td>{{ trip.tripId || trip._id }}</td>
-              <td>{{ trip.createdAt | date: 'short' }}</td>
-              <td>{{ trip.value?.toFixed(2) || trip.price?.toFixed(2) }}</td>
-              <td>{{ trip.driverId || trip.driverName }}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
+    <!-- ❗ 无旅程提示 -->
     <ng-template #noTrips>
-      <p class="text-muted">❗ No trips found for this customer in the selected period.</p>
+      <p class="text-muted mt-3">❗ No trips found for this customer in the selected period.</p>
     </ng-template>
 
+    <!-- ⬅️ 返回按钮 -->
     <div class="text-start mt-4">
-      <button mat-stroked-button class="btn-muted" (click)="goBack()">⬅️ Back to Report</button>
+      <button mat-stroked-button class="btn-muted" (click)="goBack()">⬅️ Back to Customer List</button>
     </div>
+
   </div>
 </div>

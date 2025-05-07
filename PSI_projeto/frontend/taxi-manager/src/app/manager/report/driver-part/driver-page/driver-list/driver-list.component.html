@@ -1,7 +1,14 @@
+<!-- 👤 Driver Summary 页面
+     本页面用于展示每位司机的总小时数和总公里数，并支持跳转查看详细旅程
+-->
+
 <div class="page-wrapper page-wrapper--manager page-wrapper--manager-rp">
   <div class="dashboard-card dashboard-card--table-summary">
+
+    <!-- 🧑 页面标题 -->
     <h2 class="section-title mb-3">👤 Driver Summary</h2>
 
+    <!-- 📋 司机汇总表格 -->
     <div class="table-container">
       <table class="table table-striped table-bordered table-hover">
         <thead>
@@ -27,8 +34,10 @@
       </table>
     </div>
 
+    <!-- ⬅️ 返回按钮 -->
     <div class="text-start mt-4">
       <button mat-stroked-button class="btn-muted" (click)="goBack()">⬅️ Back</button>
     </div>
+
   </div>
 </div>
