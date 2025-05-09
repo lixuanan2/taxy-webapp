@@ -2,8 +2,8 @@
  * 📄 CreateTurnComponent
  *
  * 本组件属于 Driver 模块，
- * 允许司机（Driver）选择开始和结束时间，
- * 并基于可用性选择出租车 (Taxi) 创建一个新的 Turn（工作班次）。
+ * 允许司机(Driver)选择开始和结束时间，
+ * 并基于可用性选择出租车(Taxi) 创建一个新的 Turn(工作班次)。
  */
 
 import { Component, OnInit } from '@angular/core';
@@ -45,7 +45,7 @@ export class CreateTurnComponent implements OnInit {
       alert('🚫 Error: Driver not authenticated!');
     }
 
-    // 🕒 定时检查时间变化，自动加载出租车（每0.5秒）
+    // 🕒 定时检查时间变化, 自动加载出租车 (每0.5秒)
     setInterval(() => {
       if (this.startTime && this.endTime) {
         this.tryAutoLoadTaxis();
@@ -123,6 +123,14 @@ export class CreateTurnComponent implements OnInit {
     this.turnService.createTurn(newTurn).subscribe({
       next: () => {
         alert('✅ Turn created successfully!');
+
+        // ✅ 保存所选出租车的舒适度（供 Story 7 用）
+        const selectedTaxi = this.availableTaxis.find(t => t.plate === this.selectedTaxiPlate);
+        if (selectedTaxi && selectedTaxi.comfortLevel) {
+          localStorage.setItem('currentDriverComfort', selectedTaxi.comfortLevel);
+          console.log('🚗 Comfort level saved:', selectedTaxi.comfortLevel);
+        }
+
         this.resetForm();
       },
       error: err => {

@@ -11,7 +11,18 @@
     <!-- 📋 请求表单 -->
     <form (ngSubmit)="onSubmit()" #requestForm="ngForm" class="row g-3">
 
-      <!-- 🧾 客户基本信息 -->
+      <!-- 🧾 第一行 姓名+NIF -->
+      <div class="col-md-6">
+        <label class="form-label fw-semibold">Name</label>
+        <input name="name" [(ngModel)]="request.name"
+               required class="form-control"
+               #nameRef="ngModel"
+               [ngClass]="{ 'is-invalid': nameRef.invalid && nameRef.touched }" />
+        <div class="invalid-feedback" *ngIf="nameRef.invalid && nameRef.touched">
+          Name is required.
+        </div>
+      </div>
+
       <div class="col-md-6">
         <label class="form-label fw-semibold">NIF</label>
         <input name="nif" [(ngModel)]="request.nif"
@@ -24,7 +35,8 @@
         </div>
       </div>
 
-      <div class="col-md-6">
+      <!-- 👥 第二行 性别+舒适度+搭乘人数 -->
+      <div class="col-md-4">
         <label class="form-label fw-semibold">Gender</label>
         <select name="gender" [(ngModel)]="request.gender" required class="form-select">
           <option value="">-- Select --</option>
@@ -33,7 +45,26 @@
         </select>
       </div>
 
-      <!-- 📍 当前地址 -->
+      <div class="col-md-4">
+        <label class="form-label fw-semibold">Comfort Level</label>
+        <select name="comfortLevel" [(ngModel)]="request.comfortLevel" required class="form-select">
+          <option value="basic">Basic</option>
+          <option value="luxury">Luxury</option>
+        </select>
+      </div>
+
+      <div class="col-md-4">
+        <label class="form-label fw-semibold">Number of People</label>
+        <input type="number" name="peopleCount" [(ngModel)]="request.peopleCount"
+               min="1" required class="form-control"
+               #peopleRef="ngModel"
+               [ngClass]="{ 'is-invalid': peopleRef.invalid && peopleRef.touched }" />
+        <div class="invalid-feedback" *ngIf="peopleRef.invalid && peopleRef.touched">
+          At least one person required.
+        </div>
+      </div>
+
+      <!-- 📍 第三行 当前地址 -->
       <div class="col-md-12">
         <label class="form-label d-flex justify-content-between align-items-center">
           <span class="fw-semibold">Current Location</span>
@@ -59,7 +90,7 @@
         </div>
       </div>
 
-      <!-- 🏁 目的地 -->
+      <!-- 🏁 第四行 目的地 -->
       <div class="col-12">
         <label class="form-label fw-semibold">Destination</label>
         <input name="destination" [(ngModel)]="request.destination"
@@ -71,19 +102,8 @@
         </div>
       </div>
 
-      <!-- 👥 搭乘人数 -->
-      <div class="col-md-6">
-        <label class="form-label fw-semibold">Number of People</label>
-        <input type="number" name="peopleCount" [(ngModel)]="request.peopleCount"
-               min="1" required class="form-control"
-               #peopleRef="ngModel"
-               [ngClass]="{ 'is-invalid': peopleRef.invalid && peopleRef.touched }" />
-        <div class="invalid-feedback" *ngIf="peopleRef.invalid && peopleRef.touched">
-          At least one person required.
-        </div>
-      </div>
 
-      <!-- 🗺️ 地图选点 -->
+      <!-- �🗺️ 地图选点 -->
       <div class="col-12">
         <app-map-picker (locationSelected)="onMapClick($event)"></app-map-picker>
       </div>

@@ -5,7 +5,10 @@ const mongoose = require('mongoose');
 const tripSchema = new mongoose.Schema({
   driverNIF: { type: String, required: true },  
   driverName: { type: String, required: true },
+
   clientNIF: { type: String, required: true },
+  clientName: { type: String },
+
   vehiclePlate: { type: String, required: true }, 
 
   from: { type: String, required: true },        // 起点地址（简化为文字）

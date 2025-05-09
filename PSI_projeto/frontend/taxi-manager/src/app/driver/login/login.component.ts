@@ -50,14 +50,24 @@ export class DriverLoginComponent implements OnInit {
     if (found) {
       this.authService.login(found);
 
-      // 保存当前司机到 localStorage
+      // ✅ 保存当前司机信息到 localStorage
       localStorage.setItem('currentDriverName', found.name);
       localStorage.setItem('currentDriverNif', found.nif);
 
-      // 跳转至司机 Dashboard
+      // ✅ 使用注册时设定的地理位置(来自 driver.lat / lon)
+      if (found.lat !== undefined && found.lon !== undefined) {
+        localStorage.setItem('currentDriverLat', found.lat.toString());
+        localStorage.setItem('currentDriverLon', found.lon.toString());
+        console.log(`📍 Driver location loaded from profile: (${found.lat}, ${found.lon})`);
+      } else {
+        console.warn('⚠️ No location found in driver profile.');
+      }
+
+      // ✅ 跳转至 Dashboard
       this.router.navigate(['/driver/dashboard']);
+
     } else {
-      this.errorMsg = '❌ Invalid NIF. Please try again.'; // 已统一为英文提示
+      this.errorMsg = '❌ Invalid NIF. Please try again.';
     }
   }
 }

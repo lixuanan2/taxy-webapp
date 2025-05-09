@@ -35,10 +35,12 @@ export class RequestCreateComponent {
   // 📝 乘车请求对象（表单绑定）
   request: RideRequest = {
     nif: '',
+    name: '',
     gender: '',
     currentLocation: '',
     destination: '',
     peopleCount: 1,
+    comfortLevel: 'basic',
     currentLat: 0,
     currentLon: 0,
     destLat: 0,
@@ -128,10 +130,12 @@ export class RequestCreateComponent {
         // 重置表单（保持当前位置数据）
         this.request = {
           nif: '',
+          name: '',
           gender: '',
           currentLocation: '',
           destination: '',
           peopleCount: 1,
+          comfortLevel: 'basic',
           currentLat: this.currentLat,
           currentLon: this.currentLon,
           destLat: this.destLat,

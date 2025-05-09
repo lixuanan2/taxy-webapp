@@ -130,7 +130,7 @@ export class WaitingComponent implements OnInit, OnDestroy {
     const estimatedPrice = +(tripMinutes * rate).toFixed(2);
 
     // ✅ 设置弹窗数据
-    this.driverName = request.driverId || 'Unknown';
+    this.driverName = request.driverNIF || 'Unknown';
     this.driverDistance = `${distanceToClient.toFixed(2)} km`;
     this.driverEta = `${etaMinutes} min`;
     this.driverPrice = `€${estimatedPrice.toFixed(2)}`;

@@ -86,12 +86,38 @@ router.delete('/:id', async (req, res) => {
 // 🚖 Story 7 - Driver Accept/Reject Requests
 // ================================================== //
 
-// GET /api/request?status=pending - Get requests by status
+// GET /api/request?status=pending&driverLat=38.7&driverLon=-9.1 - Get requests by status (新增了Haversine 计算距离并排序)
 router.get('/', async (req, res) => {
   try {
-    const status = req.query.status;
+    const { status, driverLat, driverLon } = req.query;
     const filter = status ? { status } : {};
-    const requests = await RideRequest.find(filter);
+    const all = await RideRequest.find(filter);
+
+    let requests = all;
+
+    if (driverLat && driverLon) {
+      const lat1 = parseFloat(driverLat);
+      const lon1 = parseFloat(driverLon);
+
+      requests = all.map(r => {
+        const lat2 = r.currentLat;
+        const lon2 = r.currentLon;
+
+        const R = 6371;
+        const dLat = (lat2 - lat1) * Math.PI / 180;
+        const dLon = (lon2 - lon1) * Math.PI / 180;
+        const a = Math.sin(dLat / 2) ** 2 +
+                  Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+                  Math.sin(dLon / 2) ** 2;
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        const distance = R * c;
+
+        return { ...r._doc, distance };
+      });
+
+      requests.sort((a, b) => a.distance - b.distance);
+    }
+
     res.json(requests);
   } catch (err) {
     res.status(500).json({ error: err.message });

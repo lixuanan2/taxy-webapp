@@ -15,6 +15,10 @@ const driverSchema = new mongoose.Schema({
   nif: { type: String, required: true, unique: true },
   licenseNumber: { type: String, required: true, unique: true },
   address: { type: addressSchema, required: true },
+
+  lat: { type: Number, default: null },
+  lon: { type: Number, default: null },
+  
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now }
 });

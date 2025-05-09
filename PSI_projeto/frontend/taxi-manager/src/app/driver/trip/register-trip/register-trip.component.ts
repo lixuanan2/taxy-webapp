@@ -29,6 +29,7 @@ export class RegisterTripComponent implements OnInit {
     driverName: localStorage.getItem('currentDriverName') || '',
     driverNIF: localStorage.getItem('currentDriverNif') || '',
     clientNIF: '',
+    clientName: '',
     from: '',
     to: '',
     startTime: new Date(),
@@ -140,6 +141,7 @@ export class RegisterTripComponent implements OnInit {
       driverName: localStorage.getItem('currentDriverName') || '',
       driverNIF: localStorage.getItem('currentDriverNif') || '',
       clientNIF: '',
+      clientName: '',
       from: '',
       to: '',
       startTime: new Date(),
@@ -168,6 +170,7 @@ export class RegisterTripComponent implements OnInit {
 
       // 📋 填充旅程基础信息
       this.trip.clientNIF = fresh.nif;
+      this.trip.clientName = fresh.name || '';
       this.trip.from = fresh.currentLocation;
       this.trip.to = fresh.destination;
       this.trip.peopleCount = fresh.peopleCount || 1;

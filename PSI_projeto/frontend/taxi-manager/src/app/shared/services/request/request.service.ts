@@ -37,10 +37,11 @@ export class RequestService {
     return this.http.patch<RideRequest>(`${this.apiUrl}/${id}/cancel`, {});
   }
 
-  // 📋 获取所有待接单请求 (司机端 Story7)
-  getPendingRequests(): Observable<RideRequest[]> {
-    return this.http.get<RideRequest[]>(`${this.apiUrl}?status=pending`);
+  // 📋 获取所有待接单请求 (司机端 Story7) - *新增 Haversine 计算距离并排序*
+  getPendingRequests(lat: number, lon: number): Observable<RideRequest[]> {
+    return this.http.get<RideRequest[]>(`${this.apiUrl}?status=pending&driverLat=${lat}&driverLon=${lon}`);
   }
+
 
   // ✅ 接受一个请求 (Story7)
   acceptRequest(id: string, driverNIF: string): Observable<RideRequest> {

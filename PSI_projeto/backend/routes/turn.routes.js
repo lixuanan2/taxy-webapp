@@ -100,4 +100,23 @@ router.get('/available', async (req, res) => {
   }
 });
 
+/**
+ * 🔄 GET /api/turns/active/:nif
+ * 获取当前时间内有效的 Turn (active turn)
+ */
+router.get('/active/:nif', async (req, res) => {
+  try {
+    const now = new Date();
+    const active = await Turn.findOne({
+      driverNIF: req.params.nif,
+      startTime: { $lte: now },
+      endTime: { $gte: now }
+    });
+    res.json(active || null);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+
 module.exports = router;

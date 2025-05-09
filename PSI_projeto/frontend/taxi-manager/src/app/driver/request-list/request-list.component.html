@@ -1,5 +1,4 @@
 <!-- 📄 Request List 页面 (Driver) -->
-
 <div class="page-wrapper page-wrapper--driver">
   <div class="dashboard-card dashboard-card--form">
     <h2 class="section-title text-center mb-4">📋 Pending Requests</h2>
@@ -20,18 +19,34 @@
 
         <!-- 📄 左侧：请求基本信息 -->
         <div class="request-info">
-          <p><strong>Client NIF:</strong> {{ req.nif }}</p>
+          <p><strong>Name:</strong> {{ req.name }}</p>
+          <p><strong>NIF:</strong> {{ req.nif }}</p>
+          <p><strong>Comfort:</strong> {{ req.comfortLevel }}</p>
+          <p><strong>People:</strong> {{ req.peopleCount }}</p>
           <p><strong>From:</strong> {{ req.currentLocation }}</p>
           <p><strong>To:</strong> {{ req.destination }}</p>
-          <p><strong>People:</strong> {{ req.peopleCount }}</p>
         </div>
 
         <!-- 🎯 右侧：操作按钮区 -->
-        <div class="d-flex right-actions flex-column align-items-end gap-2 ms-3" style="min-width: 150px;">
-          <!-- ✅ 接单按钮 -->
-          <button class="btn btn-success btn-sm w-100" (click)="accept(req._id!)">✅ Accept</button>
+        <div class="d-flex right-actions flex-column align-items-end gap-2 ms-3" style="min-width: 160px;">
+          <!-- ✅ 接单按钮（条件启用） -->
+          <button
+            class="btn btn-success btn-sm w-100"
+            [disabled]="!canAccept(req)"
+            (click)="accept(req._id!)">
+            ✅ Accept
+          </button>
+
           <!-- ❌ 拒单按钮 -->
-          <button class="btn btn-outline-danger btn-sm w-100" (click)="reject(req._id!)">❌ Reject</button>
+          <button class="btn btn-outline-danger btn-sm w-100" (click)="reject(req._id!)">
+            ❌ Reject
+          </button>
+
+          <!-- 🚫 匹配失败提示 -->
+          <div *ngIf="!canAccept(req)" class="text-danger small text-center mt-1">
+            🚫 Comfort not compatible
+          </div>
+
           <!-- 🕒 预计行程时间 -->
           <div class="text-muted mt-1 small fw-semibold">
             ETA: {{ getEstimatedTime(req) }}

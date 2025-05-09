@@ -3,10 +3,13 @@ const mongoose = require('mongoose');
 
 const rideRequestSchema = new mongoose.Schema({
   nif: { type: String, required: true },
+  name: { type: String },
   gender: {type: String, required: true},
   currentLocation: { type: String, required: true },
   destination: { type: String, required: true },
   peopleCount: { type: Number, required: true },
+  comfortLevel: { type: String, enum: ['basic', 'luxury'], default: 'basic' },
+
   status: { type: String, default: 'pending' }, // pending | accepted | cancelled | rejected
   driverNIF: { type: String, default: null },
   createdAt: { type: Date, default: Date.now },

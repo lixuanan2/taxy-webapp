@@ -33,8 +33,14 @@ export class TurnService {
     return this.http.post<Turn>(this.apiUrl, turn);
   }
 
-  // 获取指定司机的所有 Turn（根据 driverNIF）
+  // 获取指定司机的所有 Turn (根据 driverNIF)
   getTurnsByDriver(nif: string): Observable<Turn[]> {
     return this.http.get<Turn[]>(`${this.apiUrl}/driver/${nif}`);
   }
+
+  // 获取当前有效的 Turn (active turn)
+  getActiveTurn(nif: string): Observable<Turn | null> {
+    return this.http.get<Turn | null>(`${this.apiUrl}/active/${nif}`);
+  }
+
 }

@@ -11,8 +11,8 @@
       <table class="table table-striped">
         <thead>
           <tr>
-            <th>#Seq</th>              <!-- ➡️ 旅程序号 -->
-            <th>Client NIF</th>         <!-- ➡️ 客户 NIF -->
+            <th>#Seq</th>               <!-- ➡️ 旅程序号 -->
+            <th>Client</th>             <!-- ➡️ 客户 -->
             <th>Taxi Plate</th>         <!-- ➡️ 出租车车牌 -->
             <th>Start</th>              <!-- ➡️ 起始时间 (显示本地时间) -->
             <th>End</th>                <!-- ➡️ 结束时间 (显示本地时间) -->
@@ -25,7 +25,7 @@
         <tbody>
           <tr *ngFor="let trip of trips">
             <td>{{ trip.sequenceNumber }}</td>
-            <td>{{ trip.clientNIF }}</td>
+            <td>{{ trip.clientName || trip.clientNIF }}</td>
             <td>{{ trip.vehiclePlate }}</td>
             <td>{{ trip.startTime | UtcToLocal | date:'yyyy-MM-dd HH:mm' }}</td>
             <td>{{ trip.endTime | UtcToLocal | date:'yyyy-MM-dd HH:mm' }}</td>

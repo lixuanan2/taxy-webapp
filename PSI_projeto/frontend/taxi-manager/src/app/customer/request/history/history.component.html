@@ -16,6 +16,7 @@
         <!-- 表头 -->
         <thead>
           <tr>
+            <th>Name</th>
             <th>Origin</th>
             <th>Destination</th>
             <th>Status</th>
@@ -35,6 +36,7 @@
 
           <!-- 遍历请求列表 -->
           <tr *ngFor="let req of requests">
+            <td>{{ req.name }}</td>
             <td>{{ req.currentLocation }}</td>
             <td>{{ req.destination }}</td>
             <td>

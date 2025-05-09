@@ -14,12 +14,15 @@
 export interface RideRequest {
   _id?: string;
   nif: string;                 // 客户 NIF
+  name: string;
   gender: string;
   currentLocation: string;     // 当前地址 (可通过 reverse geocoding 获取)
   destination: string;         // 目的地地址
   peopleCount: number;
+  comfortLevel?: string;
+
   status?: string;             // 请求状态 (pending/accepted/rejected/done)，默认 pending
-  driverId?: string;           // 接单司机的 ID(或 NIF)
+  driverNIF?: string;           // 接单司机的 ID(或 NIF)
 
   createdAt?: string;          // 创建时间
 
