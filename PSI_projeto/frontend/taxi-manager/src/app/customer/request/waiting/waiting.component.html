@@ -25,10 +25,10 @@
     <app-driver-confirm-dialog
       *ngIf="showDriverDialog"
       [driverName]="driverName"
-      [distance]="driverDistance"
-      [eta]="driverEta"
+      [distanceToClient]="distanceToClient"
+      [etaToClient]="etaToClient"
       [estimatedPrice]="driverPrice"
-      [taxiInfo]="taxiInfo"
+      [taxiComfort]="taxiComfort"
       (accept)="onDriverAccepted()"
       (reject)="onDriverRejected()">
     </app-driver-confirm-dialog>

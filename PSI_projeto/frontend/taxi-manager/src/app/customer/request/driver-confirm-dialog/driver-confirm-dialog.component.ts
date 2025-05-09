@@ -22,16 +22,19 @@ export class DriverConfirmDialogComponent {
   @Input() driverName: string = '';
 
   // 📍 司机距离客户的距离 (例如 "2.3 km")
-  @Input() distance: string | null = null;
+  @Input() distanceToClient: string | null = null;
 
   // 🕒 预计到达时间 (例如 "5 min")
-  @Input() eta: string | null = null;
+  @Input() etaToClient: string | null = null;
+
+  // 🕒 预计行程时间 (例如 "5 min")
+  @Input() estimatedTripTime: string | null = null;
 
   // 💰 预计车费 (例如 "€7.50")
   @Input() estimatedPrice: string | null = null;
 
-  // 🚖 出租车相关信息 (例如车型、舒适度等)
-  @Input() taxiInfo: string | null = null;
+  // 🚖 出租车舒适度
+  @Input() taxiComfort: string | null = null;
 
   // ✅ 客户接受司机
   @Output() accept = new EventEmitter<void>();

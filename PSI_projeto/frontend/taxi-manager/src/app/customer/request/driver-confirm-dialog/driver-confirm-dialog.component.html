@@ -17,16 +17,19 @@
     <p><strong>Name:</strong> {{ driverName }}</p>
 
     <!-- 📍 距离信息 -->
-    <p><strong>Distance:</strong> {{ distance || '??' }}</p>
+    <p><strong>Distance to you:</strong> {{ distanceToClient || '??' }}</p>
 
     <!-- 🕒 预计到达时间 -->
-    <p><strong>ETA:</strong> {{ eta || '??' }}</p>
+    <p><strong>Arrival in:</strong> {{ etaToClient || '??' }}</p>
+
+    <!-- 🕒 预计行程时间 数据不展示-->
+    <!-- <p><strong>Estimated Trip Time:</strong> {{ estimatedTripTime || '??' }}</p> -->
 
     <!-- 💰 预计费用 -->
     <p><strong>Estimated Price:</strong> {{ estimatedPrice || '??' }}</p>
 
-    <!-- 🚖 出租车信息 -->
-    <p><strong>Taxi:</strong> {{ taxiInfo || 'Unknown' }}</p>
+    <!-- 🚖 出租车舒适度 -->
+    <p><strong>Taxi Comfort:</strong> {{ taxiComfort || 'Unknown' }}</p>
 
     <!-- ✅❌ 操作按钮 -->
     <div class="d-flex justify-content-between mt-4">

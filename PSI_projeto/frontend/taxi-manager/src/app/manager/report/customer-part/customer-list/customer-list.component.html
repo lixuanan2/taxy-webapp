@@ -13,7 +13,7 @@
       <table class="table table-striped table-bordered table-hover">
         <thead>
           <tr>
-            <th>Client NIF</th>
+            <th>Client Name</th>
             <th>Total Paid</th>
             <th>Trip Count</th>
             <th>Actions</th>
@@ -21,7 +21,7 @@
         </thead>
         <tbody>
           <tr *ngFor="let c of customerStats" (click)="goToCustomerDetail(c.clientNIF)" style="cursor: pointer;">
-            <td>{{ c.clientNIF }}</td>
+            <td>{{ c.clientName || c.clientNIF }}</td>
             <td>{{ c.totalPaid | currency:'EUR' }}</td>
             <td>{{ c.tripCount }}</td>
             <td>

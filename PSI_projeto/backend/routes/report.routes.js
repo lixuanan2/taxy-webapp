@@ -133,7 +133,12 @@ router.get('/customers', async (req, res) => {
       const value = t.price || 0;
 
       if (!map.has(key)) {
-        map.set(key, { clientNIF: key, totalPaid: 0, tripCount: 0 });
+        map.set(key, {
+          clientNIF: key,
+          clientName: t.clientName?.trim() || key,
+          totalPaid: 0,
+          tripCount: 0
+        });
       }
       const c = map.get(key);
       c.totalPaid += value;

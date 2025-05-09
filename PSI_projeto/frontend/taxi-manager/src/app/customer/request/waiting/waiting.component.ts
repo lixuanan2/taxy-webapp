@@ -17,13 +17,13 @@ export class WaitingComponent implements OnInit, OnDestroy {
   pollingInterval: any;
 
   // 🚖 司机确认弹窗参数
-  driverId = '';
   showDriverDialog = false;
   driverName = '';
-  driverDistance: string | null = null;
-  driverEta: string | null = null;
+  distanceToClient: string | null = null;
+  etaToClient: string | null = null;
+  estimatedTripTime: string | null = null;
   driverPrice: string | null = null;
-  taxiInfo: string | null = null;
+  taxiComfort: string | null = null;
 
   priceConfig: PriceConfig = {
     basic: 0.25,
@@ -131,10 +131,12 @@ export class WaitingComponent implements OnInit, OnDestroy {
 
     // ✅ 设置弹窗数据
     this.driverName = request.driverNIF || 'Unknown';
-    this.driverDistance = `${distanceToClient.toFixed(2)} km`;
-    this.driverEta = `${etaMinutes} min`;
+    this.distanceToClient = `${distanceToClient.toFixed(2)} km`;
+    this.etaToClient = `${etaMinutes} min`;
+    this.estimatedTripTime = `${tripMinutes} min`;
     this.driverPrice = `€${estimatedPrice.toFixed(2)}`;
-    this.taxiInfo = `Estimated duration: ${tripMinutes} min`;
+    this.taxiComfort = request.comfortLevel || 'basic';
+
 
     this.showDriverDialog = true;
   }
