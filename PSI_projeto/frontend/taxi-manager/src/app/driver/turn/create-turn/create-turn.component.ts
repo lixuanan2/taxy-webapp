@@ -100,7 +100,13 @@ export class CreateTurnComponent implements OnInit {
 
     const now = new Date();
     const start = this.getTodayTime(this.startTime);
-    const end = this.getTodayTime(this.endTime);
+    let end = this.getTodayTime(this.endTime); // ⚠️ 注意要用 let
+
+    // 🌙 跨天判断：如果结束时间小于等于开始时间，说明是跨天
+    if (end <= start) {
+      end.setDate(end.getDate() + 1);
+    }
+
     const durationHours = (end.getTime() - start.getTime()) / (1000 * 60 * 60);
 
     if (start < now) {
